@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.1.14)  14 JAN 2026 17:43
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=latex 2026.1.14)  14 JAN 2026 18:24
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -142,7 +142,7 @@ Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
 )
 Package pdftexcmds Info: \pdf@primitive is available.
 Package pdftexcmds Info: \pdf@ifprimitive is available.
-Package pdftexcmds Info: \pdfdraftmode found.
+Package pdftexcmds Info: \pdfdraftmode is ignored in DVI mode.
 ))
 (C:\Users\aumna\AppData\Local\Programs\MiKTeX\tex/latex/hycolor\hycolor.sty
 Package: hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
@@ -225,12 +225,20 @@ Package hyperref Info: PDF/A mode OFF on input line 6108.
 \c@Item=\count295
 \c@Hfootnote=\count296
 )
-Package hyperref Info: Driver (autodetected): hpdftex.
+Package hyperref Info: Driver (default): hdvips.
 
-(C:\Users\aumna\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hpdftex.def
-File: hpdftex.def 2025-07-12 v7.01o Hyperref driver for pdfTeX
-\Fld@listcount=\count297
-\c@bookmark@seq@number=\count298
+(C:\Users\aumna\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hdvips.def
+File: hdvips.def 2025-07-12 v7.01o Hyperref driver for dvips
+
+(C:\Users\aumna\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\pdfmark.def
+File: pdfmark.def 2025-07-12 v7.01o Hyperref definitions for pdfmark specials
+\pdf@docset=\toks22
+\pdf@box=\box53
+\pdf@toks=\toks23
+\pdf@defaulttoks=\toks24
+\HyField@AnnotCount=\count297
+\Fld@listcount=\count298
+\c@bookmark@seq@number=\count299
 
 (C:\Users\aumna\AppData\Local\Programs\MiKTeX\tex/latex/rerunfilecheck\rerunfil
 echeck.sty
@@ -244,21 +252,21 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 84.
 )
 \Hy@SectionHShift=\skip65
-)
+))
 (C:\Users\aumna\AppData\Local\Programs\MiKTeX\tex/latex/microtype\microtype.sty
 Package: microtype 2025/07/09 v3.2b Micro-typographical refinements (RS)
-\MT@toks=\toks22
-\MT@tempbox=\box53
-\MT@count=\count299
+\MT@toks=\toks25
+\MT@tempbox=\box54
+\MT@count=\count300
 LaTeX Info: Redefining \noprotrusionifhmode on input line 1087.
 LaTeX Info: Redefining \leftprotrusion on input line 1088.
-\MT@prot@toks=\toks23
+\MT@prot@toks=\toks26
 LaTeX Info: Redefining \rightprotrusion on input line 1107.
 LaTeX Info: Redefining \textls on input line 1449.
 \MT@outer@kern=\dimen161
 LaTeX Info: Redefining \microtypecontext on input line 2053.
 LaTeX Info: Redefining \textmicrotypecontext on input line 2070.
-\MT@listname@count=\count300
+\MT@listname@count=\count301
 
 (C:\Users\aumna\AppData\Local\Programs\MiKTeX\tex/latex/microtype\microtype-pdf
 tex.def
@@ -303,10 +311,10 @@ Package: trig 2023/12/02 v1.11 sin cos tan (DPC)
 fg
 File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
-Package graphics Info: Driver file: pdftex.def on input line 106.
+Package graphics Info: Driver file: dvips.def on input line 106.
 
-(C:\Users\aumna\AppData\Local\Programs\MiKTeX\tex/latex/graphics-def\pdftex.def
-File: pdftex.def 2025/09/29 v1.2d Graphics/color driver for pdftex
+(C:\Users\aumna\AppData\Local\Programs\MiKTeX\tex/latex/graphics-def\dvips.def
+File: dvips.def 2025/01/21 v3.2a Graphics/color driver for dvips
 ))
 \Gin@req@height=\dimen162
 \Gin@req@width=\dimen163
@@ -316,20 +324,20 @@ Package: tabularx 2023/12/11 v2.12a `tabularx' package (DPC)
 (C:\Users\aumna\AppData\Local\Programs\MiKTeX\tex/latex/tools\array.sty
 Package: array 2025/09/25 v2.6n Tabular extension package (FMi)
 \col@sep=\dimen164
-\ar@mcellbox=\box54
+\ar@mcellbox=\box55
 \extrarowheight=\dimen165
-\NC@list=\toks24
+\NC@list=\toks27
 \extratabsurround=\skip67
 \backup@length=\skip68
-\ar@cellbox=\box55
+\ar@cellbox=\box56
 )
 \TX@col@width=\dimen166
 \TX@old@table=\dimen167
 \TX@old@col=\dimen168
 \TX@target=\dimen169
 \TX@delta=\dimen170
-\TX@cols=\count301
-\TX@ftn=\toks25
+\TX@cols=\count302
+\TX@ftn=\toks28
 )
 (C:\Users\aumna\AppData\Local\Programs\MiKTeX\tex/latex/tools\indentfirst.sty
 Package: indentfirst 2023/07/02 v1.03 Indent first paragraph (DPC)
@@ -338,10 +346,10 @@ Package: indentfirst 2023/07/02 v1.03 Indent first paragraph (DPC)
 Package: enumitem 2025/02/06 v3.11 Customized lists
 \labelindent=\skip69
 \enit@outerparindent=\dimen171
-\enit@toks=\toks26
-\enit@inbox=\box56
-\enit@count@id=\count302
-\enitdp@description=\count303
+\enit@toks=\toks29
+\enit@inbox=\box57
+\enit@count@id=\count303
+\enitdp@description=\count304
 )
 LaTeX Font Info:    Trying to load font information for T1+ptm on input line 36
 .
@@ -349,16 +357,15 @@ LaTeX Font Info:    Trying to load font information for T1+ptm on input line 36
 (C:\Users\aumna\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\t1ptm.fd
 File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
 )
-(C:\Users\aumna\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdf
-tex.def
-File: l3backend-pdftex.def 2025-10-09 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count304
-) (document.aux (partials/cover.aux) (partials/innercover.aux)
-(body/abstract.aux) (body/acknowledgement.aux) (body/introduction.aux)
-(body/relatedworks.aux) (body/requirementanalysis.aux)
-(body/softwarearchitecture.aux) (body/aicomponent.aux)
-(body/softwaredevelopment.aux) (body/deliverable.aux) (body/discussion.aux)
-(body/appendices.aux))
+(C:\Users\aumna\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-dvi
+ps.def
+File: l3backend-dvips.def 2025-10-09 L3 backend support: dvips
+\l__pdfannot_backend_content_box=\box58
+\l__pdfannot_backend_model_box=\box59
+\g__pdfannot_backend_int=\count305
+\g__pdfannot_backend_link_int=\count306
+\g__pdfannot_backend_link_sf_int=\count307
+) (document.aux)
 \openout1 = `document.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 36.
@@ -381,9 +388,9 @@ LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 36.
 LaTeX Font Info:    ... okay on input line 36.
 
 *geometry* driver: auto-detecting
-*geometry* detected driver: pdftex
+*geometry* detected driver: dvips
 *geometry* verbose mode - [ preamble ] result:
-* driver: pdftex
+* driver: dvips
 * paper: a4paper
 * layout: <same size as paper>
 * layoutoffset:(h,v)=(0.0pt,0.0pt)
@@ -415,7 +422,7 @@ LaTeX Font Info:    ... okay on input line 36.
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 *geometry* verbose mode - [ newgeometry ] result:
-* driver: pdftex
+* driver: dvips
 * paper: a4paper
 * layout: <same size as paper>
 * layoutoffset:(h,v)=(0.0pt,0.0pt)
@@ -448,9 +455,11 @@ LaTeX Font Info:    ... okay on input line 36.
 
 \big@size=\dimen172
 Package hyperref Info: Link coloring OFF on input line 36.
-(document.out) (document.out)
 \@outlinefile=\write3
 \openout3 = `document.out'.
+
+
+Package hyperref Warning: Rerun to get /PageLabels entry.
 
 LaTeX Info: Redefining \microtypecontext on input line 36.
 Package microtype Info: Applying patch `item' on input line 36.
@@ -459,50 +468,22 @@ Package microtype Info: Applying patch `eqnum' on input line 36.
 Package microtype Info: Applying patch `footnote' on input line 36.
 Package microtype Info: Applying patch `verbatim' on input line 36.
 LaTeX Info: Redefining \microtypesetup on input line 36.
-Package microtype Info: Generating PDF output.
+Package microtype Info: Generating DVI output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
-Package microtype Info: Automatic font expansion enabled (level 2),
-(microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
-Package microtype Info: Using default expansion set `alltext-nott'.
-Package microtype Info: Patching command `\showhyphens'.
+Package microtype Info: No font expansion.
 Package microtype Info: No adjustment of tracking.
 Package microtype Info: No adjustment of interword spacing.
 Package microtype Info: No adjustment of character kerning.
-
 (C:\Users\aumna\AppData\Local\Programs\MiKTeX\tex/latex/microtype\mt-ptm.cfg
 File: mt-ptm.cfg 2006/04/20 v1.7 microtype config. file: Times (RS)
 )
-(C:\Users\aumna\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mk
-ii
-[Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count305
-\scratchdimen=\dimen173
-\scratchbox=\box57
-\nofMPsegments=\count306
-\nofMParguments=\count307
-\everyMPshowfont=\toks27
-\MPscratchCnt=\count308
-\MPscratchDim=\dimen174
-\MPnumerator=\count309
-\makeMPintoPDFobject=\count310
-\everyMPtoPDFconversion=\toks28
-)
-(C:\Users\aumna\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-b
-ase.sty
-Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
-Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
-85.
-
-(C:\Users\aumna\AppData\Local\Programs\MiKTeX\tex/latex/00miktex\epstopdf-sys.c
-fg
-File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
-))
 \openout2 = `partials/cover.aux'.
 
- (partials/cover.tex
+
+(partials/cover.tex
 *geometry* verbose mode - [ newgeometry ] result:
-* driver: pdftex
+* driver: dvips
 * paper: a4paper
 * layout: <same size as paper>
 * layoutoffset:(h,v)=(0.0pt,0.0pt)
@@ -513,4 +494,53 @@ File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 * \paperheight=845.04684pt
 * \textwidth=452.9679pt
 * \textheight=700.50687pt
-* \oddsidemar
+* \oddsidemargin=0.0pt
+* \evensidemargin=0.0pt
+* \topmargin=-37.0pt
+* \headheight=12.0pt
+* \headsep=25.0pt
+* \topskip=10.0pt
+* \footskip=30.0pt
+* \marginparwidth=65.0pt
+* \marginparsep=11.0pt
+* \columnsep=10.0pt
+* \skip\footins=9.0pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidefalse
+* \@mparswitchfalse
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+
+
+! LaTeX Error: Cannot determine size of graphic in assets/ku/symbol.png (no Bou
+ndingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.5 ...graphics[width=1.7in]{assets/ku/symbol.png}
+                                                  \vspace{.7in}
+? 
+! Emergency stop.
+ ...                                              
+                                                  
+l.5 ...graphics[width=1.7in]{assets/ku/symbol.png}
+                                                  \vspace{.7in}
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+ 
+Here is how much of TeX's memory you used:
+ 13154 strings out of 467872
+ 223412 string characters out of 5418402
+ 687206 words of memory out of 5000000
+ 41934 multiletter control sequences out of 15000+600000
+ 630431 words of font info for 43 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 75i,1n,79p,1504b,250s stack positions out of 10000i,1000n,20000p,200000b,200000s
+No pages of output.
