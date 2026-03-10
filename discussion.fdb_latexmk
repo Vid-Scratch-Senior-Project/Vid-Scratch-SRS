@@ -1,0 +1,9 @@
+# Fdb version 4
+["pdflatex"] 0 "body/discussion.tex" "discussion.pdf" "discussion" 0 -1
+  "body/discussion.tex" 0 -1 0 ""
+  "discussion.aux" 0 -1 0 "pdflatex"
+  (generated)
+  "discussion.aux"
+  "discussion.log"
+  "discussion.pdf"
+  (rewritten before read)

@@ -1,0 +1,4 @@
+PWD D:\Github\Vid-Scratch-SRS
+INPUT C:\Users\aumna\AppData\Local\MiKTeX\miktex\data\le\pdftex\pdflatex.fmt
+INPUT body\discussion.tex
+OUTPUT discussion.log
