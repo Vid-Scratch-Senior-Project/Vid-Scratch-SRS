@@ -1,23 +1,22 @@
 \chapter{AI Component}
 \label{chap:ai-component}
 
-\section{Business Context & AI Integration}
+\section{Business Context \& AI Integration}
 \label{section:business-context-and-AI-integration}
+
 \textbf{Objective:}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{chapter_5/Domain_Diagram.png}
     \caption{System's Domain Diagram}
 \end{figure}
 
-This is the system's domain diagram. The Poisoner component represents the part where AI will be used to generate adversarial perturbations to be injected into the frames of input videos.
+The domain diagram above illustrates the overall system structure of Vid-Scratch. The \textit{Poisoner} component, highlighted in the diagram, represents the part of the system where AI is integrated to generate adversarial perturbations and apply them to the frames of the input video.
 
-AI is suitable for this task because the "poison" needs to understand how the AI sees images, in particular, the feature weights that influence its decision-making process. 
+AI is suitable for this task because generating effective adversarial perturbations requires understanding how a model processes and classifies video input, particularly the feature representations and decision boundaries on which the model relies. Rather than applying random noise, the adversarial generation process uses gradient-based optimization to produce perturbations that are specifically designed to affect the model's predictions while remaining imperceptible to human viewers.
 
-By injecting adversarial perturbations that manipulate the AI’s perception, we aim to cause the AI to misinterpret the images, distorting their true meaning as much as possible, while remaining perceptually similar to the human eye, by using the adversarial attack algorithm.
-
-With this method, we can ensure that the poisoning method remains robust against AI training, continuing to degrade its performance even as AI learns from more images.
+By applying perturbations that exploit the model's internal feature representations, the system aims to cause I3D to incorrectly classify the action shown in the video at inference time, or to learn distorted patterns when trained on poisoned data. At the same time, the visual appearance of the output video remains close to the original, allowing the protected content to remain usable for human viewers.
 
 \section{Goal Hierarchy}
 \label{section:goal-hierarchy}
@@ -26,142 +25,193 @@ With this method, we can ensure that the poisoning method remains robust against
 \begin{enumerate}
     \item 
     \textbf{Goal:}
-    Discouraging anyone from using creator's intellectual property in non-consensual AI training. \\
+    Develop an accessible application for generating adversarial video inputs targeting I3D within the defined project scope. \\
     \textbf{Measured by:} 
-    Reduction in cases of unauthorized AI usage reported by creators. \\
+    Successful delivery of a working application that supports the generation of adversarial video outputs for both inference-time and training-time evaluation scenarios. \\
     \textbf{Data collection:}
-    Amount of successfully removed artist's name and work from AI training datasets due to adversarial attacks that break the AI's ability to replicate the artist style. \\
+    System functionality testing and academic evaluation by project supervisors. \\
     \textbf{Operationalization:} 
-    Evaluate AI ability to replicate the artist style before and after poisoning using similarity metrics and model accuracy. Track the number of models where the artist data becomes unusable or is successfully excluded.
+    Verify that the application can generate adversarial video outputs and that the produced results are consistent with the expected behavior observed in both evaluation scenarios.
 \end{enumerate}
 
 \subsubsection{System Goals}
 \begin{enumerate}
     \item 
     \textbf{Goal:}
-    Process various video formats and inject adversarial perturbations with minimal perceptual change. \\
+    Generate adversarial video outputs that influence I3D model behavior while preserving visual similarity to the original video. \\
     \textbf{Measured by:} 
-    Percentage of processed videos meeting quality and poisoning effectiveness standards. \\
+    Attack success rate during inference-time evaluation, performance degradation during training-time evaluation, and perceptual similarity measurements such as SSIM. \\
     \textbf{Data collection:}
-    System logs of predictions and User feedback. \\
+    Model prediction logs, classification accuracy records, and perceptual similarity measurements on processed video samples. \\
     \textbf{Operationalization:} 
-    Evaluate processed videos using perceptual similarity metrics and poisoning effectiveness.
+    Evaluate whether adversarially perturbed videos cause incorrect action classification by I3D, and whether poisoned training data reduces model accuracy, while confirming that SSIM remains above an acceptable threshold.
 \end{enumerate}
 
 \subsubsection{User Goals}
 \begin{enumerate}
     \item 
     \textbf{Goal:}
-    Provide users with confidence that their content remains visually unchanged while being protected. \\
+    Allow users to generate adversarial video variants through a simple and accessible workflow without requiring deep technical knowledge. \\
     \textbf{Measured by:} 
-    User satisfaction ratings and survey feedback. \\
+    User satisfaction ratings and feedback on the usability and clarity of the application. \\
     \textbf{Data collection:}
-    Post-processing surveys, user feedback forms, and visual comparison ratings (original vs. poisoned). \\
+    Post-use feedback forms and usability observations during system testing. \\
     \textbf{Operationalization:} 
-    Collect and analyze survey results periodically to assess perceived visual quality. Adjust perturbation strength or method based on recurring feedback trends.
+    Collect and analyze user feedback to assess whether the workflow is clear, easy to use, and produces outputs that meet expectations in terms of visual similarity.
 \end{enumerate}
 
 \subsubsection{AI Model Goals}
 \begin{enumerate}
     \item 
     \textbf{Goal:}
-    Generate adaptive adversarial perturbations tailored to each video's unique features (light, color, texture, etc.). \\
+    Generate adversarial perturbations that are effective against I3D by exploiting both the spatial and temporal structure of the input video. \\
     \textbf{Measured by:} 
-    Percentage of processed videos meeting quality and poisoning effectiveness standards. \\
+    Attack success rate during inference-time evaluation and accuracy reduction during training-time evaluation, compared with a baseline of unperturbed inputs. \\
     \textbf{Data collection:}
-    AI model history and User feedback. \\
+    I3D prediction results on adversarial and clean video inputs, together with training accuracy curves on poisoned and clean datasets. \\
     \textbf{Operationalization:} 
-    Test perturbations across multiple AI models and log evasion success rates. Analyze perturbation patterns against video feature distributions (e.g., lighting, color).
+    Compare model predictions and training outcomes between clean and adversarial conditions to quantify the impact of the generated perturbations on I3D performance.
 \end{enumerate}
-
 
 \section{Task Requirements Analysis Using AI Canvas}
 \label{section:task-requirements-analysis-using-AI-canvas}
+
 \subsection{AI Task Requirements}
 
 \subsubsection*{Requirements (REQ)}
 \begin{itemize}
-    \item REQ-1: The AI must generate adversarial examples from input images using the FGSM technique.
-    \item REQ-2: The AI should ensure poisoned images cause significant misclassification in target neural network models.
-    \item REQ-3: The poisoning should preserve visual integrity such that it remains perceptually similar to the original.
-    \item REQ-4: The AI must support batch processing for datasets.
+    \item REQ-1: The AI must generate adversarial perturbations 
+    that cause a pre-trained I3D model to incorrectly classify 
+    the action shown in the input video at inference time.
+    \item REQ-2: The AI must generate perturbed video samples 
+    that reduce the classification performance of an I3D model 
+    trained on the perturbed dataset.
+    \item REQ-3: The generated perturbations must preserve 
+    visual similarity to the original video as measured by 
+    perceptual similarity metrics such as SSIM.
+    \item REQ-4: The AI must identify important frames for 
+    perturbation in order to improve attack effectiveness while 
+    keeping the number of modified frames minimal.
 \end{itemize}
 
 \subsubsection*{Specifications (SPEC)}
 \begin{itemize}
-    \item SPEC-1: The AI uses the Adversarial Robustness Toolbox (ART) to implement FGSM attacks.
-    \item SPEC-2: The perturbation strength $\epsilon$ should be configurable by the user.
-    \item SPEC-3: Poisoning will be applied directly to image tensors prior to model training.
+    \item SPEC-1: The system implements the DeepSAVA pipeline, 
+    combining Bayesian Optimization for frame selection, spatial 
+    transformation via a learned flow field, and gradient-based 
+    additive noise optimization.
+    \item SPEC-2: The perturbation strength $\epsilon$ and SSIM 
+    budget are configurable by the user through the application 
+    interface.
+    \item SPEC-3: Perturbations are applied to a 40-frame 
+    representation of the input video sampled uniformly from 
+    the full clip.
+    \item SPEC-4: For the training-time attack scenario, 
+    Error-Minimizing Noise is applied to non-attacked frames.
 \end{itemize}
 
 \subsubsection*{Environment (ENV)}
 \begin{itemize}
-    \item ENV-1: The system runs in a Python environment (e.g., Jupyter or Colab) with TensorFlow or PyTorch backends.
-    \item ENV-2: Input data consists of image files (.jpg, .png)
-    \item ENV-3: Requires GPU acceleration for efficient batch poisoning.
-    \item ENV-4: May be extended later for use in video frame sequences.
+    \item ENV-1: The system runs in a Python environment 
+    with PyTorch as the deep learning backend.
+    \item ENV-2: Input data consists of MP4 video files 
+    of up to one minute in length.
+    \item ENV-3: GPU acceleration is recommended for efficient 
+    adversarial generation, particularly for the optimization 
+    steps in the DeepSAVA pipeline.
+    \item ENV-4: The backend is served via a FastAPI server 
+    and accessed through an Electron-based frontend application.
 \end{itemize}
 
 \subsection{AI Canvas Development}
 
-\begin{table}[h]
+\begin{table}[H]
 \centering
 \begin{tabular}{|p{4cm}|p{10cm}|}
 \hline
 \textbf{Canvas Element} & \textbf{Description} \\
 \hline
-\textbf{Input Data} & Raw image files. Input will be uploaded manually. \\
+\textbf{Input Data} & MP4 video files of up to one minute 
+in length, uploaded by the user through the application 
+interface. \\
 \hline
-\textbf{Expected Output} & Poisoned images with imperceptible perturbations that cause target models miss understand. \\
+\textbf{Expected Output} & Adversarially perturbed video 
+files that cause I3D to incorrectly classify the action 
+at inference time, or perturbed video samples that reduce 
+model performance when used as training data, while 
+remaining visually similar to the original. \\
 \hline
-\textbf{Tools/Frameworks} & Python, ART, TensorFlow or PyTorch, NumPy, Google Colab or local machine with GPU. \\
+\textbf{Tools/Frameworks} & Python, PyTorch, FastAPI, 
+OpenCV, and Electron. The adversarial generation pipeline 
+is based on DeepSAVA, incorporating Bayesian Optimization, 
+spatial transformation, and gradient-based noise 
+optimization. \\
 \hline
-\textbf{Success Criteria} & 
-\begin{itemize}
-    \item Target models miss understand the feature.
-    \item No noticeable visual difference in the poisoned training images (PSNR > 30dB).
-\end{itemize} \\
+\textbf{Success Criteria} & Attack success against I3D is 
+observed during inference-time evaluation; training on 
+perturbed data results in measurable performance reduction 
+compared with clean data; and SSIM between the original 
+and output video remains above an acceptable threshold. \\
 \hline
 \end{tabular}
 \end{table}
 
 \section{User Experience Design with AI}
+
 \label{section:user-experience-design-with-AI}
 
-
 \subsection{Interaction Style}
-\textbf{Interaction Style: Annotate}
+\textbf{Interaction Style: Process and Display}
 
-\begin{itemize}
-    \item The AI modifies and tags poisoned images with visual indicators (e.g., warning labels).
-    \item Users are informed when images are altered for adversarial purposes.
-    \item This method provides transparency and keeps the user in control.
-\end{itemize}
+The user interacts with the AI component indirectly through 
+the application interface. The user selects an input video, 
+configures generation parameters, and starts the processing 
+pipeline. The AI then generates adversarial perturbations in 
+the background and returns the output video for the user to 
+preview and export. The system displays both the original 
+and output videos side by side so that the user can verify 
+that visual similarity has been preserved.
 
 \subsection{User Feedback Mechanism}
-Users are encouraged to provide feedback to help improve the AI poisoning system. The application offers a dedicated \textbf{Feedback} dropdown menu with the following options:
+Users are encouraged to provide feedback to help improve 
+the system. The application offers a dedicated Feedback 
+page with the following options:
 \begin{itemize}
-    \item \textbf{Comments and Suggestions} – Share thoughts or ideas for improving the poisoning algorithm.
-    \item \textbf{Bug Reports} – Report technical issues or incorrect behavior in the poisoning process.
-    \item \textbf{Email Us} – Directly contact the development team for in-depth support.
+    \item \textbf{Comments and Suggestions} — Share ideas 
+    for improving the adversarial generation pipeline or 
+    the application interface.
+    \item \textbf{Bug Reports} — Report technical issues or 
+    unexpected behavior during video processing.
+    \item \textbf{Email Us} — Contact the development team 
+    directly for additional support.
 \end{itemize}
 
 \subsection{AI Contribution to System Intelligence}
 
-This system integrates AI to perform intelligent poisoning of image data. 
-This AI component significantly enhances the system’s capabilities beyond what 
-is possible with non-AI approaches.
+Vid-Scratch integrates AI to perform gradient-based 
+adversarial video generation targeting I3D. This approach 
+provides capabilities that would be difficult to achieve 
+through non-AI methods alone.
 
 \subsubsection{Without AI Integration}
 \begin{itemize}
-    \item Manual image editing to distort data.
-    \item Watermarking or fixed filters that are easily bypassed by neural networks.
+    \item Manual frame editing or fixed noise filters that 
+    do not account for how the model processes video input.
+    \item Static perturbations that may be less effective 
+    against temporal aggregation in video models such as I3D.
 \end{itemize}
 
 \subsubsection{With AI Integration}
 \begin{itemize}
-    \item Automated poisoning of images based on gradient information.
-    \item Adaptability to different neural network architectures.
-    \item Preservation of visual quality for human viewers while deceiving models.
-    \item Scalable batch processing of datasets with consistent adversarial effectiveness.
+    \item Gradient-based optimization that targets the 
+    feature representations used by I3D.
+    \item Bayesian Optimization for identifying the most 
+    influential frames to perturb, improving perturbation 
+    effectiveness while keeping modifications minimal.
+    \item Spatial transformation combined with additive 
+    noise to exploit both the spatial and temporal structure 
+    of the video.
+    \item Preservation of visual similarity between the 
+    original and output video through SSIM-constrained 
+    optimization.
 \end{itemize}

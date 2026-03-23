@@ -3,37 +3,42 @@
 
 \section{Domain Model}
 \label{section:domain-model}
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{chapter_4/domain_diagram.png}
     \caption{Domain Diagram}
 \end{figure}
 
+The domain model of Vid-Scratch describes the main entities involved in the adversarial video generation process. It shows how the system handles a video, extracts its frames, applies adversarial perturbations, and produces a protected output video.
+
 \subsection{Processor}
-Processor is a facade controller where it receives video input and output poisened video.
+The \textit{Processor} acts as the main controller of the workflow. It receives the input video from the user, coordinates the frame extraction and poisoning process, and produces the final output video.
 
 \subsection{Poisoner}
-Poisoner manage the process of poisoning frames of the video. Receives frames.
+The \textit{Poisoner} is responsible for applying adversarial perturbations to the extracted video frames. It receives individual frames or batches of frames from the Processor and modifies them according to the selected generation parameters.
 
 \subsection{Video}
-Video is an object class containing the necessary information of the video.
+The \textit{Video} represents the input and output video data in the system. It stores the essential information of a video, such as file path, duration, resolution, frame rate, and associated frames.
 
 \subsection{Frame}
-Frame is an object class containing the necessary information of the video frames extracted from the video to send to Poisoner to inject adversarial attack.
-
+The \textit{Frame} represents an individual image extracted from a video. It contains the frame data and related information required for adversarial modification before being passed back to the Processor for video reconstruction.
 
 \section{Design Class Diagram}
 \label{section:class-diagram}
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{chapter_4/class_diagram.png}
     \caption{Class Diagram}
 \end{figure}
 
+The class diagram expands on the domain model by showing the attributes and methods of each class. The Processor class holds references to both the original and output video objects along with the generation parameters, and provides methods for importing, validating, and exporting video files. The Poisoner class manages the adversarial generation queue and provides methods for applying perturbations to individual frames. The Video class stores video metadata and its associated frames, while the Frame class holds the image data and ordering information for each extracted frame.
+
 \section{Sequence Diagram}
 \label{section:sequence-diagram}
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{chapter_4/sequence_diagram.png}
     \caption{Sequence Diagram}
 \end{figure}
+
+The sequence diagram illustrates the interaction between system components during the adversarial video generation workflow. The user selects a video file through the Electron Renderer, which forwards the video path and generation parameters to Electron Main. Electron Main then sends a request to the FastAPI Server, which handles the processing pipeline in three stages: extracting the video into frames using OpenCV, generating and applying adversarial perturbations to the frames, and reconstructing the frames back into a video. Once complete, the output video is saved to the file system and the user is notified of the result.

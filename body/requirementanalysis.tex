@@ -24,152 +24,206 @@
 \label{section:stakeholder-analysis}
 
 \begin{enumerate}[leftmargin=80pt]
-    \item \textbf{Animators \& Video Artists:} The primary stakeholders are content creators and 
-    video artists who want to protect their work from unauthorized AI training.
-    \item \textbf{Regulatory \& Legal Bodies:} Government and industry groups ensuring 
-    compliance with copyright laws, AI ethics, and intellectual property protection.
-    \item \textbf{Cybersecurity \& Digital Rights Organizations:} Groups that focus on copyright protection, 
-    AI misuse prevention, and ethical AI practices. They may promote or validate the effectiveness of Vid Scratch.
+    \item \textbf{General Users and Digital Content Creators:} These stakeholders use Vid-Scratch to generate visually similar alternative versions of short videos while reducing the reliability of AI-based action recognition. They are concerned with having more control over how their videos may be interpreted, categorized, or analyzed by temporal video models.
 
+    \item \textbf{Students, Researchers, and Educators:} These stakeholders use the application as a practical tool for studying adversarial machine learning, demonstrating the vulnerability of temporal action recognition models, and experimenting with inference-time and training-time attack scenarios in an accessible way.
+
+    \item \textbf{Developers and Machine Learning Practitioners:} These stakeholders are interested in evaluating whether action recognition models such as I3D remain reliable when exposed to adversarially perturbed or poisoned video inputs. For this group, Vid-Scratch can support robustness testing and model evaluation workflows.
+
+    \item \textbf{Project Developers and Academic Supervisors:} These stakeholders are involved in the design, implementation, and evaluation of the system. They are responsible for ensuring that the project is technically sound, aligned with its academic objectives, and usable within the defined project scope.
 \end{enumerate}
-
 \section{User Stories}
 \label{section:user-stories}
 
-\userstory{Upload \& Protecting Video Content from AI Training%
-}{digital content creator or video artist%
-}{apply adversarial techniques to my videos to prevent AI models from copying my style%
-}{I can protect my work from unauthorized AI training while keeping the video unchanged for humans}
+\userstory{Generate AI-Aware Video Variants%
+}{general user or digital content creator%
+}{generate a visually similar version of my video that may be more difficult for action recognition models to interpret reliably%
+}{I can have more control over how AI systems may analyze or categorize my video content}
 
-\userstory{Ensuring Video Quality for Human Viewers%
-}{digital content creator or video artist%
-}{apply AI poisoning techniques without affecting the video’s visual quality for humans%
-}{my audience can still enjoy my videos without noticeable distortions}
+\userstory{Preserve Visual Similarity%
+}{general user, creator, or researcher%
+}{apply adversarial video generation while preserving the visual appearance of the original clip%
+}{the modified video remains close to the original for human viewers}
 
-\userstory{Customizing Poisoning Parameters%
-}{digital content creator or video artist%
-}{adjust the poisoning settings such as intensity level and render quality before starting the process%
-}{I can control how strongly the video is protected while balancing quality and performance}
+\userstory{Configure Generation Parameters%
+}{user of the Vid-Scratch application%
+}{adjust settings such as perturbation strength, optimization parameters, and output quality before running the process%
+}{I can balance adversarial effectiveness, visual similarity, and processing cost according to my needs}
 
-\userstory{Processing Videos Efficiently%
-}{content creator with large video files%
-}{have my videos processed quickly without long waiting times%
-}{I can protect my videos without delays affecting my workflow}
+\userstory{Test Inference-Time Vulnerability%
+}{student, researcher, or developer%
+}{generate adversarial video samples for inference-time testing%
+}{I can examine whether a pre-trained I3D model misclassifies the action shown in the input video}
 
-\userstory{Monitoring Poisoning Progress%
-}{user waiting for video processing to complete%
-}{see real-time updates on the status of my video poisoning%
-}{I know how long the process will take and when my video will be ready}
+\userstory{Prepare Training-Time Poisoned Samples%
+}{student, researcher, or machine learning practitioner%
+}{generate poisoned video samples for training-time experiments%
+}{I can study whether modified training data reduces model performance after training}
 
+\userstory{Process Short Videos Efficiently%
+}{user working with short video clips%
+}{process videos of up to one minute in length within the application%
+}{I can use the system within the scope supported by the I3D-based pipeline}
+
+\userstory{Monitor Generation Progress%
+}{user waiting for processing to complete%
+}{see the current status of adversarial video generation%
+}{I can understand whether the process is running normally and when the output may be ready}
 
 \section{Use Case Diagram}
 \label{section:use-case-diagram}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{chapter_3/usecase_diagram.png}
+    \caption{Use Case Diagram}
+\end{figure}
+
+The use case diagram above illustrates the main interactions between the user and the Vid-Scratch system. A single actor is used to represent all user groups identified in the stakeholder analysis because the application provides the same core workflow to all users.
+
 \begin{itemize}
-    \item \textbf{\textit{User}}---A default group of users which has all the basic functionalities
+    \item \textbf{\textit{User}} --- the general actor representing any person who uses the Vid-Scratch application
 \end{itemize}
 
-
-\begin{itemize}
-    \item \textbf{\textit{User}}---A default group of users which has all the basic functionalities
-\end{itemize}
-
-
+The actor can perform six main use cases: uploading an input video, configuring generation settings, starting the adversarial generation process, previewing the output video, exporting the generated output to a designated location, and monitoring processing progress during generation.
 \section{Use Case Model}
 \label{section:use-case-model}
 
-\begin{usecase}{Uploading a Video}
-    \textbf{Actors:} Pong (Digital Content Creator), Vid Scratch (System)
+\begin{usecase}{Upload Video}
+    \textbf{Primary Actor:} User
 
-    \textbf{Description:} Pong wants to upload a video file to the system in preparation for poisoning.
-
-    \textbf{Scenario:}
-    \begin{enumerate}[leftmargin=80pt]
-        \item Pong opens the Vid Scratch web application.
-        \item System displays the upload interface.
-        \item Pong selects a supported video format file and clicks the upload button.
-        \item System validates the file and stores it for processing.
-    \end{enumerate}
-    \textbf{Alternative Flow:} If the file type is unsupported, the system displays an error message.
-\end{usecase}
-
-\begin{usecase}{Setting Poisoning Parameters}
-    \textbf{Actors:} Pong (Digital Content Creator), Vid Scratch (System)
-
-    \textbf{Description:} Pong customizes the poisoning settings before starting the video poisoning process.
+    \textbf{Description:} The user uploads a short video file
+    to the system in preparation for adversarial generation.
 
     \textbf{Scenario:}
     \begin{enumerate}[leftmargin=80pt]
-        \item Pong navigates to the settings panel after uploading a video.
-        \item System displays available poisoning parameters.
-        \item Pong selects the settings.
-        \item System saves the selected configuration for use in the next step.
+        \item The user opens the Vid-Scratch application.
+        \item The system displays the upload interface.
+        \item The user selects a supported MP4 video file for upload.
+        \item The system validates the file format and duration,
+        then stores it for processing.
     \end{enumerate}
+    \textbf{Alternative Flow:} If the file type is unsupported
+    or the video exceeds one minute in length, the system
+    displays an error message.
 \end{usecase}
 
-\begin{usecase}{Starting the Poisoning Process}
-    \textbf{Actors:} Pong (Digital Content Creator), Vid Scratch (System)
+\begin{usecase}{Configure Generation Parameters}
+    \textbf{Primary Actor:} User
 
-    \textbf{Description:} After configuring the parameters, Pong starts the video poisoning process.
+    \textbf{Description:} The user adjusts the adversarial
+    generation settings before starting the process.
 
     \textbf{Scenario:}
     \begin{enumerate}[leftmargin=80pt]
-        \item Pong clicks the "Start Poisoning" button.
-        \item System begins poisoning the video.
-        \item System displays a progress indicator or loading bar.
+        \item The user navigates to the settings panel after
+        uploading a video.
+        \item The system displays available generation parameters,
+        such as perturbation strength, optimization settings,
+        and output quality.
+        \item The user adjusts the settings according to their needs.
+        \item The system saves the selected configuration for use
+        in the generation pipeline.
     \end{enumerate}
 \end{usecase}
 
-\begin{usecase}{Viewing the Poisoning Progress}
-    \textbf{Actors:} Pong (Digital Content Creator), Vid Scratch (System)
+\begin{usecase}{Start Adversarial Generation}
+    \textbf{Primary Actor:} User
 
-    \textbf{Description:} Pong wants to track the progress of the poisoning process.
+    \textbf{Description:} After configuring the parameters,
+    the user starts the adversarial video generation process.
 
     \textbf{Scenario:}
     \begin{enumerate}[leftmargin=80pt]
-        \item System updates a progress are processed.
-        \item Pong monitors the process status.
-        \item Once complete, the system notifies Pong that the video is ready.
+        \item The user selects the output folder and clicks
+        the Start button.
+        \item The system begins the adversarial generation pipeline.
+        \item The system displays a progress indicator showing
+        the current processing status.
     \end{enumerate}
+    \textbf{Alternative Flow:} If no video has been uploaded
+    or no output folder has been selected, the system displays
+    a warning message and does not start the process.
 \end{usecase}
 
-\begin{usecase}{Downloading the Poisoned Video}
-    \textbf{Actors:} Pong (Digital Content Creator), Vid Scratch (System)
+\begin{usecase}{Monitor Processing Progress}
+    \textbf{Primary Actor:} User
 
-    \textbf{Description:} Pong downloads the final poisoned video file to their device.
+    \textbf{Description:} The user monitors the status of
+    the adversarial generation process while it is running.
 
     \textbf{Scenario:}
     \begin{enumerate}[leftmargin=80pt]
-        \item The system displays a "Download" button once poisoning is complete.
-        \item Pong clicks the button to download the poisoned video.
-        \item System sends the processed file to Pong’s device.
+        \item The system updates the progress indicator as
+        processing continues.
+        \item The user monitors the current status of the pipeline.
+        \item Once complete, the system notifies the user
+        that the output video is ready.
     \end{enumerate}
 \end{usecase}
 
+\begin{usecase}{Preview Output Video}
+    \textbf{Primary Actor:} User
 
+    \textbf{Description:} The user previews the generated
+    output video to verify the result before exporting it.
+
+    \textbf{Scenario:}
+    \begin{enumerate}[leftmargin=80pt]
+        \item The system displays a preview of the output video
+        once generation is complete.
+        \item The user plays the output video to verify that it
+        remains visually similar to the original and is still usable.
+    \end{enumerate}
+\end{usecase}
+
+\begin{usecase}{Export Output Video}
+    \textbf{Primary Actor:} User
+
+    \textbf{Description:} The user exports the final adversarial
+    output video to the designated output folder.
+
+    \textbf{Scenario:}
+    \begin{enumerate}[leftmargin=80pt]
+        \item The system displays an Export button once generation
+        is complete.
+        \item The user clicks the button to save the output video.
+        \item The system saves the processed file to the output
+        folder selected by the user.
+    \end{enumerate}
+
+\end{usecase}
 \section{User Interface Design}
 \label{section:user-interface-design}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{chapter_3/home.png}
-    \caption{Mockup of Home Design}
+    \caption{Mockup of the Home Page}
 \end{figure}
 
-\begin{figure}[h]
+The home page serves as the entry point of the application. It provides a brief introduction to Vid-Scratch and offers two main actions: uploading a video to begin the adversarial generation process and viewing an explanation of how the system works.
+
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{chapter_3/what is Vid Scratch.png}
-    \caption{Mockup of What is Design}
+    \caption{Mockup of the System Overview Page}
 \end{figure}
 
-\begin{figure}[h]
+The system overview page explains the purpose of Vid-Scratch, how adversarial video generation works, and the limitations that users should understand before using the application.
+
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{chapter_3/feedback.png}
-    \caption{Mockup of Feedback Design}
+    \caption{Mockup of the Feedback Page}
 \end{figure}
 
-\begin{figure}[h]
+The feedback page allows users to submit comments, suggestions, or bug reports about the application. This supports continuous improvement of the system based on user experience.
+
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{chapter_3/main process.png}
-    \caption{Mockup of Main Process Design}
+    \caption{Mockup of the Main Process Page}
 \end{figure}
+
+The main process page supports the core workflow of the system. On this page, the user selects an input video, adjusts generation parameters such as perturbation intensity and render quality, selects an output folder, and starts the adversarial generation pipeline. The page also provides progress updates during processing and displays both the original and generated videos side by side for comparison.

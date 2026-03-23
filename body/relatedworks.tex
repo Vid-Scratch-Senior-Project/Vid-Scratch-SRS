@@ -1,13 +1,13 @@
 \chapter{Literature Review and Related Work}
 \label{chap:relatedworks}
 
-Generative AI has seen rapid advancements, particularly in video synthesis and manipulation. 
-However, as AI-generated content becomes more sophisticated, concerns over deepfake misuse, copyright violations, 
-and data exploitation has risen. Several existing tools attempt to address these challenges, 
-but they focus primarily on static image protection rather than video poisoning.
+Video-based action recognition has become an important research area in computer vision, with many studies focusing on how deep learning models can recognize human actions from video clips by learning both spatial and temporal information. Among the most influential architectures in this domain is the Inflated 3D ConvNet (I3D), which extends 2D convolutional networks into the temporal dimension through 3D convolutions and has demonstrated strong performance on benchmark datasets such as Kinetics and UCF-101. Because of its strong recognition capability and representative role in video understanding research, I3D is a suitable model for studying adversarial vulnerability in action recognition systems.
+
+At the same time, adversarial machine learning has shown that deep neural networks can be misled by carefully designed perturbations that remain difficult for humans to notice. While this problem has been studied extensively in image classification, transferring the same ideas to video models is more challenging because video-based models rely not only on visual appearance within each frame, but also on temporal relationships across multiple frames. As a result, adversarial attacks on video action recognition require methods that consider temporal structure rather than applying image-based perturbations independently frame by frame.
+
+Therefore, this chapter reviews prior work in three areas relevant to Vid-Scratch: video-based action recognition models, adversarial attacks on deep learning systems, and research on adversarial manipulation in video understanding. It also examines the gap between existing research-oriented attack methods and the need for a more accessible application that can be used to generate and evaluate adversarial video inputs for I3D under both inference-time and training-time scenarios.
 
 \clearpage
-
 \section{Competitor Analysis}
 \label{section:competitor-analysis}
 
@@ -15,101 +15,81 @@ but they focus primarily on static image protection rather than video poisoning.
     \centering
     \includegraphics[width=0.5\textwidth]{chapter_2/competitors/competitive-analysis.png}
     \caption{Competitive Landscape}
-
 \end{figure}
 
-Because there are currently no poisoning processors for videos, our current competitor would be static image poisoning processors, in a scenario where they extract the video's graphics frame by frame, and poison each of them as a static image, and then reassemble them back as a video.
+Existing work related to Vid-Scratch can be divided into two groups. The first group consists of research code specifically designed for adversarial attacks on video-based action recognition or temporal video models. These works are the closest to the scope of this project because they directly address adversarial manipulation in video understanding. The second group consists of general adversarial machine learning frameworks that provide useful attack implementations, but are mainly designed for images and do not directly support adversarial video generation for temporal action recognition models such as I3D.
 
-    The goal of the software is to protect the video from AI training by data poisoning method Adversarial attack; to break AI's accuracy by adding information to the data that is imperceptible to the human eye.
+The main gap identified from these existing works is that they are largely research-level implementations. They are typically designed for experimentation, paper reproduction, or technical evaluation, and are not presented as accessible user-oriented applications. Vid-Scratch addresses this gap by transforming adversarial video generation and evaluation into a more practical and usable application setting.
 
-    \clearpage
+\begin{enumerate}
+    \item \textbf{DeepSAVA}
+    
+    \par DeepSAVA is the most closely related work to this project because it directly targets adversarial attacks on video-based action recognition and serves as the main technical foundation for the implementation of Vid-Scratch. It provides a research-oriented method for generating adversarial video perturbations against temporal models, making it highly relevant to the inference-time and training-time attack scenarios studied in this project. However, DeepSAVA is presented as research code rather than a user-facing application, which limits its accessibility for non-expert users.
 
-    \begin{enumerate}
-        \item Glaze
-        
-        \par Glaze is a tool that applies adversarial perturbations to digital artwork to prevent AI from learning its style. It modifies the image in a way that disrupts AI training while keeping the visual impact minimal to the human eye.
-        Like other competitors, it only targets static images. Their poisoning method is less effective against AI due to video denoiser Autoencoder using more techniques such as temporal Consistency or attention seeking transformer methods which makes perturbations for static images less effective, and takes too long to be implemented Frame by frame, as a 10 minutes long video with 30 fps could take a minimum of 8 hours.
-        
-        \item MIST
-        \par MIST is another adversarial tool designed to mislead AI models into misinterpreting images, effectively reducing the accuracy of AI-based recognition and training systems. It faces the same challenges as Glaze for its implementation in video poisoning.
+    \item \textbf{BTC-UAP}
+    
+    \par BTC-UAP (Breaking Temporal Consistency with Universal Adversarial Perturbations) is another important reference in adversarial video research. Its main idea is to exploit temporal inconsistency in order to reduce the reliability of video model predictions. This makes it relevant to action recognition tasks where temporal information is central to classification. However, like DeepSAVA, BTC-UAP is primarily a research implementation and does not provide an accessible workflow for general users who want to generate or evaluate adversarial video through an application interface.
 
-        
-        \item Anti-Dreambooth
-        \begin{figure}[h]
-            \centering
-            \includegraphics[width=0.5\textwidth]{chapter_2/competitors/Anti-DreamBooth_sample.jpg}
-            \caption{Anti-DreamBooth sample demonstration}
-        
-        \end{figure}
-        \par Anti-Dreambooth targets models that fine-tune on small datasets, introducing noise patterns that degrade the ability of AI to generate imitative outputs. It faces the same challenges as Glaze for its implementation in video poisoning.
+    \item \textbf{stAdv}
+    
+    \par stAdv (Spatially Transformed Adversarial Attack) is a spatial transformation-based adversarial attack that generates perturbations by warping image structure rather than relying only on additive noise. Its ideas are relevant to this project because spatial transformation is one of the components incorporated into the Vid-Scratch pipeline. Nevertheless, stAdv is still a research-focused attack method and is not designed as a complete user-oriented application for temporal video attack generation.
 
-        
-        \item ART : Adversarial Robustness toolbox
-        \par The Adversarial Robustness Toolbox (ART) is a broader security-focused framework that provides methods for generating adversarial attacks and defenses against AI-based recognition.
-        There are currently no video perturbation methods implemented yet.
+    \item \textbf{ART : Adversarial Robustness Toolbox}
+    
+    \par The Adversarial Robustness Toolbox (ART) is a widely used framework for adversarial machine learning research. It provides many attack and defense methods and is useful for experimentation in image-based settings. However, its support is primarily centered on image and general machine learning workflows, and it does not directly provide the kind of video-focused adversarial generation pipeline needed for temporal action recognition models such as I3D.
 
-        
-    \end{enumerate}
+    \item \textbf{Foolbox}
+    
+    \par Foolbox is another widely used adversarial attack framework that offers standardized implementations of many attack algorithms. Similar to ART, it is highly useful for adversarial experimentation in image classification and related tasks, but it is not specifically designed for adversarial video generation or for user-oriented robustness testing on temporal action recognition models.
+\end{enumerate}
+
+In summary, DeepSAVA, BTC-UAP, and stAdv are the most relevant prior works from the perspective of adversarial video research, but all three are research-level implementations rather than accessible applications. ART and Foolbox provide strong general-purpose adversarial attack frameworks, but they do not directly support the video-based, I3D-focused workflow required in this project. Therefore, the main contribution of Vid-Scratch is not only the use of adversarial video attack methods, but also the presentation of these ideas through a more accessible application for robustness testing and AI-aware video transformation.
 
 \section{Literature Review}
 \label{section:literature-review}
 
 \begin{enumerate}
-    \item stAdv
-        
-    \par stAdv : Spatially Transformed Adversarial Attack
+    \item \textbf{stAdv}
+    
+    \par stAdv, or Spatially Transformed Adversarial Attack, is an adversarial attack method based on local geometric transformation rather than relying only on additive noise. Its main idea is to generate adversarial examples by slightly warping image structure in a way that remains visually similar to the original input while still misleading the model. This work is relevant to Vid-Scratch because spatial transformation is one of the important ideas incorporated into the project pipeline. In particular, it provides a useful foundation for designing perturbations that affect model prediction while preserving perceptual similarity between the original and modified output.
+    
     \begin{figure}[h]
         \centering
         \includegraphics[width=0.5\textwidth]{chapter_2/research/stAdv.png}
         \caption{Explanation of how perturbation is added}
-    
     \end{figure}
 
-    stAdv is a type of adversarial attack based on local geometric transformations.
     \begin{figure}[h]
         \centering
         \includegraphics[width=0.5\textwidth]{chapter_2/research/stAdv_with_LPIPS.png}
         \caption{Explanation of how perturbation is added with LPIPS to measure perceptual similarity between the original and the poisoned output}
-    
     \end{figure}
 
-    It has been shown by CAM attention visualization to shift the focal point of attention away from the original's, and proven to be stronger than FGSM and C\&W method
-    \begin{figure}[h]
-        \centering
-        \includegraphics[width=0.5\textwidth]{chapter_2/research/stAdv_results.png}
-        \caption{CAM attention results after image had been poisoned}
-    
-    \end{figure}
-    \begin{figure}[h]
-        \centering
-        \includegraphics[width=0.5\textwidth]{chapter_2/research/stAdv_against_other.png}
-        \caption{CAM attention results of stAdv compared to FGSM and C\&W perturbation where Benign is the control sample}
-    
-    \end{figure}
+    Previous results in the literature show that stAdv can alter model attention while maintaining strong perceptual similarity, demonstrating that spatially transformed perturbations can be effective adversarial mechanisms. This makes stAdv an important reference for the spatial component of Vid-Scratch.
 
-    \clearpage
-
-    \item BTC-UAP
+    \item \textbf{BTC-UAP}
+    
+    \par BTC-UAP, or Breaking Temporal Consistency with Universal Adversarial Perturbation, is a video-focused adversarial method that targets the temporal dimension of video models. Instead of treating each frame independently, BTC-UAP is designed to disturb temporal consistency across frames so that the model becomes less reliable when processing the full sequence. This idea is especially relevant to action recognition systems such as I3D, which rely on both spatial and temporal information to classify actions.
+    
     \begin{figure}[h]
         \centering
         \includegraphics[width=0.5\textwidth]{chapter_2/research/BTC-UAP.png}
-        \caption{BTC-UAP poisoning logic}
-    
+        \caption{BTC-UAP perturbation logic}
     \end{figure}
-    \par BTC-UAP : Breaking Temporal Consistency - Universal Adversarial Perturbation
-
-    BTC-UAP is a technique that changes videos in a way that confuses AI, making it harder to recognize patterns. This is crucial in staying subtle enough so the output image stays perceptually similar to human and not easily removable by Video Denoising Autoencoder, but strong enough to break AI's Temporal Consistency after they trained on data poisoned with BTC-UAP.
 
     \begin{figure}[h]
         \centering
         \includegraphics[width=0.5\textwidth]{chapter_2/research/Temporal_consistency_results.png}
-        \caption{Heatmap of Temporal Consistency; darker means better Consistency}
-    
+        \caption{Heatmap of temporal consistency; darker means better consistency}
     \end{figure}
 
-    Here it is demonstrated that the Temporal Consistency of BTC-UAP is the best perturbation that breaks AI’s performance worst, while the output is still perceptually identical to the original video input.
+    BTC-UAP is relevant to this project because it shows that adversarial attacks on video models must account for temporal relationships across frames rather than applying frame-level perturbations independently. This provides an important conceptual foundation for adversarial video generation against temporal action recognition models.
+
+    \item \textbf{DeepSAVA}
     
+    \par DeepSAVA is the most directly relevant prior work for this project because it specifically targets adversarial attacks on video-based action recognition and serves as the main technical foundation of the Vid-Scratch implementation. It studies how adversarial perturbations can be generated for temporal video models and is closely aligned with the inference-time and training-time attack scenarios considered in this project. Compared with more general adversarial methods, DeepSAVA is especially important because it addresses the practical difficulty of attacking video models that depend on both spatial and temporal reasoning.
+    
+    DeepSAVA is therefore not only related work, but also a core reference for the design of Vid-Scratch. However, like many research papers in this area, it is presented primarily as a research-oriented implementation rather than as a user-facing application. This creates an opportunity for Vid-Scratch to build upon its technical ideas while presenting them in a more accessible and application-oriented form.
 \end{enumerate}
 
-
-To optimize our software and be a reliable data security tool, This project will be built upon various researches like these to ensure their effectiveness against bad actors from using the ever-evolving State-of-the-Art Generative AIs as a tool to exploit user's data.
+These studies provide the main technical foundations for Vid-Scratch. In particular, stAdv contributes ideas related to spatial transformation, BTC-UAP highlights the importance of disrupting temporal consistency, and DeepSAVA provides the most direct reference for adversarial attacks on video-based action recognition. Therefore, this project builds on these works to develop a more accessible application for generating and evaluating adversarial video inputs for I3D under both inference-time and training-time scenarios.

@@ -4,91 +4,100 @@
 \section{Background}
 \label{section:background}
 
-Video Generative AI\textsuperscript{[0]} is artificial intelligence models that create videos based on textual descriptions, images, or existing video inputs. \newline
+Video-based action recognition\textsuperscript{[0]} is a class of deep learning\textsuperscript{[1]} systems that identifies human actions from video clips by analyzing both the visual appearance of individual frames and the motion patterns across frames over time. Among the architectures\textsuperscript{[2]} widely studied in this area, the Inflated 3D ConvNet (I3D)\textsuperscript{[3]} is one of the most recognized models. By extending conventional 2D convolutional networks into the temporal domain\textsuperscript{[4]} through 3D convolutions\textsuperscript{[5]}, I3D can jointly learn spatial\textsuperscript{[6]} and temporal\textsuperscript{[7]} features\textsuperscript{[8]} from video data. Due to its strong performance on benchmark datasets\textsuperscript{[9]} such as Kinetics and UCF-101, I3D has become a standard reference model in action recognition research.
 
-This AI has been utilized in many ways, such as to use AI character models to use the product like fashion and makeup to automate advertisement, aid in generating VFX\textsuperscript{[8]}, Enhance render quality with lower-end PC\textsuperscript{[12]}, Quickly upscale videos resolution, etc.\newline
+As video understanding models become more widely used, concerns about how reliably they behave under manipulated inputs have become increasingly important. In practice, video clips are no longer interpreted only by humans, but also by AI\textsuperscript{[10]} systems that classify activities, summarize content, and support automated decision-making. For everyday users such as video creators, this raises a practical issue: once a video is uploaded or shared online, the content may be analyzed, categorized, or learned by machine learning systems in ways the original owner cannot easily observe or control. Because of this, there is growing interest in tools that can help users better understand or influence how AI systems interpret their video content.
 
-But the conception of Generative AI has been controversial in itself
+Adversarial attacks\textsuperscript{[11]} provide one way to study this problem. These attacks introduce small, carefully designed perturbations\textsuperscript{[12]} into input data so that a model produces incorrect outputs while the modified content remains visually similar to the original for human viewers. Although adversarial attacks have been studied extensively for image classifiers, applying the same idea to video models is more challenging. Unlike image classification models that process one image at a time, I3D processes multiple frames jointly through 3D convolutions, integrating spatial and temporal information across the full clip. As a result, perturbations applied independently to individual frames may become less effective after temporal aggregation\textsuperscript{[13]}. This makes video-based adversarial manipulation a more complex problem and highlights the need for attack methods that explicitly account for temporal structure\textsuperscript{[14]}.
 
-It was trained with data scraped from the internet\textsuperscript{[4]}, with no regards to copyright permission or robot.txt\textsuperscript{[29]} that ask them to not use their data on their website for AI training. Of course, this sparked an outrage amongst the owner of the stolen works, who rely on commission or unique products as their main income source. Video AI is no different. Some AI engineers have been transparent on sourcing their training data only from copyright-free and ethical datasets\textsuperscript{[3]} (AnimateDiff, Adobe Firefly, Text2Video) , but the majority of the existing trained AI models\textsuperscript{[2]} does not make the separation at all (MidJourney, Sora, CogVideoX, Runway, Kling, etc.) , to the point that they openly advertised fine-tuned models that generate artwork in the style of specific artists, using their names.\newline
+These challenges motivate the development of Vid-Scratch. Rather than claiming to completely prevent AI training or fully protect video content from all forms of machine learning use, Vid-Scratch is designed as a user-oriented application for generating visually similar adversarial video variants and evaluating how susceptible I3D is to such inputs. The project focuses on two threat scenarios\textsuperscript{[15]}. In the first, a pre-trained\textsuperscript{[16]} I3D model receives an adversarially perturbed video at inference time\textsuperscript{[17]} and misclassifies the action shown in the clip. In the second, poisoned video samples\textsuperscript{[18]} are introduced into the training dataset, causing a model trained on that data to learn distorted patterns and achieve lower classification performance during evaluation. Through these two scenarios, the project aims to examine whether strong benchmark performance in action recognition also implies robustness\textsuperscript{[19]} under adversarially manipulated video inputs.
 
-The widespread use of this AI has led to concerns about copyright infringement\textsuperscript{[1]}, Many artists and content creators advocate for stricter regulations to protect their works from being used without consent, to protect the future of their career. \newline
-
-The controversy surrounding Generative AI isn’t just about copyright, it’s about how it devalues artistic labor. The issue isn’t that artists can’t produce higher-quality work, but that commissioners are willing to accept cheaper, lower-quality AI imitations that are ‘good enough’ for their purposes.\newline
-
-However, this lack of detail and cohesion will accumulate over time, as AI operates on token-based prompts rather than true creative intent. This shift doesn’t just harm individual artists, it weakens the entire support system and foundation of the creative industry. As demand for human-made art declines, fewer aspiring artists will have opportunities to develop their skills, leading to a dwindling talent pool. Without skilled artists, industries that rely on craftsmanship such as animation, illustration, and game design will suffer, ultimately lowering the overall quality of creative work in the long run.\newline
-
-Once that foundation is lost, rebuilding it becomes nearly impossible. Just as Disney can no longer return to the same level of hand-drawn 2D animation it once mastered after it shifted entirely to 3D animation, an overreliance on AI risks permanently degrading the artistic standards and craftsmanship that define creative industries. Without a strong base of skilled artists, industries like animation, illustration, and game design will struggle to maintain the depth and quality that set them apart in the first place.\newline
-
-Consumers have already expressed their disappointment with the rise of AI-generated slop content, which has flooded media platforms at an overwhelming speed, pushing high-quality, human-made work out of recommendation algorithms. However, beyond AI itself, grifters\textsuperscript{[10]} have exploited this shift by infringing on copyrighted works, fine-tuning\textsuperscript{[39]} models on stolen art, and mass-producing low-effort imitations for profit.\newline
-
-These bad actors don’t just flood platforms with AI-generated content, they actively leech off the success of original creators, diverting attention, funds, and opportunities that should have gone to real artists. As their stolen content dominates search results and recommendation feeds, genuine creators struggle to gain visibility, leading many to abandon the platform entirely.\newline
-
-As AI-generated content continues to dominate social networks, we move closer to the so-called 'Dead Internet Theory'\textsuperscript{[11]} where authentic human interaction is drowned out by automated, mass-produced content. The internet, once a space for organic connection and creativity, is becoming increasingly hostile due to rampant exploitation, with grifters\textsuperscript{[10]} and engagement farmers prioritizing profit over meaningful discourse. If this trend continues, the internet risks becoming a hollow, artificially-generated echo chamber, devoid of genuine human expression.\newline
-
-Lastly, One of the most alarming consequences of AI-generated video technology is impersonation\textsuperscript{[5]}, often referred to as "deepfakes\textsuperscript{[6]}." AI can create realistic videos of individuals, making them appear to say or do things they never did. This poses risks in identity theft\textsuperscript{[7]}, misinformation, fraud, and political manipulation\textsuperscript{[9]}. The ability to create hyper-realistic fake videos raises concerns about trust in digital content and calls for advanced detection methods to counteract malicious use.
-
-Data poisoning is a method of corrupting AI models by injecting misleading or harmful data into their training sets\textsuperscript{[13]}, ensuring that generative models\textsuperscript{[14]} cannot easily exploit original artistic content. It is an aspect of data security\textsuperscript{[15]}, and restrict malicious actors from exploiting your data against your interests.
+In addition to its research value, the project also has practical relevance. For non-expert users, Vid-Scratch can be viewed as a tool for producing video versions that remain close to the original in human perception while making AI-based action interpretation less reliable. For students, researchers, and developers, it serves as an accessible robustness-testing application that demonstrates how vulnerable temporal video models may be when exposed to carefully constructed perturbations. In this way, Vid-Scratch bridges technical adversarial machine learning research with a more user-friendly application setting.
 
 \section{Problem Statement}
 \label{section:problem-statement}
-The problem this project aims to solve has been well defined in the background section. \newline
 
-As of currently, there is a solid foundation of research on the adversarial poisoning tactics\textsuperscript{[40]} against Video Generative AI, but there is currently no software that simplifies the process for common use. People may have the idea to extract the video’s graphics frame by frame, then use the existing static Image Poisoning Processor to Poison frame by frame, then reassemble them back into their video form, but there’s still technical problems, such as:
+Although adversarial attacks have been widely studied in image classification, applying them effectively to video-based action recognition remains more difficult. Models such as Inflated 3D ConvNet (I3D) process multiple frames jointly and rely on both spatial and temporal information to recognize actions. Because of this, perturbations designed independently for single images may become less effective when extended directly to video, especially after temporal information is aggregated across the full clip. This creates a practical challenge for studying how vulnerable video action recognition models are under adversarial manipulation. \newline
+
+At the same time, there is a lack of accessible tools that allow users to generate and evaluate adversarial video inputs against temporal action recognition models in a simple and systematic way. Existing adversarial workflows are often implemented as research code, require significant technical knowledge, and are not designed as user-oriented applications. For non-expert users, students, or developers who want to test the robustness of video models, building such an adversarial pipeline from scratch can be difficult and time-consuming. \newline
+
+This project addresses these problems by developing Vid-Scratch, a user-oriented adversarial video generation application targeting I3D. The project focuses on two main threat scenarios:
 
 \begin{enumerate}
-        \item Manually poisoning frame by frame is inconvenient for production use.
-        \item Existing solution’s processing time scales horribly with video duration and fps. A 10 second video with 30 fps could take as long as 8 hours with default parameters on Glaze, and that is on the premise that the app doesn’t crash as it can only handle up to 70 images queued to poison maximum.
-        \item Static Image poisoning tactics are less effective against Video generative AI.
+    \item \textbf{Inference-time attack\textsuperscript{[20]}:} determining whether an adversarially perturbed video can cause a pre-trained I3D model to misclassify the action shown in the clip while preserving high visual similarity to the original video.
+    \item \textbf{Training-time attack\textsuperscript{[21]}:} determining whether poisoned video samples inserted into a training dataset can degrade the performance of a model trained on that data.
 \end{enumerate}
+
+In addition, the project also addresses a usability problem by providing a more practical pipeline that enables users to generate adversarial video samples and evaluate model vulnerability without having to manually combine multiple low-level attack steps on their own.
+
+Therefore, the core problem addressed in this project is not only whether I3D is vulnerable to adversarial video manipulation, but also how such attacks can be generated and evaluated through an accessible application that bridges adversarial machine learning research and practical video robustness testing.
 
 \section{Solution Overview}
 \label{section:solution-overview}
 
-This software seeks to simplify the process of video poisoning to be easy to use.
-The software will only need the user to input their video, set some preferences, start the process and wait for the poisoned video output in their designated folder.
-While being effective against generative AI and efficiently optimizing hardware resources to process larger video; ranging from 5 minutes to 2 hours, to be processed fast and reliable enough for target users such as filmmakers, content creators, and studios to incorporate this in their workflow.
+Vid-Scratch is designed as a user-oriented application that simplifies the generation of adversarial video inputs\textsuperscript{[22]} for evaluating the robustness of video-based action recognition models, particularly I3D. Instead of requiring users to manually perform multiple research-level processing steps, the software provides a more accessible workflow in which the user selects an input video, adjusts the relevant settings, starts the generation process, and receives the resulting adversarial or poisoned video output in a designated folder.
+
+The system supports two main purposes. First, it can generate adversarially perturbed videos for inference-time evaluation, allowing users to test whether a pre-trained I3D model will misclassify the action shown in the input video. Second, it can prepare poisoned video samples for training-time evaluation, allowing users to study whether modified training data can reduce the performance of a newly trained model. In both cases, the system is designed to preserve high visual similarity between the modified video and the original clip while still influencing model behavior.
+
+Because I3D processes only a limited number of frames from each input clip, the current scope of the application focuses on short videos. In this project, the system is designed for videos of no longer than one minute, which is sufficient for extracting the 40-frame representation used in the model pipeline while keeping processing practical and consistent with the project scope.
+
+In addition to its value for adversarial machine learning experiments, Vid-Scratch also has practical relevance for non-expert users. A user may create an alternative version of a video that remains visually close to the original while making AI-based action recognition less reliable. The application can also be used as a simple robustness-checking tool, helping users examine whether their videos are easily recognized or categorized by an action recognition model\textsuperscript{[23]}.
+
+Rather than claiming to completely prevent AI training or fully block all forms of machine learning use, Vid-Scratch is intended as a practical application for adversarial video generation, robustness testing, and AI-aware video transformation. In this way, the software bridges adversarial machine learning research with a more accessible application setting for students, researchers, developers, and everyday users.
 
 \subsection{Features}
 \label{subsection:features}
 
 \begin{enumerate}[leftmargin=80pt]
-    \item Video Poisoning: Poison the video by injecting perturbations\textsuperscript{[41]} that tricks the AI into learning false patterns and ruins its output consistency and quality. Before you may start, you’ll have to input your video, select the output folder, then start the poisoning process\textsuperscript{[36]}.
-    \item Adjust Poisoning Parameters\textsuperscript{[15]} Settings: Set predefined Parameters such as perturbation weights\textsuperscript{[16]} or output quality\textsuperscript{[17]} to set the perturbation strength\textsuperscript{[18]} and output quality\textsuperscript{[17]}. More parameters may be added depending on the available parameters of the system's poisoning methods\textsuperscript{[19]}.
-       \item Video format support: Input and Output only supports .mp4 for this project, but may add more file format supports in the future.
-       \item Hardware optimization: Optimize the available hardware to minimize processing time duration. This would be done automatically but may allow users to set hardware themselves if deemed appropriate.
+    \item \textbf{Inference-Time Adversarial Video Generation:} Generate visually similar adversarial video variants from an input clip in order to influence the prediction behavior of a pre-trained I3D model and evaluate whether the model misclassifies the action shown in the video.
+    
+    \item \textbf{Training-Time Poisoned Sample Generation:} Produce poisoned video samples that can be inserted into a training dataset to evaluate whether modified training data degrades the performance of a newly trained model.
+    
+    \item \textbf{Parameter Configuration:} Allow users to adjust relevant generation settings such as perturbation strength, optimization parameters\textsuperscript{[24]}, and output quality according to the available attack pipeline configuration.
+    
+    \item \textbf{Simple User Workflow:} Provide an accessible process in which the user selects a video, chooses an output location, configures settings, and runs the adversarial generation pipeline without manually combining multiple low-level attack steps.
+    
+    \item \textbf{Model Robustness Evaluation Support\textsuperscript{[25]}:} Support the evaluation of I3D vulnerability by enabling users to examine whether a video can be misclassified at inference time or whether poisoned samples can reduce model performance during training.
+    
+    \item \textbf{Short Video Support:} Support short video clips of up to one minute in length, which fit the current I3D-based processing pipeline that operates on a 40-frame representation of the input video.
+    
+    \item \textbf{Video Format Support:} Support MP4 video input and output for the current version of the project, with the possibility of extending file format support in future development.
+    
+    \item \textbf{Hardware-Aware Processing:} Use the available hardware resources to run the generation pipeline as efficiently as possible in order to reduce processing time for short video clips.
 \end{enumerate}
 
 \section{Target User}
 \label{section:target-user}
 
 \begin{itemize}
-    \item \textbf{Digital Content Creators \& Video Artists\textsuperscript{[20]}:} They have had their creations\textsuperscript{[36]} used as training data\textsuperscript{[21]} without their permission to replicate their work, making their creative, unique, curated work being buried amongst their AI copies that hurt their profits\textsuperscript{[22]} and fame.
-    \item \textbf{Industry Professionals in Media \& Entertainment\textsuperscript{[23]}:} Animation studios are at risk of having their creative works being exploited to create lower quality but faster animations. This could result in the death of the Animation industry\textsuperscript{[24]} altogether as Animator and other creatives being laid off after their works had been trained on AI and the audience ends up with an incoherent meaningless repetitive mediocre slop\textsuperscript{[25]} because the company thought that was good enough for the audience and artist become more distrustful of sharing their works online.
+    \item \textbf{General Users and Digital Content Creators:} Individuals who share short videos online, including everyday users and creators of dance clips, exercise videos, sports demonstrations, tutorials, and other action-centered content. These users may want more control over how AI systems interpret their videos, especially when they do not want their content to be easily recognized, categorized, or analyzed by action recognition models. The application allows them to generate visually similar video variants that may be more difficult for such models to interpret reliably.
 
-    \item \textbf{Anti-AI social media platforms:} Cara, BlueSky, Teezr, VGen are against any AI-generated content\textsuperscript{[26]} on their platforms. This could be part of their feature to protect their userbase’s video against being used to train on AI.
-    \item \textbf{Individuals who do not want their videos to be used to train generative AI:} From the dangers of deepfakes\textsuperscript{[6]}, regular people do not want their face to be used to train generative AI in General, but data scraping was done without considering their consent. This will force data scrapers\textsuperscript{[27]} to exclude poisoned data\textsuperscript{[28]} from their training dataset\textsuperscript{[3]}.
+    \item \textbf{Students, Researchers, and Developers:} Users who want a practical and accessible application for generating adversarial or poisoned videos in order to study the robustness of I3D under inference-time and training-time attack scenarios. This group also includes users who want to demonstrate or explain how visually similar videos can still cause incorrect predictions in temporal action recognition models.
+
+    \item \textbf{Machine Learning Practitioners and Evaluators:} Developers who need to test whether their action recognition models remain robust when exposed to adversarially perturbed or poisoned video inputs, and who may use the application as part of a robustness evaluation workflow.
 \end{itemize}
 
 \section{Benefit}
 \label{section:benefit}
-The Vid Scratch system protects video content from non-consensual AI training\textsuperscript{[30]} by applying adversarial techniques\textsuperscript{[31]} that disrupt AI perception while remaining imperceptible\textsuperscript{[32]} to humans.
+
+Vid-Scratch provides value in two main ways. From a user perspective, it gives people a practical way to create video variants that remain visually close to the original while reducing the reliability of AI-based action recognition. From a technical perspective, it offers an accessible application for evaluating the adversarial robustness of I3D under both inference-time and training-time attack scenarios.
 
 \begin{itemize}
-    \item It breaks AI generated video quality and frame consistency\textsuperscript{[33]}, stopping deepfake from producing similar creations\textsuperscript{[34]}. 
+    \item Supports AI-aware video transformation for users who want more control over how their videos may be interpreted by action recognition models.
+    \item Enables inference-time testing to observe whether adversarially perturbed videos can cause I3D to misclassify actions.
+    \item Enables training-time evaluation by generating poisoned samples that can be used to study performance degradation after training.
+    \item Makes adversarial video experimentation more accessible by reducing the need for manual, low-level processing steps.
 \end{itemize}
-
-\clearpage
 
 \section{Timeline}
 \label{section:timeline}
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.5\textwidth]{chapter_1/labels.png}
     \caption{Color Meaning chart}
 
 \end{figure}
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{chapter_1/timeline.png}
     \caption{Timeline of Project development}
@@ -101,45 +110,29 @@ You may look up to Figure 1.1. for color code meanings.
 \section{Terminology}
 \label{section:terminology}
 
-[0]AI : artificial intelligence \newline
-[1]copyright infringement : violating copyright law over a content \newline 
-[2]AI models : AI programs consisting of complex mathematical and computational techniques to process vast amounts of data and extract meaningful insights. \newline
-[3]dataset : collections of data used to train AI models. \newline
-[4]scraped from the internet : automatically collecting data from online sources, often using web crawlers or scrapers. \newline
-[5]Impersonation : The act of fraudulently imitating a person to deceive others. \newline
-[6]deepfakes : AI-generated videos that convincingly replace a person’s likeness or voice with another, often for deceptive purposes. \newline
-[7]identity theft : The unauthorized use of someone’s personal information to commit fraud or other crimes. \newline
-[8]VFX : Computer-generated effects used in media, often automated by AI.
-[9]political manipulation : The use of deceptive tactics, such as deepfakes or AI-generated propaganda, to influence public opinion or elections. \newline
-[10]Grifters : People who try to get you in get-rich-quick schemes that turned out to be a total waste of time.\newline
-[11]Dead internet theory : A conspiracy introduced by IlluminatiPirate on the forum Agora Road's Macintosh Cafe esoteric board. Referring to the future where genuine human interaction is overtaken by bots and AI generated content due to the sheer amount and available.\newline
-[12]lower-end PC : A computer with limited computational power, struggling with high-end tasks.
-[13]poisoning tactics : The tactics of poisoning a graphics content that break AI when it trained on the poisoned piece of media content \newline
-[14]static Image poisoning processor : Refer to a program that adds “AI poison” to the input non-moving image.\newline
-[15]Poisoning : The process of ‘poisoning’ the input to make it break AI models when trained on, which will increase with the percentage of poisoned works in the dataset.\newline
-[16]perturbation weights : perturbation is added via a formula (x + x’ = p; x is the original input, x’ is the perturbation and p is the poisoned output, x’ could be w*noise where w is weight and noise is the graphic of a randomized RGB image designed to make AI perform worse through computer vision) and added to the original image through the RGB channel of the original image.
-[17]output quality : The quality of the output after the input had been poisoned\newline
-[18]perturbation strength : How obvious the perturbation is in the poisoned output\newline
-[19]poisoning methods : methods to ‘poison’ an image\newline
-[20]Video Artists : Any artist that create video content, like animators or illustrator art timelapse where they post the process of creating their art\newline
-[21]training data : data that AI trains on\newline
-[22]profits : For the owner of the video, they may get their profits through commissions, platform revenue, merchandise, etc. Their profits are hurt because an AI copy could steal their originality, hard work or recommendation spots that would pay them.\newline
-[23]Industry Professionals in Media and Entertainment : Refer to any creatives who work in the Media and Entertainment industry.\newline
-[24]the death of the Animation industry : As the animation industry’s jobs become unstable and at risk of being replaced by AI, either the next generation of workers have to sacrifice their limited resources to compete with the availability and speed (but lack of quality) of AI, or perish. As their investors and customers use AI instead for cheaper, faster work. Jobs that could be the transition role for newbies to developing the skills of a professional are being replaced by AI, which means that there’s going to be less to no senior professional to pass the job on.\newline
-[25]slop : low quality content that’s mediocre at best, but usually not good enough to provide any meaningful value to the consumer.\newline
-[26]AI-generated content : Content created from AI generation via a prompt or an input image\newline
-[27]data scrapers : Refer to entity that perform data scraping to collect data for any use\newline
-[28]poisoned data : data that has been ‘poisoned’ that will break the AI when it was trained on.\newline
-[29]robot.txt :  A file that restricts web crawlers from accessing certain parts of a site.
-[30]non-consensual AI training : Refer to how AI trains on data without the data’s owner consent.\newline
-[31]adversarial techniques : A data poisoning tactic where they change the data material to encourage AI to learn false patterns during backpropagation, while maintaining the perceptual similarity to the original work.\newline
-[32]imperceptible : Undetectable with the human eye\newline
-[33]frame consistency : How video graphics make sense between the previous, current and next frame. Low frame consistency means the video is flick-ery and objects and details appear and disappear more unpredictably.\newline
-[34]similar creations : Creative products that looks similar in style or appearance\newline
-[35]intellectual property : Legal rights that protect creations of the mind, such as art, music, inventions, patents, trademarks, and copyrights.\newline
-[36]AI-driven content theft : Unauthorized use or replication of copyrighted materials by AI systems. It is a copyright infringement\newline
-[37]AI poisoning : AI poisoning (also known as data poisoning) is a method used to corrupt or manipulate machine learning models by introducing misleading or harmful data.\newline
-[38]poisoning process : The process of ‘poisoning’ the input against AI\newline
-[39]fine-tuning : Adjusting a pre-trained model with specific data to specialize it.
-[40]adversarial poisoning tactics : Manipulating training data to disrupt AI performance.
-[41]perturbations : Small changes or modifications made to data to affect the behavior of a model, often used in adversarial attacks to mislead or deceive AI systems.
+[0] Video-based action recognition : a type of AI system that identifies human actions from video clips. \newline
+[1] Deep learning : a branch of machine learning that uses neural networks with many layers to learn patterns from data. \newline
+[2] Architecture : the structural design of a neural network model. \newline
+[3] Inflated 3D ConvNet (I3D) : a video action recognition model that extends 2D convolutional networks into 3D to process both space and time. \newline
+[4] Temporal domain : the time-related dimension of data, which captures changes across frames or moments. \newline
+[5] 3D convolutions : convolution operations applied across height, width, and time in video data. \newline
+[6] Spatial : related to the visual appearance or arrangement within a single frame. \newline
+[7] Temporal : related to time and changes across multiple frames. \newline
+[8] Features : meaningful patterns or representations learned by a model from input data. \newline
+[9] Benchmark datasets : standard datasets used to evaluate and compare model performance. \newline
+[10] AI : artificial intelligence. \newline
+[11] Adversarial attacks : methods that intentionally modify input data to cause a machine learning model to make incorrect predictions. \newline
+[12] Perturbations : small modifications added to input data, often designed to be difficult for humans to notice. \newline
+[13] Temporal aggregation : the process of combining information across multiple frames over time. \newline
+[14] Temporal structure : the arrangement and relationship of information across time in a video sequence. \newline
+[15] Threat scenarios : different situations or settings in which an attack may occur. \newline
+[16] Pre-trained : a model that has already been trained on a dataset before being used for another task or evaluation. \newline
+[17] Inference time : the stage when a trained model is used to make predictions on new input data. \newline
+[18] Poisoned video samples : video data that has been intentionally modified before training in order to influence how a model learns. \newline
+[19] Robustness : the ability of a model to maintain reliable performance when facing noise, perturbations, or adversarial inputs. \newline
+[20] Inference-time attack : an attack performed when a trained model is making predictions on new input data. \newline
+[21] Training-time attack : an attack that modifies training data in order to influence how a model learns. \newline
+[22] Adversarial video generation : the process of creating modified video inputs designed to mislead a machine learning model. \newline
+[23] Action recognition model : a model that identifies or classifies human actions from video data. \newline
+[24] Optimization parameters : configurable values that control how an optimization process updates or generates perturbations. \newline
+[25] Robustness evaluation : the process of testing how reliably a model performs under perturbed, noisy, or adversarial inputs. \newline
