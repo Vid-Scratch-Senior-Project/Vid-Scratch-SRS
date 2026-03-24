@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.1.14)  25 MAR 2026 05:32
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.1.14)  25 MAR 2026 05:59
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -617,7 +617,7 @@ File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-<assets/ku/symbol.png, id=359, 308.352pt x 308.352pt>
+<assets/ku/symbol.png, id=363, 308.352pt x 308.352pt>
 File: assets/ku/symbol.png Graphic file (type png)
 <use assets/ku/symbol.png>
 Package pdftex.def Info: assets/ku/symbol.png  used on input line 5.
@@ -758,12 +758,12 @@ LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 7
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
 )
 [6] [7]
-<./assets/chapter_1/labels.png, id=641, 131.49126pt x 85.31876pt>
+<./assets/chapter_1/labels.png, id=646, 131.49126pt x 85.31876pt>
 File: ./assets/chapter_1/labels.png Graphic file (type png)
 <use ./assets/chapter_1/labels.png>
 Package pdftex.def Info: ./assets/chapter_1/labels.png  used on input line 96.
 (pdftex.def)             Requested size: 209.12683pt x 135.6991pt.
-<./assets/chapter_1/timeline.png, id=642, 672.5125pt x 358.33875pt>
+<./assets/chapter_1/timeline.png, id=647, 672.5125pt x 358.33875pt>
 File: ./assets/chapter_1/timeline.png Graphic file (type png)
 <use ./assets/chapter_1/timeline.png>
 Package pdftex.def Info: ./assets/chapter_1/timeline.png  used on input line 10
@@ -785,7 +785,7 @@ Chapter 2.
 
 
 ]
-<./assets/chapter_2/competitors/competitive-analysis.png, id=663, 803.0pt x 113
+<./assets/chapter_2/competitors/competitive-analysis.png, id=668, 803.0pt x 113
 5.24126pt>
 File: ./assets/chapter_2/competitors/competitive-analysis.png Graphic file (typ
 e png)
@@ -802,20 +802,20 @@ Underfull \hbox (badness 1082) in paragraph at lines 35--36
  []
 
 [13] [14]
-<./assets/chapter_2/research/stAdv.png, id=686, 368.1253pt x 144.54pt>
+<./assets/chapter_2/research/stAdv.png, id=691, 368.1253pt x 144.54pt>
 File: ./assets/chapter_2/research/stAdv.png Graphic file (type png)
 <use ./assets/chapter_2/research/stAdv.png>
 Package pdftex.def Info: ./assets/chapter_2/research/stAdv.png  used on input l
 ine 58.
 (pdftex.def)             Requested size: 209.12683pt x 82.11295pt.
-<./assets/chapter_2/research/stAdv_with_LPIPS.png, id=687, 255.20343pt x 114.42
+<./assets/chapter_2/research/stAdv_with_LPIPS.png, id=692, 255.20343pt x 114.42
 75pt>
 File: ./assets/chapter_2/research/stAdv_with_LPIPS.png Graphic file (type png)
 <use ./assets/chapter_2/research/stAdv_with_LPIPS.png>
 Package pdftex.def Info: ./assets/chapter_2/research/stAdv_with_LPIPS.png  used
  on input line 64.
 (pdftex.def)             Requested size: 209.12683pt x 93.77179pt.
-<./assets/chapter_2/research/BTC-UAP.png, id=689, 462.97969pt x 138.5175pt>
+<./assets/chapter_2/research/BTC-UAP.png, id=694, 462.97969pt x 138.5175pt>
 File: ./assets/chapter_2/research/BTC-UAP.png Graphic file (type png)
 <use ./assets/chapter_2/research/BTC-UAP.png>
 Package pdftex.def Info: ./assets/chapter_2/research/BTC-UAP.png  used on input
@@ -823,7 +823,7 @@ Package pdftex.def Info: ./assets/chapter_2/research/BTC-UAP.png  used on input
 (pdftex.def)             Requested size: 209.12683pt x 62.56902pt.
  [15 <./assets/chapter_2/research/stAdv.png> <./assets/chapter_2/research/stAdv
 _with_LPIPS.png>]
-<./assets/chapter_2/research/Temporal_consistency_results.png, id=698, 235.6303
+<./assets/chapter_2/research/Temporal_consistency_results.png, id=703, 235.6303
 1pt x 144.54pt>
 File: ./assets/chapter_2/research/Temporal_consistency_results.png Graphic file
  (type png)
@@ -846,7 +846,7 @@ Chapter 3.
 
 
 ] [19]
-<./assets/chapter_3/usecase_diagram.png, id=731, 472.76625pt x 673.51625pt>
+<./assets/chapter_3/usecase_diagram.png, id=736, 472.76625pt x 673.51625pt>
 File: ./assets/chapter_3/usecase_diagram.png Graphic file (type png)
 <use ./assets/chapter_3/usecase_diagram.png>
 Package pdftex.def Info: ./assets/chapter_3/usecase_diagram.png  used on input 
@@ -857,7 +857,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [20]
 [21 <./assets/chapter_3/usecase_diagram.png>] [22] [23]
-<./assets/chapter_3/home.png, id=767, 748.29562pt x 543.53062pt>
+<./assets/chapter_3/home.png, id=772, 748.29562pt x 543.53062pt>
 File: ./assets/chapter_3/home.png Graphic file (type png)
 <use ./assets/chapter_3/home.png>
 Package pdftex.def Info: ./assets/chapter_3/home.png  used on input line 201.
@@ -866,7 +866,7 @@ Package pdftex.def Info: ./assets/chapter_3/home.png  used on input line 201.
 Underfull \vbox (badness 1603) has occurred while \output is active []
 
  [24]
-<./assets/chapter_3/what is Vid Scratch.png, id=781, 749.04843pt x 542.77782pt>
+<./assets/chapter_3/what is Vid Scratch.png, id=786, 749.04843pt x 542.77782pt>
 
 File: ./assets/chapter_3/what is Vid Scratch.png Graphic file (type png)
 <use ./assets/chapter_3/what is Vid Scratch.png>
@@ -877,7 +877,7 @@ put line 209.
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [25 <./assets/chapter_3/home.png>]
-<./assets/chapter_3/feedback.png, id=788, 748.29562pt x 543.53062pt>
+<./assets/chapter_3/feedback.png, id=793, 748.29562pt x 543.53062pt>
 File: ./assets/chapter_3/feedback.png Graphic file (type png)
 <use ./assets/chapter_3/feedback.png>
 Package pdftex.def Info: ./assets/chapter_3/feedback.png  used on input line 21
@@ -887,7 +887,7 @@ Package pdftex.def Info: ./assets/chapter_3/feedback.png  used on input line 21
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [26 <./assets/chapter_3/what is Vid Scratch.png>]
-<./assets/chapter_3/main process.png, id=794, 749.04843pt x 543.53062pt>
+<./assets/chapter_3/main process.png, id=799, 749.04843pt x 543.53062pt>
 File: ./assets/chapter_3/main process.png Graphic file (type png)
 <use ./assets/chapter_3/main process.png>
 Package pdftex.def Info: ./assets/chapter_3/main process.png  used on input lin
@@ -903,7 +903,7 @@ ng>]
 
 (body/softwarearchitecture.tex
 Chapter 4.
-<./assets/chapter_4/domain_diagram.png, id=805, 410.13225pt x 223.43475pt>
+<./assets/chapter_4/domain_diagram.png, id=810, 410.13225pt x 223.43475pt>
 File: ./assets/chapter_4/domain_diagram.png Graphic file (type png)
 <use ./assets/chapter_4/domain_diagram.png>
 Package pdftex.def Info: ./assets/chapter_4/domain_diagram.png  used on input l
@@ -914,7 +914,7 @@ ine 8.
 
 
  <./assets/chapter_4/domain_diagram.png>]
-<./assets/chapter_4/class_diagram.png, id=811, 739.563pt x 650.43pt>
+<./assets/chapter_4/class_diagram.png, id=816, 739.563pt x 650.43pt>
 File: ./assets/chapter_4/class_diagram.png Graphic file (type png)
 <use ./assets/chapter_4/class_diagram.png>
 Package pdftex.def Info: ./assets/chapter_4/class_diagram.png  used on input li
@@ -924,7 +924,7 @@ ne 30.
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [30]
-<./assets/chapter_4/sequence_diagram.png, id=816, 1163.34625pt x 1559.8275pt>
+<./assets/chapter_4/sequence_diagram.png, id=821, 1163.34625pt x 1559.8275pt>
 File: ./assets/chapter_4/sequence_diagram.png Graphic file (type png)
 <use ./assets/chapter_4/sequence_diagram.png>
 Package pdftex.def Info: ./assets/chapter_4/sequence_diagram.png  used on input
@@ -939,7 +939,7 @@ diagram.png>] [33]
 
  (body/aicomponent.tex
 Chapter 5.
-<./assets/chapter_5/Domain_Diagram.png, id=832, 469.755pt x 348.30125pt>
+<./assets/chapter_5/Domain_Diagram.png, id=837, 469.755pt x 348.30125pt>
 File: ./assets/chapter_5/Domain_Diagram.png Graphic file (type png)
 <use ./assets/chapter_5/Domain_Diagram.png>
 Package pdftex.def Info: ./assets/chapter_5/Domain_Diagram.png  used on input l
@@ -968,7 +968,7 @@ Chapter 6.
 
 
 ]
-<./assets/chapter_6/Tech-Stack.png, id=885, 1791.69376pt x 1791.69376pt>
+<./assets/chapter_6/Tech-Stack.png, id=890, 1791.69376pt x 1791.69376pt>
 File: ./assets/chapter_6/Tech-Stack.png Graphic file (type png)
 <use ./assets/chapter_6/Tech-Stack.png>
 Package pdftex.def Info: ./assets/chapter_6/Tech-Stack.png  used on input line 
@@ -984,7 +984,7 @@ Package microtype Info: Loading generic protrusion settings for font family
 
 (body/deliverable.tex
 Chapter 7.
-<./assets/chapter_7/pipeline.png, id=904, 415.5525pt x 471.26062pt>
+<./assets/chapter_7/pipeline.png, id=909, 415.5525pt x 471.26062pt>
 File: ./assets/chapter_7/pipeline.png Graphic file (type png)
 <use ./assets/chapter_7/pipeline.png>
 Package pdftex.def Info: ./assets/chapter_7/pipeline.png  used on input line 26
@@ -999,13 +999,13 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 ]
 [47 <./assets/chapter_7/pipeline.png>] [48] [49] [50]
-<./assets/chapter_7/UI_Open.png, id=951, 773.89125pt x 624.08156pt>
+<./assets/chapter_7/UI_Open.png, id=956, 773.89125pt x 624.08156pt>
 File: ./assets/chapter_7/UI_Open.png Graphic file (type png)
 <use ./assets/chapter_7/UI_Open.png>
 Package pdftex.def Info: ./assets/chapter_7/UI_Open.png  used on input line 257
 .
 (pdftex.def)             Requested size: 355.51817pt x 286.70009pt.
-<./assets/chapter_7/UI_Put_Video.png, id=952, 775.39688pt x 627.84563pt>
+<./assets/chapter_7/UI_Put_Video.png, id=957, 775.39688pt x 627.84563pt>
 File: ./assets/chapter_7/UI_Put_Video.png Graphic file (type png)
 <use ./assets/chapter_7/UI_Put_Video.png>
 Package pdftex.def Info: ./assets/chapter_7/UI_Put_Video.png  used on input lin
@@ -1015,7 +1015,7 @@ e 270.
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [51 <./assets/chapter_7/UI_Open.png>]
-<./assets/chapter_7/UI_Start_Process.png, id=958, 772.38562pt x 627.09282pt>
+<./assets/chapter_7/UI_Start_Process.png, id=963, 772.38562pt x 627.09282pt>
 File: ./assets/chapter_7/UI_Start_Process.png Graphic file (type png)
 <use ./assets/chapter_7/UI_Start_Process.png>
 Package pdftex.def Info: ./assets/chapter_7/UI_Start_Process.png  used on input
@@ -1025,7 +1025,7 @@ Package pdftex.def Info: ./assets/chapter_7/UI_Start_Process.png  used on input
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [52 <./assets/chapter_7/UI_Put_Video.png>]
-<./assets/chapter_7/UI_Finish.png, id=964, 775.39688pt x 618.81187pt>
+<./assets/chapter_7/UI_Finish.png, id=969, 775.39688pt x 618.81187pt>
 File: ./assets/chapter_7/UI_Finish.png Graphic file (type png)
 <use ./assets/chapter_7/UI_Finish.png>
 Package pdftex.def Info: ./assets/chapter_7/UI_Finish.png  used on input line 2
@@ -1035,7 +1035,7 @@ Package pdftex.def Info: ./assets/chapter_7/UI_Finish.png  used on input line 2
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [53 <./assets/chapter_7/UI_Start_Process.png>]
-<./assets/chapter_7/UI_Prediction.png, id=970, 1157.07281pt x 623.32875pt>
+<./assets/chapter_7/UI_Prediction.png, id=975, 1157.07281pt x 623.32875pt>
 File: ./assets/chapter_7/UI_Prediction.png Graphic file (type png)
 <use ./assets/chapter_7/UI_Prediction.png>
 Package pdftex.def Info: ./assets/chapter_7/UI_Prediction.png  used on input li
@@ -1047,7 +1047,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
  [54 <./assets/chapter_7/UI_Finish.png>] [55 <./assets/chapter_7/UI_Prediction.
 png>]
 [56]
-<./assets/chapter_7/poison_comparison_3x1_loss.png, id=991, 1437.6912pt x 444.7
+<./assets/chapter_7/poison_comparison_3x1_loss.png, id=996, 1437.6912pt x 444.7
 014pt>
 File: ./assets/chapter_7/poison_comparison_3x1_loss.png Graphic file (type png)
 
@@ -1055,7 +1055,7 @@ File: ./assets/chapter_7/poison_comparison_3x1_loss.png Graphic file (type png)
 Package pdftex.def Info: ./assets/chapter_7/poison_comparison_3x1_loss.png  use
 d on input line 416.
 (pdftex.def)             Requested size: 418.25368pt x 129.36723pt.
-<./assets/chapter_7/poison_comparison_3x1_acc.png, id=992, 1437.6912pt x 444.70
+<./assets/chapter_7/poison_comparison_3x1_acc.png, id=997, 1437.6912pt x 444.70
 14pt>
 File: ./assets/chapter_7/poison_comparison_3x1_acc.png Graphic file (type png)
 <use ./assets/chapter_7/poison_comparison_3x1_acc.png>
@@ -1121,13 +1121,13 @@ LaTeX2e <2025-11-01>
 L3 programming layer <2025-12-29>
  ***********
 Package rerunfilecheck Info: File `document.out' has not changed.
-(rerunfilecheck)             Checksum: 6B94D73EFCA267E88D052E00322C6C07;15872.
+(rerunfilecheck)             Checksum: 1AD35B2C8A9F0ED66114576C0035FA37;15954.
  ) 
 Here is how much of TeX's memory you used:
- 16707 strings out of 467871
- 285939 string characters out of 5418376
+ 16711 strings out of 467871
+ 286012 string characters out of 5418376
  711441 words of memory out of 5000000
- 44531 multiletter control sequences out of 15000+600000
+ 44534 multiletter control sequences out of 15000+600000
  717745 words of font info for 398 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  75i,12n,79p,1571b,672s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -1145,9 +1145,9 @@ a/Local/Programs/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/Users/aumna/AppDat
 a/Local/Programs/MiKTeX/fonts/type1/urw/times/utmbi8a.pfb><C:/Users/aumna/AppDa
 ta/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Users/aumna/AppDa
 ta/Local/Programs/MiKTeX/fonts/type1/urw/times/utmri8a.pfb>
-Output written on document.pdf (83 pages, 4276523 bytes).
+Output written on document.pdf (83 pages, 4286117 bytes).
 PDF statistics:
- 1212 PDF objects out of 1440 (max. 8388607)
- 301 named destinations out of 1000 (max. 500000)
- 94027 words of extra memory for PDF output out of 106986 (max. 10000000)
+ 1217 PDF objects out of 1440 (max. 8388607)
+ 302 named destinations out of 1000 (max. 500000)
+ 94035 words of extra memory for PDF output out of 106986 (max. 10000000)
 
