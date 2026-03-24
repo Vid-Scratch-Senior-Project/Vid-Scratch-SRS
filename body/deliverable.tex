@@ -3,11 +3,480 @@
 
 \section{Software Solution}
 \label{section:software-solution}
-<TIP: Share a link to your Github repository. Showcase screenshots
-of the application and briefly describe each page here. />
+
+Vid-Scratch is delivered as a desktop application built with Tauri,
+providing a self-contained adversarial video poisoning pipeline that
+runs entirely on the user's local machine. The source code is available
+at the project GitHub repository.
+
+This section describes the full poisoning pipeline from video input to
+adversarial video output, followed by screenshots of the application
+user interface.
+
+% ─────────────────────────────────────────────────────────────────────
+\subsection{Poisoning Pipeline}
+\label{subsection:poisoning-pipeline}
+
+The pipeline transforms an input video into an adversarially perturbed
+video through six sequential stages, as illustrated below.
+
+\begin{figure}[H]
+    \centering
+    % Replace with your pipeline diagram if available
+    \includegraphics[width=\textwidth]{chapter_7/pipeline.png}
+    \caption{Overview of the Vid-Scratch adversarial poisoning pipeline.}
+    \label{fig:pipeline-overview}
+\end{figure}
+
+% ── Stage 1 ──────────────────────────────────────────────────────────
+\subsubsection{Stage 1: Video Loading and Frame Sampling}
+
+The input video is decoded frame by frame using OpenCV. All
+$N$ frames are loaded at their original resolution
+$(H_{\text{orig}} \times W_{\text{orig}})$.
+A model window of $T = 40$ uniformly sampled frames
+is then selected from the full sequence using linear indexing:
+
+\begin{equation}
+    i_t = \left\lfloor
+        \frac{t \cdot (N - 1)}{T - 1}
+    \right\rfloor,
+    \quad t = 0, 1, \ldots, T-1
+    \label{eq:frame-sampling}
+\end{equation}
+
+\noindent
+where $i_t$ is the index of the $t$-th sampled frame in the
+original sequence. The sampled frames are then resized to
+$224 \times 224$ pixels for model input.
+
+% ── Stage 2 ──────────────────────────────────────────────────────────
+\subsubsection{Stage 2: Poison Frame Budget}
+
+The number of frames to poison, $k$, is computed automatically
+from the total frame count:
+
+\begin{equation}
+    k = \max\!\left(1,\ \mathrm{round}\!\left(\frac{N}{40}\right)\right)
+    \label{eq:poison-budget}
+\end{equation}
+
+\noindent
+For a short video of $N < 40$ frames, $k = \max(1, \lfloor 0.25 N \rfloor)$
+is used instead to ensure at least one frame is poisoned.
+The budget $k$ controls how many frames in the 40-frame model
+window will receive adversarial perturbations.
+
+% ── Stage 3 ──────────────────────────────────────────────────────────
+\subsubsection{Stage 3: Bayesian Frame Selection (Algorithm 1)}
+
+Rather than perturbing all $T$ frames equally,
+Vid-Scratch selects the $k$ \emph{most vulnerable} frames
+using Bayesian Optimisation (BO) with a Gaussian Process (GP)
+surrogate model.
+
+A candidate binary mask $\mathbf{m} \in \{0,1\}^T$ assigns
+value~1 to $k$ selected frames and~0 to the rest.
+For each candidate mask, a proxy adversarial loss is evaluated:
+
+\begin{equation}
+    \mathcal{L}_{\text{proxy}}(\mathbf{m}) =
+        \lambda \, \mathcal{L}_{\text{SSIM}}(\hat{X}, X)
+        - \mathcal{L}_{\text{CE}}(f(\hat{X}),\, y)
+    \label{eq:proxy-loss}
+\end{equation}
+
+\noindent
+where $X$ is the clean model-window tensor,
+$\hat{X}$ is its perturbed version under mask $\mathbf{m}$,
+$f(\cdot)$ is the SlowFast R101 model,
+$y$ is the ground-truth label,
+$\mathcal{L}_{\text{CE}}$ is the cross-entropy loss, and
+$\mathcal{L}_{\text{SSIM}}$ is the SSIM-based perceptual
+similarity loss.
+
+The GP models the mapping from mask to proxy loss.
+At each BO iteration, the next candidate is chosen by
+maximising the Expected Improvement (EI) acquisition function:
+
+\begin{equation}
+    \mathrm{EI}(\mathbf{m}) =
+        \mathbb{E}\!\left[
+            \max\!\left(
+                \hat{\mathcal{L}}(\mathbf{m}) - \mathcal{L}^{*} - \xi,\; 0
+            \right)
+        \right]
+    \label{eq:ei}
+\end{equation}
+
+\noindent
+where $\mathcal{L}^{*}$ is the best observed proxy loss so far
+and $\xi > 0$ is an exploration parameter.
+After $N_{\text{BO}}$ iterations (default: 50),
+the mask with the highest proxy loss is selected.
+
+% ── Stage 4 ──────────────────────────────────────────────────────────
+\subsubsection{Stage 4: Adversarial Generation (Algorithm 2)}
+
+Given the selected mask $\mathbf{m}^*$, the adversarial perturbation
+is optimised jointly over a spatial flow field $U \in \mathbb{R}^{T \times 2 \times H \times W}$
+and an additive noise tensor $N \in \mathbb{R}^{T \times C \times H \times W}$.
+
+The perturbed frame sequence is constructed as:
+
+\begin{equation}
+    \hat{X}_t =
+    \begin{cases}
+        \left( \mathcal{ST}(X_t,\, U_t) + N_t \right)_{[0,1]} & \text{if } m_t = 1 \\
+        X_t & \text{if } m_t = 0
+    \end{cases}
+    \label{eq:perturbed-frame}
+\end{equation}
+
+\noindent
+where $\mathcal{ST}(\cdot, U_t)$ is a differentiable spatial
+transformer that warps frame $X_t$ according to flow field $U_t$,
+and $(\cdot)_{[0,1]}$ denotes pixel-level clamping to $[0,1]$.
+
+The full objective minimised by Adam is:
+
+\begin{equation}
+    \mathcal{L} =
+        \lambda \, \mathcal{L}_{\text{SSIM}}\!\left(
+            \hat{X}_{\mathcal{S}},\; X_{\mathcal{S}}
+        \right)
+        - \mathcal{L}_{\text{CE}}\!\left(
+            f(\hat{X}),\; y
+        \right)
+    \label{eq:main-loss}
+\end{equation}
+
+\noindent
+where $\mathcal{S} = \{t : m_t = 1\}$ is the set of poisoned frames.
+Minimising $\mathcal{L}$ simultaneously encourages high
+perceptual similarity on poisoned frames (via the SSIM term)
+and maximises the classification loss so that the model is
+more likely to misclassify (via the adversarial term).
+
+At each optimisation step, the noise is clamped:
+
+\begin{equation}
+    N_t \leftarrow \mathrm{clip}\!\left(N_t,\; -\epsilon,\; +\epsilon\right)
+    \label{eq:noise-clamp}
+\end{equation}
+
+\noindent
+where $\epsilon$ is the noise budget (default: $\epsilon = 0.03$).
+Optimisation also terminates early if the SSIM value on poisoned
+frames drops below the SSIM budget threshold $1 - \delta_{\text{SSIM}}$
+(default: $\delta_{\text{SSIM}} = 0.03$).
+
+% ── Stage 5 ──────────────────────────────────────────────────────────
+\subsubsection{Stage 5: Error-Minimising Noise (Training-Time Layer)}
+
+For the training-time attack scenario, a second noise layer
+is applied to the \emph{non-attacked} frames using the
+Error-Minimising (EM) noise strategy. This layer is designed
+to reduce the usefulness of the poisoned video as a training
+sample by minimising the classification loss on the remaining
+frames.
+
+The EM noise $\delta_t$ is updated iteratively using
+momentum-based gradient descent with sign gradient:
+
+\begin{equation}
+    \mu_{s+1} = \beta \, \mu_s
+        + \frac{\nabla_{\delta} \mathcal{L}_{\text{CE}}\!\left(
+            f(X_t + \delta_t),\, y
+        \right)}{\left\lVert
+            \nabla_{\delta} \mathcal{L}_{\text{CE}}
+        \right\rVert_1 + \epsilon_0}
+    \label{eq:em-momentum}
+\end{equation}
+
+\begin{equation}
+    \delta_{t} \leftarrow \delta_{t} - \alpha \cdot \mathrm{sign}(\mu_{s+1})
+    \label{eq:em-update}
+\end{equation}
+
+\noindent
+where $\beta = 0.9$ is the momentum coefficient,
+$\alpha$ is the step size, and $\epsilon_0$ is a small
+stabiliser. The noise is constrained by
+$\lVert \delta_t \rVert_\infty \leq \epsilon_{\text{EM}}$
+(default: $\epsilon_{\text{EM}} = 0.002$),
+keeping the base layer imperceptible to human viewers.
+
+% ── Stage 6 ──────────────────────────────────────────────────────────
+\subsubsection{Stage 6: Perturbation Mapping and Output}
+
+The adversarial perturbation is computed at the 224-pixel
+model resolution. To produce the output video at the original
+resolution, the difference $\Delta_t = \hat{X}_t^{(224)} - X_t^{(224)}$
+is upscaled back:
+
+\begin{equation}
+    \Delta_t^{(\text{orig})} =
+        \gamma \cdot \mathrm{Resize}\!\left(
+            \Delta_t,\; H_{\text{orig}} \times W_{\text{orig}}
+        \right)
+    \label{eq:perturbation-mapping}
+\end{equation}
+
+\noindent
+where $\gamma$ is a codec boost factor (default: $\gamma = 1.5$)
+that compensates for perturbation attenuation caused by video
+compression. The final output frame is:
+
+\begin{equation}
+    X_t^{(\text{out})} =
+        \mathrm{clip}\!\left(
+            X_t^{(\text{orig})} + \Delta_t^{(\text{orig})},\; 0,\; 1
+        \right)
+    \label{eq:output-frame}
+\end{equation}
+
+\noindent
+All $N$ original frames are preserved in the output video,
+with only the $k$ poisoned frames carrying the adversarial
+perturbation. The output video is saved at the original
+resolution, frame rate, and with audio from the source file
+remuxed without re-encoding.
+
+% ─────────────────────────────────────────────────────────────────────
+\subsection{User Interface}
+\label{subsection:user-interface}
+
+The Vid-Scratch desktop application provides a three-step
+workflow: select a video, configure settings, and run the
+poisoning pipeline. The following figures illustrate the
+main screens of the application.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{chapter_7/UI_Open.png}
+    \caption{
+        Initial state of the application.
+        The left panel shows the three-step workflow.
+        The right panel shows two video preview areas
+        (Original and Poisoned), both empty before a
+        video is selected.
+    }
+    \label{fig:ui-open}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{chapter_7/UI_Put_Video.png}
+    \caption{
+        After the user selects an input video via the
+        native file dialog, the original video is loaded
+        into the preview panel and the selected file path
+        is displayed. The Poisoned panel remains empty
+        until the pipeline has been executed.
+    }
+    \label{fig:ui-put-video}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{chapter_7/UI_Start_Process.png}
+    \caption{
+        Processing state. After the user clicks
+        \textit{Start Process}, the button changes to
+        \textit{Processing...} and a progress bar appears
+        below the output destination showing the current
+        stage (e.g., ``Loading model... 5\%'').
+        The Poisoned panel displays a \textit{Processing...}
+        placeholder while the pipeline runs.
+    }
+    \label{fig:ui-processing}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{chapter_7/UI_Finish.png}
+    \caption{
+        Completed state. Both the original and poisoned
+        videos are shown side by side in the preview panels.
+        The output section displays a
+        \textit{Protection successful!} message along with
+        the total processing time and number of retry
+        attempts.
+        A \textit{Show Predictions} button appears to
+        reveal the model prediction panel.
+    }
+    \label{fig:ui-finish}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{chapter_7/UI_Prediction.png}
+    \caption{
+        Prediction panel expanded.
+        The right side shows two prediction blocks:
+        \textit{Clean — Top-5 Predictions} displays the
+        model's confidence scores on the original video
+        (e.g., \textit{squat} at 100.0\%),
+        and \textit{Poisoned — Top-5 Predictions} displays
+        the model's predictions on the poisoned video
+        (e.g., \textit{eating watermelon} at 39.9\%),
+        confirming that the attack successfully caused
+        the model to misclassify the action.
+    }
+    \label{fig:ui-prediction}
+\end{figure}
 
 \section{Test Report}
 \label{section:test-report}
-<TIP: Describe how you test your project. Place a test report here.
-If you use continuousintegration and deployment (CI/CD) tools, describe your
-CI/CD method here. />
+
+The testing of Vid-Scratch is divided into three parts:
+an inference-time benchmark on real Kinetics-400 videos,
+a training-time poisoning experiment, and a unit test
+suite covering the core pipeline modules.
+
+% ─────────────────────────────────────────────────────────────────────
+\subsection{Inference-Time Attack Benchmark}
+\label{subsection:inference-benchmark}
+
+The inference-time attack was evaluated on 10 video clips
+sampled from the Kinetics-400 dataset using the default
+pipeline configuration~\cite{kay2017kinetics}
+($\epsilon = 0.03$, $\delta_{\text{SSIM}} = 0.03$,
+$N_{\text{BO}} = 50$, $T_{\text{max}} = 150$).
+Each video was processed by the full VidScratch pipeline
+and the output was verified by reloading the saved file
+and running SlowFast R101 inference again to confirm
+that the attack holds after codec compression.
+
+The results are summarised in Table~\ref{tab:benchmark}.
+
+\begin{table}[H]
+\centering
+\caption{Inference-time attack results on 10 Kinetics-400 videos.
+Orig = original predicted class index,
+Adv = adversarial predicted class index,
+SSIM = structural similarity between original and poisoned video.}
+\label{tab:benchmark}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{clcccc}
+\hline
+\textbf{\#} & \textbf{Video} & \textbf{Orig} & \textbf{Adv} & \textbf{SSIM} & \textbf{Time (s)} \\
+\hline
+1  & 01R6cmvFbZI & 108 & 353 & 0.9441 & 47.6 \\
+2  & -2VKVjgNuE0 & 305 & 105 & 0.9555 & 35.0 \\
+3  & --SrV9bGzRA & 310 & 160 & 0.9548 & 51.0 \\
+4  & 0G2A0x2-vf4 & 117 & 114 & 0.9497 & 35.1 \\
+5  & -ayNZ5bs7EQ & 289 & 256 & 0.9237 & 34.9 \\
+6  & -9GW\_m6MQd0 & 103 &   1 & 0.9268 & 45.1 \\
+7  & -7mJ12n-xyM & 335 & 304 & 0.9726 & 42.1 \\
+8  & -3zcsBnDVzU & 145 & 363 & 0.9542 & 41.4 \\
+9  & 0fjsXnccCu0 & 318 & 134 & 0.9768 & 46.4 \\
+10 & -2FbowxhzfQ & 301 & 222 & 0.9428 & 41.6 \\
+\hline
+\multicolumn{2}{l}{\textbf{Attack success rate}} & \multicolumn{4}{r}{\textbf{10/10 (100\%)}} \\
+\multicolumn{2}{l}{\textbf{Verified success rate}} & \multicolumn{4}{r}{\textbf{10/10 (100\%)}} \\
+\multicolumn{2}{l}{\textbf{Average SSIM}} & \multicolumn{4}{r}{\textbf{0.9501}} \\
+\multicolumn{2}{l}{\textbf{Average time}} & \multicolumn{4}{r}{\textbf{42.0 s/video}} \\
+\hline
+\end{tabular}
+\end{table}
+
+All 10 videos were successfully misclassified both in memory
+and after saving and reloading the output file, giving a
+verified attack success rate of 100\%. The average SSIM
+across all poisoned videos was 0.9501, indicating that the
+perturbations remain visually close to the originals.
+Average processing time was 42.0 seconds per video on CPU.
+
+% ─────────────────────────────────────────────────────────────────────
+\subsection{Training-Time Poisoning Experiment}
+\label{subsection:training-experiment}
+
+To evaluate the training-time attack scenario, a small
+classification model was trained under three data conditions
+and evaluated on a held-out clean test set at every epoch
+over 80 epochs. The three conditions were:
+
+\begin{enumerate}
+    \item \textbf{Clean model:} trained on 100\% clean videos.
+    \item \textbf{Poison model:} trained on 100\% poisoned videos.
+    \item \textbf{Mixed model:} trained on 50\% poisoned and 50\% clean videos.
+\end{enumerate}
+
+The dataset consisted of two action classes (lunges and squats)
+drawn from a UCF-101 subset~\cite{soomro2012ucf101}, with 60 videos per class and a
+50/60 train split. The target model was a lightweight
+two-class classifier fine-tuned from SlowFast R101 features.
+Training used a batch size of 4, a learning rate of 0.0005,
+and ran for 80 epochs.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{chapter_7/poison_comparison_3x1_loss.png}
+    \caption{
+        Training loss (white) and test loss on clean data (blue)
+        across 80 epochs for three training conditions.
+        Left: clean model. Centre: poison model.
+        Right: mixed model (50\% poison + 50\% clean).
+    }
+    \label{fig:poison-loss}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{chapter_7/poison_comparison_3x1_acc.png}
+    \caption{
+        Training accuracy (white) and test accuracy on clean data (blue)
+        across 80 epochs for three training conditions.
+        Left: clean model. Centre: poison model.
+        Right: mixed model (50\% poison + 50\% clean).
+    }
+    \label{fig:poison-acc}
+\end{figure}
+
+The results show that all three models achieve high training
+accuracy (above 90\%) by the end of training, which is
+expected as each model is able to overfit its own training
+distribution. The key observation is in the test loss on
+clean data. The clean model shows a clear downward trend
+in test loss, reflecting genuine generalisation to unseen
+clean samples. The mixed model, by contrast, shows a
+slightly increasing trend in test loss on clean data
+despite the training loss continuing to decrease, which is
+consistent with the poisoned samples introducing conflicting
+gradient signals that partially disrupt clean generalisation.
+
+These results should be interpreted with caution for two
+reasons. First, the dataset is small (approximately 60
+videos per class), which causes high variance in the loss
+curves and makes it difficult to draw statistically strong
+conclusions. Second, the poisoning was applied using a
+SlowFast R101 model trained on all 400 Kinetics classes,
+whereas the downstream classifier was trained on only two
+classes, which reduces the alignment between the adversarial
+perturbation and the training objective. Despite these
+limitations, the mixed model's test loss trend suggests
+that poisoned data can introduce measurable interference
+in clean generalisation even at low noise levels, which
+is consistent with the expected behaviour of the
+error-minimising noise component.
+
+% ─────────────────────────────────────────────────────────────────────
+\subsection{Unit Testing}
+\label{subsection:unit-testing}
+
+Unit tests covering the core pipeline modules are
+maintained in the project GitHub repository. The test
+suite verifies the correctness of the video loading and
+frame sampling functions in \texttt{video\_io.py}, the
+SlowFast R101 wrapper in \texttt{model\_wrapper.py},
+the Bayesian frame selector and adversarial generator
+in \texttt{vidscratch.py}, and the perturbation mapping
+and output saving functions.
+
+All unit tests pass on the current codebase. No
+continuous integration or deployment pipeline is
+configured for this project, as the system is
+distributed as a local desktop application and does
+not involve a hosted backend service.

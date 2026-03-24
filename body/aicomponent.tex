@@ -16,7 +16,7 @@ The domain diagram above illustrates the overall system structure of Vid-Scratch
 
 AI is suitable for this task because generating effective adversarial perturbations requires understanding how a model processes and classifies video input, particularly the feature representations and decision boundaries on which the model relies. Rather than applying random noise, the adversarial generation process uses gradient-based optimization to produce perturbations that are specifically designed to affect the model's predictions while remaining imperceptible to human viewers.
 
-By applying perturbations that exploit the model's internal feature representations, the system aims to cause I3D to incorrectly classify the action shown in the video at inference time, or to learn distorted patterns when trained on poisoned data. At the same time, the visual appearance of the output video remains close to the original, allowing the protected content to remain usable for human viewers.
+By applying perturbations that exploit the model's internal feature representations, the system aims to cause SlowFast R101 to incorrectly classify the action shown in the video at inference time, or to learn distorted patterns when trained on poisoned data. At the same time, the visual appearance of the output video remains close to the original, allowing the protected content to remain usable for human viewers.
 
 \section{Goal Hierarchy}
 \label{section:goal-hierarchy}
@@ -25,7 +25,7 @@ By applying perturbations that exploit the model's internal feature representati
 \begin{enumerate}
     \item 
     \textbf{Goal:}
-    Develop an accessible application for generating adversarial video inputs targeting I3D within the defined project scope. \\
+    Develop an accessible application for generating adversarial video inputs targeting SlowFast R101 within the defined project scope. \\
     \textbf{Measured by:} 
     Successful delivery of a working application that supports the generation of adversarial video outputs for both inference-time and training-time evaluation scenarios. \\
     \textbf{Data collection:}
@@ -38,13 +38,13 @@ By applying perturbations that exploit the model's internal feature representati
 \begin{enumerate}
     \item 
     \textbf{Goal:}
-    Generate adversarial video outputs that influence I3D model behavior while preserving visual similarity to the original video. \\
+    Generate adversarial video outputs that influence SlowFast R101 model behavior while preserving visual similarity to the original video. \\
     \textbf{Measured by:} 
     Attack success rate during inference-time evaluation, performance degradation during training-time evaluation, and perceptual similarity measurements such as SSIM. \\
     \textbf{Data collection:}
     Model prediction logs, classification accuracy records, and perceptual similarity measurements on processed video samples. \\
     \textbf{Operationalization:} 
-    Evaluate whether adversarially perturbed videos cause incorrect action classification by I3D, and whether poisoned training data reduces model accuracy, while confirming that SSIM remains above an acceptable threshold.
+    Evaluate whether adversarially perturbed videos cause incorrect action classification by SlowFast R101, and whether poisoned training data reduces model accuracy, while confirming that SSIM remains above an acceptable threshold.
 \end{enumerate}
 
 \subsubsection{User Goals}
@@ -64,13 +64,13 @@ By applying perturbations that exploit the model's internal feature representati
 \begin{enumerate}
     \item 
     \textbf{Goal:}
-    Generate adversarial perturbations that are effective against I3D by exploiting both the spatial and temporal structure of the input video. \\
+    Generate adversarial perturbations that are effective against SlowFast R101 by exploiting both the spatial and temporal structure of the input video. \\
     \textbf{Measured by:} 
     Attack success rate during inference-time evaluation and accuracy reduction during training-time evaluation, compared with a baseline of unperturbed inputs. \\
     \textbf{Data collection:}
-    I3D prediction results on adversarial and clean video inputs, together with training accuracy curves on poisoned and clean datasets. \\
+    SlowFast R101 prediction results on adversarial and clean video inputs, together with training accuracy curves on poisoned and clean datasets. \\
     \textbf{Operationalization:} 
-    Compare model predictions and training outcomes between clean and adversarial conditions to quantify the impact of the generated perturbations on I3D performance.
+    Compare model predictions and training outcomes between clean and adversarial conditions to quantify the impact of the generated perturbations on SlowFast R101 performance.
 \end{enumerate}
 
 \section{Task Requirements Analysis Using AI Canvas}
@@ -81,10 +81,10 @@ By applying perturbations that exploit the model's internal feature representati
 \subsubsection*{Requirements (REQ)}
 \begin{itemize}
     \item REQ-1: The AI must generate adversarial perturbations 
-    that cause a pre-trained I3D model to incorrectly classify 
+    that cause a pre-trained SlowFast R101 model to incorrectly classify 
     the action shown in the input video at inference time.
     \item REQ-2: The AI must generate perturbed video samples 
-    that reduce the classification performance of an I3D model 
+    that reduce the classification performance of a SlowFast R101 model 
     trained on the perturbed dataset.
     \item REQ-3: The generated perturbations must preserve 
     visual similarity to the original video as measured by 
@@ -119,8 +119,9 @@ By applying perturbations that exploit the model's internal feature representati
     \item ENV-3: GPU acceleration is recommended for efficient 
     adversarial generation, particularly for the optimization 
     steps in the DeepSAVA pipeline.
-    \item ENV-4: The backend is served via a FastAPI server 
-    and accessed through an Electron-based frontend application.
+    \item ENV-4: The backend runs as a compiled Python executable 
+    spawned by the Tauri Rust core, and is accessed through a 
+    React-based frontend embedded in the Tauri desktop application.
 \end{itemize}
 
 \subsection{AI Canvas Development}
@@ -136,18 +137,18 @@ in length, uploaded by the user through the application
 interface. \\
 \hline
 \textbf{Expected Output} & Adversarially perturbed video 
-files that cause I3D to incorrectly classify the action 
+files that cause SlowFast R101 to incorrectly classify the action 
 at inference time, or perturbed video samples that reduce 
 model performance when used as training data, while 
 remaining visually similar to the original. \\
 \hline
-\textbf{Tools/Frameworks} & Python, PyTorch, FastAPI, 
-OpenCV, and Electron. The adversarial generation pipeline 
-is based on DeepSAVA, incorporating Bayesian Optimization, 
-spatial transformation, and gradient-based noise 
-optimization. \\
+\textbf{Tools/Frameworks} & Python, PyTorch, OpenCV, and Tauri. 
+The adversarial generation pipeline is based on DeepSAVA, 
+incorporating Bayesian Optimization, spatial transformation, 
+and gradient-based noise optimization, with SlowFast R101 
+pretrained on Kinetics-400 as the target model. \\
 \hline
-\textbf{Success Criteria} & Attack success against I3D is 
+\textbf{Success Criteria} & Attack success against SlowFast R101 is 
 observed during inference-time evaluation; training on 
 perturbed data results in measurable performance reduction 
 compared with clean data; and SSIM between the original 
@@ -157,7 +158,6 @@ and output video remains above an acceptable threshold. \\
 \end{table}
 
 \section{User Experience Design with AI}
-
 \label{section:user-experience-design-with-AI}
 
 \subsection{Interaction Style}
@@ -189,7 +189,7 @@ page with the following options:
 \subsection{AI Contribution to System Intelligence}
 
 Vid-Scratch integrates AI to perform gradient-based 
-adversarial video generation targeting I3D. This approach 
+adversarial video generation targeting SlowFast R101. This approach 
 provides capabilities that would be difficult to achieve 
 through non-AI methods alone.
 
@@ -198,13 +198,13 @@ through non-AI methods alone.
     \item Manual frame editing or fixed noise filters that 
     do not account for how the model processes video input.
     \item Static perturbations that may be less effective 
-    against temporal aggregation in video models such as I3D.
+    against temporal aggregation in video models such as SlowFast R101.
 \end{itemize}
 
 \subsubsection{With AI Integration}
 \begin{itemize}
     \item Gradient-based optimization that targets the 
-    feature representations used by I3D.
+    feature representations used by SlowFast R101.
     \item Bayesian Optimization for identifying the most 
     influential frames to perturb, improving perturbation 
     effectiveness while keeping modifications minimal.

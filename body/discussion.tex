@@ -1,30 +1,255 @@
 \chapter{Conclusion and Discussion}
 \label{chap:conclusion-discussion}
 
+\section{Challenges and Solutions}
+\label{section:challenges}
 
-<TIP: Discuss your work here. For example, you can discuss software patterns
-that you use in this project, software libraries, difficulties encountered during
-development, or any other topic. />
+\subsection{Finding an Effective Low-Noise Poisoning Method}
 
-We both need to develop a better base understanding of our AI generation, Data poisoning and many other topics to understand how we could poison video best, and as hardware efficient as possible.
-Thus, we currently are doing AI workshop labs in our freetime, advised by our project overseer Dr. Punpiti, starting since 7 January 2025.
+The most significant challenge in this project was
+identifying an adversarial perturbation method that
+could cause a video action recognition model to
+misclassify while keeping the noise imperceptibly small.
+Most published research in this area focuses on
+high-visibility perturbations or physical-world attacks,
+such as adversarial patches or printed eyeglass frames,
+which are not suitable for the use case of protecting
+user-uploaded video content.
 
-AI labs
-- Cat-dog Classification
-- stAdv application
-- text-to-video training
-- BTC-UAP poisoning result and statistics
-- Quantifiable Metrics of video generation model degradation via adversarial attack
+The team surveyed multiple attack methods from the
+literature, including universal adversarial perturbations,
+black-box transfer attacks, and feature-space poisoning
+approaches, before settling on the sparse adversarial
+spatial-transform approach from Mu et al. (BMVC 2021).
+Even after selecting this method, adapting it to work
+reliably on SlowFast R101 required extensive
+experimentation with the noise budget, SSIM constraint,
+Bayesian Optimisation parameters, and the codec boost
+factor to compensate for compression attenuation.
 
-We have to be clear in privacy and use of customer data, where we confirm at no point in the development of this project we infringed existing copyright or user's data. User's data will not be collected to use nor bypass their own copyright. Any use will be towards to display degradation of poisoned model but the data itself will not be recorded nor made public to any identity. In any case, user can choose to opt out in the settings regarding the privacy of their contents, which might disabled some UI features.
+\subsection{GPU Compatibility with Bayesian Frame Selection}
 
-We are new to many tech such as Electron js Huggingface and NVIDIA NIM, along with pytorch <queue system in python lib>
+The Bayesian frame selection component runs a short
+inner optimisation loop for each candidate mask
+evaluation. On CPU this is manageable for a small
+number of candidates, but the full BO procedure with
+50 iterations is computationally intensive. Testing
+on Apple Silicon MacBooks revealed that the MPS
+backend does not fully support the tensor operations
+used in the spatial transformer and the GP kernel
+computations, causing the pipeline to fall back to
+CPU. A single BO pass on CPU without GPU acceleration
+was observed to take approximately one hour per video,
+which made iterative development impractical.
 
-structure design method overall approved by advisors
+This was partially addressed by reducing the number of
+BO iterations during development and running full
+evaluations on CUDA-enabled hardware. The final
+pipeline defaults to CUDA when available and falls
+back to CPU otherwise, with a note to users that
+processing time on CPU may be significantly longer.
 
-Our Objectives
-\begin{itemize}
-    \item It breaks AI generated video quality and frame consistency\textsuperscript{[33]}, stopping deepfake from producing similar creations\textsuperscript{[34]}.
-    \item It enhances intellectual property\textsuperscript{[35]} protection for creators and safeguards the creative industry from AI-driven content theft\textsuperscript{[36]}.
-    \item Its easy-to-use implementation allows everyone to apply AI poisoning\textsuperscript{[37]} without requiring advanced technical expertise.
-\end{itemize}
+\subsection{Dependency on a Large Pretrained Model}
+
+SlowFast R101 is a large model that must be downloaded
+from the PyTorchVideo hub on first use. This creates
+a dependency on an internet connection during the
+initial setup and adds approximately 200 MB to the
+application footprint. The model is cached after the
+first download, but users on slow connections or
+restricted networks may encounter difficulties. This
+was mitigated by adding a loading progress indicator
+in the application and providing clear error messages
+when the model cannot be fetched.
+
+\subsection{Background in AI and Data Poisoning}
+
+At the start of the project, both team members had
+limited prior experience with adversarial machine
+learning and video model architectures. To build the
+necessary background, the team participated in a
+series of AI workshop labs advised by the project
+supervisor, beginning in January 2025. Topics covered
+included binary image classification, the stAdv
+spatial-transform attack, text-to-video model training,
+and quantifiable metrics for evaluating model
+degradation under adversarial inputs. This foundational
+work was essential for understanding the limitations of
+existing approaches and making informed design decisions
+throughout the project.
+
+\section{Limitations}
+\label{section:limitations}
+
+\subsection{GPU Requirement for Practical Use}
+
+The full VidScratch pipeline with Bayesian Optimisation
+is not practical to run on CPU for most users. On a
+modern laptop without a CUDA-capable GPU, processing
+a single short video can take over an hour. This
+limits the accessibility of the application for
+users who do not have access to a discrete GPU,
+which contradicts the project's goal of providing an
+accessible tool for everyday users.
+
+\subsection{Limited Impact on Training-Time Attacks}
+
+The training-time poisoning experiment demonstrated
+that the perturbations produced by VidScratch have
+only a modest effect on a model trained on poisoned
+data. The adversarial noise is optimised to fool a
+400-class SlowFast R101 model, but when the downstream
+model is trained on a small two-class dataset the
+gradient signal from the perturbation is not well
+aligned with the training objective. The result is
+a subtle increase in test loss rather than a clear
+degradation in model performance. For the training-time
+attack to be more effective, the perturbation would
+need to be generated with knowledge of the downstream
+training setup, which is not available in a practical
+user-facing tool.
+
+\subsection{Fixed Target Model}
+
+The current implementation targets SlowFast R101
+exclusively. Users who want to test robustness
+against a different action recognition model, or
+who encounter a platform that uses a different
+architecture, cannot use VidScratch directly without
+modifying the codebase. The pipeline is designed to
+be extensible, but swapping the target model requires
+technical knowledge of the Python backend.
+
+\subsection{Short Video Constraint}
+
+The pipeline is designed for videos of up to one
+minute in length, which covers most short-form
+content but excludes longer recordings. Extending
+support to longer videos would require changes to
+the frame sampling and memory management logic,
+as processing all frames of a long video at full
+resolution would exceed the memory available on
+most consumer hardware.
+
+\section{Future Work}
+\label{section:future-work}
+
+\subsection{Support for Transformer-Based Video Models}
+
+The most natural extension of this project is to
+target more recent video understanding architectures,
+particularly transformer-based models such as
+VideoMAE, TimeSformer, and Video Swin Transformer.
+These models have largely replaced CNN-based
+architectures such as SlowFast on standard benchmarks.
+Generating adversarial perturbations that transfer
+across model families — or that are effective against
+attention-based temporal reasoning specifically —
+remains an open and technically interesting problem.
+
+\subsection{Improved Training-Time Effectiveness}
+
+Future work could explore poisoning strategies that
+are more directly aligned with the downstream training
+objective. One direction is to generate perturbations
+that target the feature representations learned by the
+model rather than its final classification output.
+Targeting intermediate feature layers tends to
+produce more transferable and training-disruptive
+perturbations, and may remain effective even when
+the downstream model differs from the attack model.
+
+\subsection{GPU-Efficient Frame Selection}
+
+Replacing the current Gaussian-Process-based Bayesian
+Optimisation with a lighter alternative, such as a
+gradient-based saliency score or a simple frame-level
+loss ranking, could substantially reduce processing
+time without significantly reducing attack effectiveness.
+This would make the pipeline usable on CPU in a
+practical amount of time and improve accessibility
+for users without dedicated GPU hardware.
+
+\subsection{Broader Video Format Support}
+
+The current version supports MP4 input and output only.
+Future versions could extend support to additional
+formats such as AVI, MKV, and MOV, and could also
+support frame-rate-aware perturbation to handle
+high-frame-rate content more consistently.
+
+\section{Privacy and Data Usage}
+\label{section:privacy}
+
+Vid-Scratch processes all video data locally on the
+user's machine. No video content, frame data, or
+personal information is transmitted to any external
+server at any point during the poisoning pipeline.
+The application does not collect usage data or
+telemetry. Adversarial outputs produced by the
+pipeline are saved to a user-specified local folder
+and are not shared or made accessible to any third
+party.
+
+The project did not use any copyrighted material
+without permission during development. Videos used
+for evaluation were drawn from the publicly available
+Kinetics-400 and UCF-101 datasets under their
+respective research-use licenses. Any user-supplied
+video content is used solely for the purpose of
+generating the adversarial output requested by the
+user and is not retained by the application.
+
+\section{Conclusion}
+\label{section:conclusion}
+
+This project presented Vid-Scratch, a desktop
+application that generates adversarially perturbed
+video clips designed to cause a pre-trained action
+recognition model to misclassify the action shown
+in the input video, while preserving high visual
+similarity to the original content. The system
+targets SlowFast R101 pretrained on Kinetics-400
+and implements a two-stage pipeline consisting of
+Bayesian Optimisation for sparse frame selection
+followed by joint optimisation of a spatial
+transformation field and additive noise using Adam.
+
+The inference-time attack achieved a verified
+success rate of 100\% across 10 Kinetics-400 test
+videos with an average SSIM of 0.9501, demonstrating
+that the approach can reliably cause misclassification
+while keeping the perturbation imperceptible to
+casual inspection. The training-time experiment
+showed a modest but observable effect on clean
+test loss when poisoned samples were mixed into
+the training data, though the limited dataset
+size and the mismatch between the 400-class attack
+model and the 2-class training setup reduce the
+strength of this result.
+
+Beyond the technical results, the project also
+produced an accessible desktop application that
+allows non-expert users to apply adversarial
+video poisoning without requiring knowledge of
+the underlying machine learning methods. In this
+respect, Vid-Scratch bridges adversarial machine
+learning research and a more practical application
+setting, and serves as a demonstration of how
+strong benchmark performance in action recognition
+does not necessarily imply robustness under
+carefully constructed adversarial inputs.
+
+Several limitations remain, most notably the
+requirement for a CUDA-capable GPU for practical
+use and the limited effectiveness of the
+training-time attack under the current noise
+budget. These point to clear directions for
+future work, including support for
+transformer-based video models, GPU-efficient
+frame selection, and more targeted training-time
+poisoning strategies. With these improvements,
+a future version of the system could provide a
+more complete and practically useful tool for
+evaluating and demonstrating the adversarial
+vulnerability of video understanding models.

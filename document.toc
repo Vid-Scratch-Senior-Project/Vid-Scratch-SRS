@@ -1,0 +1,102 @@
+ \relax \fontsize {16}{20.74}\selectfont \noindent \textbf {Content}\hfill \textbf {Page}\par \addvspace {.2in} \relax \fontsize {14.4}{17}\selectfont \abovedisplayskip 14\p@ plus3\p@ minus7\p@ \abovedisplayshortskip \z@ plus4\p@ \belowdisplayshortskip 7\p@ plus4\p@ minus3\p@ \belowdisplayskip \abovedisplayskip \let \leftmargin \leftmargini \parsep 4\p@ plus2\p@ minus\p@ \topsep 8\p@ plus2\p@ minus4\p@ \itemsep 4\p@ plus2\p@ minus\p@ \leftmargin \leftmargini \parsep 4\p@ plus2\p@ minus\p@ \topsep 8\p@ plus2\p@ minus4\p@ \itemsep 4\p@ plus2\p@ minus\p@ 
+\contentsline {chapter}{\nameref {chap:abstract}}{i}{chapter*.1}%
+\contentsline {chapter}{\nameref {chap:acknowledgement}}{iii}{chapter*.2}%
+\contentsline {chapter}{\nameref {chap:lot}}{viii}{chapter*.4}%
+\contentsline {chapter}{\nameref {chap:lof}}{x}{chapter*.5}%
+\contentsline {chapter}{Chapter \hbox to\@tempdima {1\hfil }\leftprotrusion Introduction}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Background}{1}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Problem Statement}{3}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Solution Overview}{4}{section.1.3}%
+\contentsline {subsection}{\numberline {1.3.1}Features}{5}{subsection.1.3.1}%
+\contentsline {section}{\numberline {1.4}Target User}{6}{section.1.4}%
+\contentsline {section}{\numberline {1.5}Benefit}{7}{section.1.5}%
+\contentsline {section}{\numberline {1.6}Timeline}{8}{section.1.6}%
+\contentsline {section}{\numberline {1.7}Terminology}{9}{section.1.7}%
+\contentsline {chapter}{Chapter \hbox to\@tempdima {2\hfil }\leftprotrusion Literature Review and Related Work}{11}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Competitor Analysis}{12}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Literature Review}{14}{section.2.2}%
+\contentsline {chapter}{Chapter \hbox to\@tempdima {3\hfil }\leftprotrusion Requirement Analysis}{18}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Stakeholder Analysis}{18}{section.3.1}%
+\contentsline {section}{\numberline {3.2}User Stories}{19}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}Generate AI-Aware Video Variants}{19}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2}Preserve Visual Similarity}{19}{subsection.3.2.2}%
+\contentsline {subsection}{\numberline {3.2.3}Configure Generation Parameters}{19}{subsection.3.2.3}%
+\contentsline {subsection}{\numberline {3.2.4}Test Inference-Time Vulnerability}{19}{subsection.3.2.4}%
+\contentsline {subsection}{\numberline {3.2.5}Prepare Training-Time Poisoned Samples}{20}{subsection.3.2.5}%
+\contentsline {subsection}{\numberline {3.2.6}Process Short Videos Efficiently}{20}{subsection.3.2.6}%
+\contentsline {subsection}{\numberline {3.2.7}Monitor Generation Progress}{20}{subsection.3.2.7}%
+\contentsline {section}{\numberline {3.3}Use Case Diagram}{21}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Use Case Model}{22}{section.3.4}%
+\contentsline {subsection}{\numberline {3.4.1}Use Case 1: Upload Video}{22}{subsection.3.4.1}%
+\contentsline {subsection}{\numberline {3.4.2}Use Case 2: Configure Generation Parameters}{22}{subsection.3.4.2}%
+\contentsline {subsection}{\numberline {3.4.3}Use Case 3: Start Adversarial Generation}{23}{subsection.3.4.3}%
+\contentsline {subsection}{\numberline {3.4.4}Use Case 4: Monitor Processing Progress}{23}{subsection.3.4.4}%
+\contentsline {subsection}{\numberline {3.4.5}Use Case 5: Preview Output Video}{24}{subsection.3.4.5}%
+\contentsline {subsection}{\numberline {3.4.6}Use Case 6: Export Output Video}{24}{subsection.3.4.6}%
+\contentsline {section}{\numberline {3.5}User Interface Design}{25}{section.3.5}%
+\contentsline {chapter}{Chapter \hbox to\@tempdima {4\hfil }\leftprotrusion Software Architecture Design}{29}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Domain Model}{29}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Processor}{29}{subsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.1.2}Poisoner}{30}{subsection.4.1.2}%
+\contentsline {subsection}{\numberline {4.1.3}Video}{30}{subsection.4.1.3}%
+\contentsline {subsection}{\numberline {4.1.4}Frame}{30}{subsection.4.1.4}%
+\contentsline {section}{\numberline {4.2}Design Class Diagram}{31}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Sequence Diagram}{32}{section.4.3}%
+\contentsline {chapter}{Chapter \hbox to\@tempdima {5\hfil }\leftprotrusion AI Component}{34}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Business Context \& AI Integration}{34}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Goal Hierarchy}{35}{section.5.2}%
+\contentsline {subsubsection}{Organization Goals}{35}{section*.6}%
+\contentsline {subsubsection}{System Goals}{35}{section*.7}%
+\contentsline {subsubsection}{User Goals}{36}{section*.8}%
+\contentsline {subsubsection}{AI Model Goals}{36}{section*.9}%
+\contentsline {section}{\numberline {5.3}Task Requirements Analysis Using AI Canvas}{37}{section.5.3}%
+\contentsline {subsection}{\numberline {5.3.1}AI Task Requirements}{37}{subsection.5.3.1}%
+\contentsline {subsection}{\numberline {5.3.2}AI Canvas Development}{39}{subsection.5.3.2}%
+\contentsline {section}{\numberline {5.4}User Experience Design with AI}{39}{section.5.4}%
+\contentsline {subsection}{\numberline {5.4.1}Interaction Style}{39}{subsection.5.4.1}%
+\contentsline {subsection}{\numberline {5.4.2}User Feedback Mechanism}{40}{subsection.5.4.2}%
+\contentsline {subsection}{\numberline {5.4.3}AI Contribution to System Intelligence}{40}{subsection.5.4.3}%
+\contentsline {subsubsection}{Without AI Integration}{40}{section*.13}%
+\contentsline {subsubsection}{With AI Integration}{40}{section*.14}%
+\contentsline {chapter}{Chapter \hbox to\@tempdima {6\hfil }\leftprotrusion Software Development}{42}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Software Development Methodology}{42}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Technology Stack}{43}{section.6.2}%
+\contentsline {subsection}{\numberline {6.2.1}Frontend}{43}{subsection.6.2.1}%
+\contentsline {subsection}{\numberline {6.2.2}Backend and AI Pipeline}{44}{subsection.6.2.2}%
+\contentsline {subsection}{\numberline {6.2.3}Development and Experimentation Tools}{44}{subsection.6.2.3}%
+\contentsline {section}{\numberline {6.3}Coding Standards}{44}{section.6.3}%
+\contentsline {section}{\numberline {6.4}Progress Tracking Report}{45}{section.6.4}%
+\contentsline {chapter}{Chapter \hbox to\@tempdima {7\hfil }\leftprotrusion Deliverable}{46}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Software Solution}{46}{section.7.1}%
+\contentsline {subsection}{\numberline {7.1.1}Poisoning Pipeline}{46}{subsection.7.1.1}%
+\contentsline {subsubsection}{Stage 1: Video Loading and Frame Sampling}{47}{section*.15}%
+\contentsline {subsubsection}{Stage 2: Poison Frame Budget}{48}{section*.16}%
+\contentsline {subsubsection}{Stage 3: Bayesian Frame Selection (Algorithm 1)}{48}{section*.17}%
+\contentsline {subsubsection}{Stage 4: Adversarial Generation (Algorithm 2)}{49}{section*.18}%
+\contentsline {subsubsection}{Stage 5: Error-Minimising Noise (Training-Time Layer)}{50}{section*.19}%
+\contentsline {subsubsection}{Stage 6: Perturbation Mapping and Output}{50}{section*.20}%
+\contentsline {subsection}{\numberline {7.1.2}User Interface}{51}{subsection.7.1.2}%
+\contentsline {section}{\numberline {7.2}Test Report}{55}{section.7.2}%
+\contentsline {subsection}{\numberline {7.2.1}Inference-Time Attack Benchmark}{55}{subsection.7.2.1}%
+\contentsline {subsection}{\numberline {7.2.2}Training-Time Poisoning Experiment}{56}{subsection.7.2.2}%
+\contentsline {subsection}{\numberline {7.2.3}Unit Testing}{58}{subsection.7.2.3}%
+\contentsline {chapter}{Chapter \hbox to\@tempdima {8\hfil }\leftprotrusion Conclusion and Discussion}{59}{chapter.8}%
+\contentsline {section}{\numberline {8.1}Challenges and Solutions}{59}{section.8.1}%
+\contentsline {subsection}{\numberline {8.1.1}Finding an Effective Low-Noise Poisoning Method}{59}{subsection.8.1.1}%
+\contentsline {subsection}{\numberline {8.1.2}GPU Compatibility with Bayesian Frame Selection}{59}{subsection.8.1.2}%
+\contentsline {subsection}{\numberline {8.1.3}Dependency on a Large Pretrained Model}{60}{subsection.8.1.3}%
+\contentsline {subsection}{\numberline {8.1.4}Background in AI and Data Poisoning}{60}{subsection.8.1.4}%
+\contentsline {section}{\numberline {8.2}Limitations}{61}{section.8.2}%
+\contentsline {subsection}{\numberline {8.2.1}GPU Requirement for Practical Use}{61}{subsection.8.2.1}%
+\contentsline {subsection}{\numberline {8.2.2}Limited Impact on Training-Time Attacks}{61}{subsection.8.2.2}%
+\contentsline {subsection}{\numberline {8.2.3}Fixed Target Model}{61}{subsection.8.2.3}%
+\contentsline {subsection}{\numberline {8.2.4}Short Video Constraint}{62}{subsection.8.2.4}%
+\contentsline {section}{\numberline {8.3}Future Work}{62}{section.8.3}%
+\contentsline {subsection}{\numberline {8.3.1}Support for Transformer-Based Video Models}{62}{subsection.8.3.1}%
+\contentsline {subsection}{\numberline {8.3.2}Improved Training-Time Effectiveness}{62}{subsection.8.3.2}%
+\contentsline {subsection}{\numberline {8.3.3}GPU-Efficient Frame Selection}{62}{subsection.8.3.3}%
+\contentsline {subsection}{\numberline {8.3.4}Broader Video Format Support}{63}{subsection.8.3.4}%
+\contentsline {section}{\numberline {8.4}Privacy and Data Usage}{63}{section.8.4}%
+\contentsline {section}{\numberline {8.5}Conclusion}{63}{section.8.5}%
+\contentsline {chapter}{Appendix A: Example}{69}{chapter*.22}%
+\contentsline {chapter}{Appendix B: About \LaTeX }{71}{chapter*.23}%

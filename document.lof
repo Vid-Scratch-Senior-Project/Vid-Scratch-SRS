@@ -1,0 +1,26 @@
+~\hfill \textbf {Page}\par \addvspace {.2in} \relax \fontsize {14.4}{17}\selectfont \abovedisplayskip 14\p@ plus3\p@ minus7\p@ \abovedisplayshortskip \z@ plus4\p@ \belowdisplayshortskip 7\p@ plus4\p@ minus3\p@ \belowdisplayskip \abovedisplayskip \let \leftmargin \leftmargini \parsep 4\p@ plus2\p@ minus\p@ \topsep 8\p@ plus2\p@ minus4\p@ \itemsep 4\p@ plus2\p@ minus\p@ \leftmargin \leftmargini \parsep 4\p@ plus2\p@ minus\p@ \topsep 8\p@ plus2\p@ minus4\p@ \itemsep 4\p@ plus2\p@ minus\p@ 
+\contentsline {figure}{\numberline {1.1}{\ignorespaces Color Meaning chart}}{8}{figure.1.1}%
+\contentsline {figure}{\numberline {1.2}{\ignorespaces Timeline of Project development}}{8}{figure.1.2}%
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Competitive Landscape}}{12}{figure.2.1}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Explanation of how perturbation is added}}{15}{figure.2.2}%
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Explanation of how perturbation is added with LPIPS to measure perceptual similarity between the original and the poisoned output}}{15}{figure.2.3}%
+\contentsline {figure}{\numberline {2.4}{\ignorespaces BTC-UAP perturbation logic}}{16}{figure.2.4}%
+\contentsline {figure}{\numberline {2.5}{\ignorespaces Heatmap of temporal consistency; darker means better consistency}}{16}{figure.2.5}%
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Use Case Diagram}}{21}{figure.3.1}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Mockup of the Home Page}}{25}{figure.3.2}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Mockup of the System Overview Page}}{26}{figure.3.3}%
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Mockup of the Feedback Page}}{27}{figure.3.4}%
+\contentsline {figure}{\numberline {3.5}{\ignorespaces Mockup of the Main Process Page}}{28}{figure.3.5}%
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Domain Diagram}}{29}{figure.4.1}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Class Diagram}}{31}{figure.4.2}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Sequence Diagram}}{32}{figure.4.3}%
+\contentsline {figure}{\numberline {5.1}{\ignorespaces System's Domain Diagram}}{34}{figure.5.1}%
+\contentsline {figure}{\numberline {6.1}{\ignorespaces Technology stack of Vid-Scratch}}{43}{figure.6.1}%
+\contentsline {figure}{\numberline {7.1}{\ignorespaces Overview of the Vid-Scratch adversarial poisoning pipeline.}}{47}{figure.7.1}%
+\contentsline {figure}{\numberline {7.2}{\ignorespaces Initial state of the application. The left panel shows the three-step workflow. The right panel shows two video preview areas (Original and Poisoned), both empty before a video is selected. }}{51}{figure.7.2}%
+\contentsline {figure}{\numberline {7.3}{\ignorespaces After the user selects an input video via the native file dialog, the original video is loaded into the preview panel and the selected file path is displayed. The Poisoned panel remains empty until the pipeline has been executed. }}{52}{figure.7.3}%
+\contentsline {figure}{\numberline {7.4}{\ignorespaces Processing state. After the user clicks \textit {Start Process}, the button changes to \textit {Processing...} and a progress bar appears below the output destination showing the current stage (e.g., ``Loading model... 5\%''). The Poisoned panel displays a \textit {Processing...} placeholder while the pipeline runs. }}{53}{figure.7.4}%
+\contentsline {figure}{\numberline {7.5}{\ignorespaces Completed state. Both the original and poisoned videos are shown side by side in the preview panels. The output section displays a \textit {Protection successful!} message along with the total processing time and number of retry attempts. A \textit {Show Predictions} button appears to reveal the model prediction panel. }}{54}{figure.7.5}%
+\contentsline {figure}{\numberline {7.6}{\ignorespaces Prediction panel expanded. The right side shows two prediction blocks: \textit {Clean — Top-5 Predictions} displays the model's confidence scores on the original video (e.g., \textit {squat} at 100.0\%), and \textit {Poisoned — Top-5 Predictions} displays the model's predictions on the poisoned video (e.g., \textit {eating watermelon} at 39.9\%), confirming that the attack successfully caused the model to misclassify the action. }}{55}{figure.7.6}%
+\contentsline {figure}{\numberline {7.7}{\ignorespaces Training loss (white) and test loss on clean data (blue) across 80 epochs for three training conditions. Left: clean model. Centre: poison model. Right: mixed model (50\% poison + 50\% clean). }}{57}{figure.7.7}%
+\contentsline {figure}{\numberline {7.8}{\ignorespaces Training accuracy (white) and test accuracy on clean data (blue) across 80 epochs for three training conditions. Left: clean model. Centre: poison model. Right: mixed model (50\% poison + 50\% clean). }}{57}{figure.7.8}%

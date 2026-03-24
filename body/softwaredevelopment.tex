@@ -4,56 +4,136 @@
 \section{Software Development Methodology}
 \label{section:software-development-methodology}
 
-This project follows Extreme Programming (XP), an agile 
-software development methodology that emphasizes short 
-development cycles, continuous feedback, and close 
-collaboration between team members and stakeholders. XP 
-is suitable for this project because the team is small, 
-the development timeline is fixed, and the technical 
-requirements involve frequent experimentation and 
-iteration, particularly in the adversarial generation 
+This project follows Extreme Programming (XP), an agile
+software development methodology that emphasizes short
+development cycles, continuous feedback, and close
+collaboration between team members and stakeholders. XP
+is suitable for this project because the team is small,
+the development timeline is fixed, and the technical
+requirements involve frequent experimentation and
+iteration, particularly in the adversarial generation
 pipeline.
 
-The following characteristics of this project align 
+The following characteristics of this project align
 with XP practices:
 
 \begin{itemize}
-    \item \textbf{Small team:} The project is developed 
-    by two members, which supports close communication 
-    and a shared understanding of all components without 
+    \item \textbf{Small team:} The project is developed
+    by two members, which supports close communication
+    and a shared understanding of all components without
     requiring heavy coordination overhead.
-    \item \textbf{Academic oversight:} Three supervisors 
-    provide consistent review and feedback throughout 
-    the development process, serving a role similar to 
+    \item \textbf{Academic oversight:} Three supervisors
+    provide consistent review and feedback throughout
+    the development process, serving a role similar to
     the customer representative in XP.
-    \item \textbf{Fixed timeline:} The project has a 
-    defined development period of approximately four 
-    months, which encourages prioritization and 
+    \item \textbf{Fixed timeline:} The project has a
+    defined development period of approximately four
+    months, which encourages prioritization and
     incremental delivery of working features.
-    \item \textbf{Single codebase:} The entire system 
-    is maintained in a single shared repository, 
-    supporting continuous integration and consistent 
+    \item \textbf{Single codebase:} The entire system
+    is maintained in a single shared repository,
+    supporting continuous integration and consistent
     versioning across the frontend and backend components.
-    \item \textbf{Continuous testing:} Adversarial 
-    generation results and system behavior are evaluated 
-    regularly throughout development to verify that the 
+    \item \textbf{Continuous testing:} Adversarial
+    generation results and system behavior are evaluated
+    regularly throughout development to verify that the
     pipeline produces the expected outputs.
 \end{itemize}
 
 \section{Technology Stack}
 \label{section:technology-stack}
-<TIP: Describe your technology stack here. See the following example from ThaiProgrammer.org />
-\begin{figure}[h]
+
+Vid-Scratch is built using a combination of technologies
+across the desktop frontend and the adversarial
+generation backend.
+
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.5\textwidth]{chapter_6/Tech-Stack.png}
-    \caption{technology stack}
+    \caption{Technology stack of Vid-Scratch}
 \end{figure}
+
+\subsection{Frontend}
+\label{subsection:frontend}
+
+The desktop application is built with \textbf{Tauri},
+a framework that packages a web-based user interface
+inside a native desktop shell. The user interface is
+written in \textbf{React} using \textbf{TypeScript} for
+static typing and \textbf{DaisyUI} as the component
+library for consistent styling. Tauri plugins, including
+the dialog and filesystem plugins, are used to handle
+native operations such as opening file dialogs and
+reading file paths from the local filesystem.
+
+\subsection{Backend and AI Pipeline}
+\label{subsection:backend-and-ai-pipeline}
+
+The adversarial generation pipeline is implemented in
+\textbf{Python} and exposed to the frontend through
+\textbf{FastAPI}. The pipeline uses \textbf{PyTorch}
+for all model inference and gradient-based optimization.
+The target model, SlowFast R101, is loaded via
+\textbf{PyTorchVideo} using \texttt{torch.hub}.~\cite{fan2020pytorchvideo} Video
+loading and frame preprocessing are handled with
+\textbf{OpenCV}, while \textbf{NumPy} and
+\textbf{Pillow} are used for frame-level operations.
+Bayesian Optimization for keyframe selection is
+implemented using \textbf{scikit-optimize}.~\cite{nogueira2014bayesian}
+
+\subsection{Development and Experimentation Tools}
+\label{subsection:development-tools}
+
+Because a significant portion of the project involves
+model experimentation and attack evaluation, much of
+the research and prototyping work is conducted on
+\textbf{Google Colab} using GPU-accelerated runtimes.
+Version control is managed with \textbf{Git} and
+\textbf{GitHub}.
 
 \section{Coding Standards}
 \label{section:coding-standards}
-<TIP: Describe your coding standard for this project here. />
+
+Vid-Scratch does not enforce a formal coding standard.
+The nature of this project is research-heavy: a large
+portion of the development involves experimenting with
+attack methods, tuning optimization parameters, and
+evaluating model behavior, much of which is carried out
+iteratively in notebooks and scripts rather than through
+a structured software engineering workflow. As a result,
+applying strict style enforcement or linting rules
+across all components was not practical within the
+project scope.
+
+That said, the codebase follows general readability
+practices where possible. Python code is written with
+type hints and docstrings in key modules such as
+\texttt{model\_wrapper.py} and \texttt{video\_io.py}
+to improve clarity and maintainability. TypeScript is
+used throughout the frontend to provide static type
+checking. Function and variable names are chosen to
+reflect their purpose clearly, and related logic is
+grouped into separate modules to keep each file focused
+on a single responsibility.
 
 \section{Progress Tracking Report}
 \label{section:progress-tracking-report}
-<TIP: Show that you have been working on this project overtime.
-It can be in the form of a burndown chart or a contribution graph from GitHub./>
+
+Due to the research-oriented nature of this project,
+development progress does not follow a conventional
+sprint or task-completion model. A significant portion
+of the work involves exploring attack methods,
+evaluating experimental results, and iterating on the
+generation pipeline based on findings, much of which
+takes place in Google Colab notebooks and local
+experiment files rather than through commit-tracked
+feature development.
+
+As a result, the GitHub contribution graph does not
+fully reflect the actual effort invested in the project.
+Experimental work, parameter tuning, and result
+analysis carried out outside the repository are not
+captured in commit history. The progress of the project
+is therefore better described through the research
+decisions and evaluation results documented in the
+subsequent chapters of this report.

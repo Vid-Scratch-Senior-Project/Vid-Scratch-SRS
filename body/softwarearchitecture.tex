@@ -41,4 +41,18 @@ The class diagram expands on the domain model by showing the attributes and meth
     \caption{Sequence Diagram}
 \end{figure}
 
-The sequence diagram illustrates the interaction between system components during the adversarial video generation workflow. The user selects a video file through the Electron Renderer, which forwards the video path and generation parameters to Electron Main. Electron Main then sends a request to the FastAPI Server, which handles the processing pipeline in three stages: extracting the video into frames using OpenCV, generating and applying adversarial perturbations to the frames, and reconstructing the frames back into a video. Once complete, the output video is saved to the file system and the user is notified of the result.
+The sequence diagram illustrates the interaction between system
+components during the adversarial video generation workflow. The user
+selects a video file and configures generation settings through the React
+frontend embedded in the Tauri WebView. Once the user starts the process,
+the frontend invokes a Tauri Rust command, passing the video path,
+intensity, quality, and output path as arguments. The Rust core validates
+the input path and spawns the compiled Python engine as a subprocess.
+The Python engine then handles the processing pipeline in four stages:
+loading all frames from the input video at original resolution, selecting
+keyframes for perturbation using Bayesian Optimization, generating and
+applying adversarial perturbations through spatial transformation and
+gradient-based noise optimization constrained by SSIM, and saving the
+output video back to the file system. Once the engine exits successfully,
+the Rust core returns the output path to the frontend, which loads and
+displays the poisoned video alongside the original for the user to preview.
