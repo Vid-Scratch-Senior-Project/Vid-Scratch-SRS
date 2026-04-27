@@ -1,255 +1,262 @@
-\chapter{Conclusion and Discussion}
-\label{chap:conclusion-discussion}
+\raggedbottom
 
-\section{Challenges and Solutions}
-\label{section:challenges}
+\makeatletter
+\renewcommand\section{\@startsection {section}{1}{\z@}%
+                                   {-4.2ex \@plus -1ex \@minus -.2ex}%
+                                   {2.8ex \@plus.2ex}%
+                                   {\normalfont\moderate\bfseries}}
+\renewcommand\subsection{\@startsection{subsection}{2}{\z@}%
+                                     {-3.8ex\@plus -1ex \@minus -.2ex}%
+                                     {2.2ex \@plus .2ex}%
+                                     {\normalfont\normalsize\bfseries\leftskip 40pt}}
+\makeatother
 
-\subsection{Finding an Effective Low-Noise Poisoning Method}
+\chapter{Project Defense and Project Expo}
+\label{chap:project-defense-expo}
 
-The most significant challenge in this project was
-identifying an adversarial perturbation method that
-could cause a video action recognition model to
-misclassify while keeping the noise imperceptibly small.
-Most published research in this area focuses on
-high-visibility perturbations or physical-world attacks,
-such as adversarial patches or printed eyeglass frames,
-which are not suitable for the use case of protecting
-user-uploaded video content.
+This chapter presents the evaluation and dissemination activities of
+the Vid-Scratch project through two rounds of project defense and
+participation in the SKE Project Expo. It summarizes the feedback
+received from the evaluators, the actions taken by the team in response
+to that feedback, and the outcomes of those improvements. In addition,
+this chapter describes the project poster, booth presentation, visitor
+questions, and reflections from presenting Vid-Scratch to a broader
+audience.
 
-The team surveyed multiple attack methods from the
-literature, including universal adversarial perturbations,
-black-box transfer attacks, and feature-space poisoning
-approaches, before settling on the sparse adversarial
-spatial-transform approach from Mu et al. (BMVC 2021).
-Even after selecting this method, adapting it to work
-reliably on SlowFast R101 required extensive
-experimentation with the noise budget, SSIM constraint,
-Bayesian Optimisation parameters, and the codec boost
-factor to compensate for compression attenuation.
+Overall, the defense and expo activities helped the team clarify the
+research direction of the project, improve the Software Design Document
+(SDD), and communicate the concept of adversarial video poisoning more
+effectively to both technical and non-technical audiences.
 
-\subsection{GPU Compatibility with Bayesian Frame Selection}
 
-The Bayesian frame selection component runs a short
-inner optimisation loop for each candidate mask
-evaluation. On CPU this is manageable for a small
-number of candidates, but the full BO procedure with
-50 iterations is computationally intensive. Testing
-on Apple Silicon MacBooks revealed that the MPS
-backend does not fully support the tensor operations
-used in the spatial transformer and the GP kernel
-computations, causing the pipeline to fall back to
-CPU. A single BO pass on CPU without GPU acceleration
-was observed to take approximately one hour per video,
-which made iterative development impractical.
+\vspace{1.2\baselineskip}
+\section{First Project Defense}
+\label{section:first-defense}
 
-This was partially addressed by reducing the number of
-BO iterations during development and running full
-evaluations on CUDA-enabled hardware. The final
-pipeline defaults to CUDA when available and falls
-back to CPU otherwise, with a note to users that
-processing time on CPU may be significantly longer.
+\subsection{Comments and Feedback from the Evaluators}
+\label{subsection:first-defense-feedback}
 
-\subsection{Dependency on a Large Pretrained Model}
+During the first project defense, the evaluators provided relatively
+few implementation-specific comments because Vid-Scratch is a
+research-based project. Instead of focusing on user interface details
+or ordinary application features, the main recommendation was for the
+team to conduct deeper research before finalizing the technical
+approach. The evaluators encouraged the team to study related work in
+adversarial machine learning, video action recognition, and data
+poisoning in order to identify a method that was both technically
+sound and suitable for the project's scope.
 
-SlowFast R101 is a large model that must be downloaded
-from the PyTorchVideo hub on first use. This creates
-a dependency on an internet connection during the
-initial setup and adds approximately 200 MB to the
-application footprint. The model is cached after the
-first download, but users on slow connections or
-restricted networks may encounter difficulties. This
-was mitigated by adding a loading progress indicator
-in the application and providing clear error messages
-when the model cannot be fetched.
+The feedback emphasized that the success of the project depended on
+selecting an appropriate research method rather than simply building a
+desktop application. Since adversarial video poisoning is a specialized
+topic, the team needed to understand the assumptions, limitations, and
+experimental requirements of different attack strategies before
+committing to an implementation.
 
-\subsection{Background in AI and Data Poisoning}
+\subsection{Revisions Required, Actions Taken, and Outcomes}
+\label{subsection:first-defense-revisions}
 
-At the start of the project, both team members had
-limited prior experience with adversarial machine
-learning and video model architectures. To build the
-necessary background, the team participated in a
-series of AI workshop labs advised by the project
-supervisor, beginning in January 2025. Topics covered
-included binary image classification, the stAdv
-spatial-transform attack, text-to-video model training,
-and quantifiable metrics for evaluating model
-degradation under adversarial inputs. This foundational
-work was essential for understanding the limitations of
-existing approaches and making informed design decisions
-throughout the project.
+In response to the first defense feedback, the team expanded the
+research process and performed additional laboratory experiments. The
+team reviewed methods related to adversarial perturbations, spatial
+transform attacks, video classification models, and training-time
+poisoning. The team also conducted AI laboratory work to build the
+required background knowledge for implementing and evaluating the
+pipeline.
 
-\section{Limitations}
-\label{section:limitations}
+As a result, the team gained a clearer understanding of the technical
+problem and was able to select a more suitable method for Vid-Scratch.
+The final direction focused on adversarial video poisoning for
+temporal action recognition, using SlowFast R101 as the target model
+and combining frame selection, adversarial generation, and evaluation
+metrics such as SSIM and attack success rate. This outcome gave the
+project a stronger research foundation and allowed the implementation
+to proceed with a clearer technical scope.
 
-\subsection{GPU Requirement for Practical Use}
+\vspace{1.2\baselineskip}
+\section{Second Project Defense}
+\label{section:second-defense}
 
-The full VidScratch pipeline with Bayesian Optimisation
-is not practical to run on CPU for most users. On a
-modern laptop without a CUDA-capable GPU, processing
-a single short video can take over an hour. This
-limits the accessibility of the application for
-users who do not have access to a discrete GPU,
-which contradicts the project's goal of providing an
-accessible tool for everyday users.
+\subsection{Comments and Feedback from the Evaluators}
+\label{subsection:second-defense-feedback}
 
-\subsection{Limited Impact on Training-Time Attacks}
+In the second project defense, most of the feedback focused on the SDD
+rather than the core technical content. The evaluators indicated that
+some descriptions in the document were too strong or overstated when
+compared with the actual implementation and experimental evidence. The
+main concern was not that the project direction was incorrect, but
+that the written explanation needed to be more precise, realistic, and
+consistent across chapters.
 
-The training-time poisoning experiment demonstrated
-that the perturbations produced by VidScratch have
-only a modest effect on a model trained on poisoned
-data. The adversarial noise is optimised to fool a
-400-class SlowFast R101 model, but when the downstream
-model is trained on a small two-class dataset the
-gradient signal from the perturbation is not well
-aligned with the training objective. The result is
-a subtle increase in test loss rather than a clear
-degradation in model performance. For the training-time
-attack to be more effective, the perturbation would
-need to be generated with knowledge of the downstream
-training setup, which is not available in a practical
-user-facing tool.
+This feedback differed from the first defense. In the first defense,
+the main issue was the need for more research and experimentation. In
+the second defense, the technical direction had already become clearer,
+so the evaluators focused more on how accurately the project was
+documented in the report.
 
-\subsection{Fixed Target Model}
+\subsection{Additional Revisions, Actions Taken, and Final Outcomes}
+\label{subsection:second-defense-revisions}
 
-The current implementation targets SlowFast R101
-exclusively. Users who want to test robustness
-against a different action recognition model, or
-who encounter a platform that uses a different
-architecture, cannot use VidScratch directly without
-modifying the codebase. The pipeline is designed to
-be extensible, but swapping the target model requires
-technical knowledge of the Python backend.
+Following the second defense, the team revised the SDD across all
+chapters. Statements that were too broad or exaggerated were rewritten
+to better match the actual system behavior, implementation details,
+and evaluation results. The document was adjusted to present
+Vid-Scratch as an adversarial video poisoning pipeline with defined
+experimental conditions, rather than making claims beyond the evidence
+available from the project.
 
-\subsection{Short Video Constraint}
+After the revisions, the updated SDD was reviewed again by the project
+advisor. The final version passed the review, indicating that the
+document more accurately represented the project scope, research
+contribution, system design, and experimental findings.
 
-The pipeline is designed for videos of up to one
-minute in length, which covers most short-form
-content but excludes longer recordings. Extending
-support to longer videos would require changes to
-the frame sampling and memory management logic,
-as processing all frames of a long video at full
-resolution would exceed the memory available on
-most consumer hardware.
+\subsection{Suggestions on How Project Defense Can Better Support Software Development}
+\label{subsection:defense-suggestions}
 
-\section{Future Work}
-\label{section:future-work}
+From the team's experience, the project defense process was useful for
+identifying both research direction issues and documentation issues.
+For research-based software projects, defense sessions can better
+support development by encouraging teams to clearly connect their
+implementation decisions with research evidence. This helps ensure that
+the project is not only functional as software, but also properly
+grounded in existing technical knowledge.
 
-\subsection{Support for Transformer-Based Video Models}
+The defense process can also help teams improve the clarity and
+accuracy of their reports. In the case of Vid-Scratch, the second
+defense helped the team refine the SDD so that the claims, results,
+and explanations were better aligned with the actual work completed.
 
-The most natural extension of this project is to
-target more recent video understanding architectures,
-particularly transformer-based models such as
-VideoMAE, TimeSformer, and Video Swin Transformer.
-These models have largely replaced CNN-based
-architectures such as SlowFast on standard benchmarks.
-Generating adversarial perturbations that transfer
-across model families — or that are effective against
-attention-based temporal reasoning specifically —
-remains an open and technically interesting problem.
+\vspace{1.2\baselineskip}
+\section{Project Expo Participation}
+\label{section:project-expo}
 
-\subsection{Improved Training-Time Effectiveness}
+\subsection{Poster Presentation and Poster Components}
+\label{subsection:poster-presentation}
 
-Future work could explore poisoning strategies that
-are more directly aligned with the downstream training
-objective. One direction is to generate perturbations
-that target the feature representations learned by the
-model rather than its final classification output.
-Targeting intermediate feature layers tends to
-produce more transferable and training-disruptive
-perturbations, and may remain effective even when
-the downstream model differs from the attack model.
+Vid-Scratch was presented at the SKE Project Expo using a project
+poster and a live demonstration booth. The poster was designed to
+communicate the core idea of the project clearly: Vid-Scratch is an
+adversarial video poisoning pipeline for evaluating the robustness of
+temporal action recognition models.
 
-\subsection{GPU-Efficient Frame Selection}
+\begin{figure}[H]
+    \centering
+    \includegraphics[height=0.82\textheight,keepaspectratio]{chapter_8/project_poster.png}
+    \caption{Vid-Scratch project poster presented at the SKE Project Expo.}
+    \label{fig:vidscratch-poster}
+\end{figure}
 
-Replacing the current Gaussian-Process-based Bayesian
-Optimisation with a lighter alternative, such as a
-gradient-based saliency score or a simple frame-level
-loss ranking, could substantially reduce processing
-time without significantly reducing attack effectiveness.
-This would make the pipeline usable on CPU in a
-practical amount of time and improve accessibility
-for users without dedicated GPU hardware.
+The poster included the background and motivation of the project,
+explaining why video-based action recognition models may be vulnerable
+to small adversarial perturbations. It also presented the key
+contributions of Vid-Scratch, including an accessible desktop tool, a
+Bayesian frame selection process, and a unified pipeline for
+inference-time and training-time attack scenarios.
 
-\subsection{Broader Video Format Support}
+The poster further summarized the adversarial poisoning pipeline,
+application interface, evaluation results, system architecture,
+technology stack, and possible future work. These sections helped
+visitors understand both the technical research problem and the
+practical implementation of the system.
 
-The current version supports MP4 input and output only.
-Future versions could extend support to additional
-formats such as AVI, MKV, and MOV, and could also
-support frame-rate-aware perturbation to handle
-high-frame-rate content more consistently.
+\subsection{Event Photos}
+\label{subsection:event-photos}
 
-\section{Privacy and Data Usage}
-\label{section:privacy}
+The following photographs show the Vid-Scratch booth during the SKE
+Project Expo. The booth included the project poster, a monitor for
+demonstrating the application, and team members who explained the
+system to visitors.
 
-Vid-Scratch processes all video data locally on the
-user's machine. No video content, frame data, or
-personal information is transmitted to any external
-server at any point during the poisoning pipeline.
-The application does not collect usage data or
-telemetry. Adversarial outputs produced by the
-pipeline are saved to a user-specified local folder
-and are not shared or made accessible to any third
-party.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.82\textwidth]{chapter_8/poster_photo.jpg}
+    \caption{Team members presenting the Vid-Scratch poster.}
+    \label{fig:poster-photo}
+\end{figure}
 
-The project did not use any copyrighted material
-without permission during development. Videos used
-for evaluation were drawn from the publicly available
-Kinetics-400 and UCF-101 datasets under their
-respective research-use licenses. Any user-supplied
-video content is used solely for the purpose of
-generating the adversarial output requested by the
-user and is not retained by the application.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{chapter_8/booth_demo.jpg}
+    \caption{Vid-Scratch booth setup with the application demonstration screen.}
+    \label{fig:booth-demo}
+\end{figure}
 
-\section{Conclusion}
-\label{section:conclusion}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{chapter_8/visitor_demo.jpg}
+    \caption{Live demonstration and discussion with visitors during the expo.}
+    \label{fig:visitor-demo}
+\end{figure}
 
-This project presented Vid-Scratch, a desktop
-application that generates adversarially perturbed
-video clips designed to cause a pre-trained action
-recognition model to misclassify the action shown
-in the input video, while preserving high visual
-similarity to the original content. The system
-targets SlowFast R101 pretrained on Kinetics-400
-and implements a two-stage pipeline consisting of
-Bayesian Optimisation for sparse frame selection
-followed by joint optimisation of a spatial
-transformation field and additive noise using Adam.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{chapter_8/visitor_discussion.jpg}
+    \caption{Explaining the Vid-Scratch poisoning workflow to expo visitors.}
+    \label{fig:visitor-discussion}
+\end{figure}
 
-The inference-time attack achieved a verified
-success rate of 100\% across 10 Kinetics-400 test
-videos with an average SSIM of 0.9501, demonstrating
-that the approach can reliably cause misclassification
-while keeping the perturbation imperceptible to
-casual inspection. The training-time experiment
-showed a modest but observable effect on clean
-test loss when poisoned samples were mixed into
-the training data, though the limited dataset
-size and the mismatch between the 400-class attack
-model and the 2-class training setup reduce the
-strength of this result.
+\subsection{Questions Raised During the Expo and the Team's Responses}
+\label{subsection:expo-questions}
 
-Beyond the technical results, the project also
-produced an accessible desktop application that
-allows non-expert users to apply adversarial
-video poisoning without requiring knowledge of
-the underlying machine learning methods. In this
-respect, Vid-Scratch bridges adversarial machine
-learning research and a more practical application
-setting, and serves as a demonstration of how
-strong benchmark performance in action recognition
-does not necessarily imply robustness under
-carefully constructed adversarial inputs.
+During the SKE Project Expo, most visitors asked what Vid-Scratch can
+do and how the system works. The team explained that Vid-Scratch takes
+an input video and generates a poisoned output video that appears
+visually similar to humans, while causing a target action recognition
+model to misclassify the action.
 
-Several limitations remain, most notably the
-requirement for a CUDA-capable GPU for practical
-use and the limited effectiveness of the
-training-time attack under the current noise
-budget. These point to clear directions for
-future work, including support for
-transformer-based video models, GPU-efficient
-frame selection, and more targeted training-time
-poisoning strategies. With these improvements,
-a future version of the system could provide a
-more complete and practically useful tool for
-evaluating and demonstrating the adversarial
-vulnerability of video understanding models.
+Visitors also asked about the full processing flow. In response, the
+team explained the pipeline step by step, including video loading,
+frame sampling, poison budget calculation, Bayesian frame selection,
+adversarial generation, output mapping, and evaluation. Since many
+visitors were unfamiliar with adversarial video poisoning, the team
+focused on explaining why small perturbations can affect machine
+learning models even when the visual difference is difficult for
+humans to notice.
+
+Another common question was the processing time required for each
+video. The team answered by referring to the evaluation results and
+explained that processing time depends on video length, hardware, and
+pipeline settings. Based on the project benchmark, the average
+processing time was approximately 42 seconds per video under the
+tested configuration.
+
+Overall, the team was able to answer the questions raised by visitors.
+The discussion at the expo helped confirm that the project concept was
+interesting, but also showed that adversarial video poisoning requires
+clear explanation because it is not a familiar topic for most users.
+
+\subsection{Recommendations for Improving the Expo}
+\label{subsection:expo-recommendations}
+
+The feedback from expo visitors was generally positive, and there were
+no major suggestions for changing the current system. Some instructors
+who visited the booth also commented that the project was already in a
+good state. However, based on the team's own reflection, one useful
+future improvement would be to expand the benchmark section.
+
+A broader benchmark could compare Vid-Scratch against additional
+videos, attack settings, hardware environments, or target video models.
+This would make the evaluation stronger and help future audiences
+understand the performance and limitations of the system more clearly.
+In addition, benchmark results could make the project easier to explain
+during public demonstrations because visitors could quickly see how
+the system performs under different conditions.
+
+Overall, the SKE Project Expo gave the team an opportunity to present
+Vid-Scratch outside the defense setting, explain the research problem
+to a wider audience, and validate that the project can be communicated
+effectively through a combination of poster, live demonstration, and
+step-by-step explanation.
+
+\makeatletter
+\renewcommand\section{\@startsection {section}{1}{\z@}%
+                                   {-3.5ex \@plus -1ex \@minus -.2ex}%
+                                   {2.3ex \@plus.2ex}%
+                                   {\normalfont\moderate\bfseries}}
+\renewcommand\subsection{\@startsection{subsection}{2}{\z@}%
+                                     {-3.25ex\@plus -1ex \@minus -.2ex}%
+                                     {1.5ex \@plus .2ex}%
+                                     {\normalfont\normalsize\bfseries\leftskip 40pt}}
+\makeatother
+
+\flushbottom

@@ -24,3 +24,9 @@
 \contentsline {figure}{\numberline {7.6}{\ignorespaces Prediction panel expanded. The right side shows two prediction blocks: \textit {Clean — Top-5 Predictions} displays the model's confidence scores on the original video (e.g., \textit {squat} at 100.0\%), and \textit {Poisoned — Top-5 Predictions} displays the model's predictions on the poisoned video (e.g., \textit {eating watermelon} at 39.9\%), confirming that the attack successfully caused the model to misclassify the action. }}{55}{figure.7.6}%
 \contentsline {figure}{\numberline {7.7}{\ignorespaces Training loss (white) and test loss on clean data (blue) across 80 epochs for three training conditions. Left: clean model. Centre: poison model. Right: mixed model (50\% poison + 50\% clean). }}{57}{figure.7.7}%
 \contentsline {figure}{\numberline {7.8}{\ignorespaces Training accuracy (white) and test accuracy on clean data (blue) across 80 epochs for three training conditions. Left: clean model. Centre: poison model. Right: mixed model (50\% poison + 50\% clean). }}{57}{figure.7.8}%
+\contentsline {figure}{\numberline {8.1}{\ignorespaces Vid-Scratch project poster presented at the SKE Project Expo.}}{63}{figure.8.1}%
+\contentsline {figure}{\numberline {8.2}{\ignorespaces Team members presenting the Vid-Scratch poster.}}{65}{figure.8.2}%
+\contentsline {figure}{\numberline {8.3}{\ignorespaces Vid-Scratch booth setup with the application demonstration screen.}}{66}{figure.8.3}%
+\contentsline {figure}{\numberline {8.4}{\ignorespaces Live demonstration and discussion with visitors during the expo.}}{67}{figure.8.4}%
+\contentsline {figure}{\numberline {8.5}{\ignorespaces Explaining the Vid-Scratch poisoning workflow to expo visitors.}}{68}{figure.8.5}%
+\contentsline {figure}{\numberline {9.1}{\ignorespaces Rubric evaluation radar chart comparing curriculum expected levels and AI-assessed levels.}}{71}{figure.9.1}%

@@ -1,0 +1,270 @@
+\chapter{Knowledge and Skills Evaluation}
+\label{chap:knowledge-skills-evaluation}
+
+This chapter evaluates the knowledge and skills demonstrated through
+the Vid-Scratch project by comparing the project evidence with the
+expected curriculum rubric levels. The evaluation considers five main
+dimensions: Software Development and Programming, Machine Learning /
+AI Systems, Data Management / Knowledge Systems, Critical and Creative
+Thinking, and Collaboration and Communication.
+
+The evaluation is based on evidence from the project report, including
+the implemented desktop application, AI pipeline, requirements
+analysis, architecture diagrams, user interface workflow, experiments,
+limitations, and project documentation. Although the original rubric
+also includes Lifelong Learning, this chapter focuses on the five
+dimensions used in the radar chart and summary table.
+
+\section{Comparison Between Curriculum Targets and AI-Based Evaluation}
+\label{section:curriculum-ai-comparison}
+
+\subsection{Radar Chart Comparing Expected and Assessed Levels}
+\label{subsection:rubric-radar-chart}
+
+Figure~\ref{fig:rubric-radar-chart} compares the curriculum expected
+level with the AI-assessed level for each evaluated dimension. The
+chart shows that Vid-Scratch meets the expected level in Software
+Development, Machine Learning / AI Systems, and Critical and Creative
+Thinking. The main gaps appear in Data Management / Knowledge Systems
+and Collaboration and Communication.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\textwidth]{chapter_9/rubric_evaluation_radar.png}
+    \caption{Rubric evaluation radar chart comparing curriculum expected levels and AI-assessed levels.}
+    \label{fig:rubric-radar-chart}
+\end{figure}
+
+\subsection{Summary of Evaluation Results}
+\label{subsection:evaluation-summary-table}
+
+The detailed evaluation results are summarized in
+Table~\ref{tab:rubric-evaluation-summary}. The assessment uses a
+four-level rubric, where higher levels indicate stronger evidence of
+technical maturity, systematic practice, and project-level impact.
+
+\begin{table}[H]
+\centering
+\caption{Summary of curriculum expected levels and AI-assessed levels.}
+\label{tab:rubric-evaluation-summary}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{|X|c|c|X|}
+\hline
+\textbf{Dimension} & \textbf{Expected} & \textbf{Assessed} & \textbf{Final Judgment} \\
+\hline
+Software Development and Programming & 2 & 2 & Meets expectation \\
+\hline
+Machine Learning / AI Systems & 3 & 3 & Meets expectation \\
+\hline
+Data Management / Knowledge Systems & 2 & 1 & Below expectation \\
+\hline
+Critical and Creative Thinking & 3 & 3 & Meets expectation \\
+\hline
+Collaboration and Communication & 3 & 2 & Below expectation \\
+\hline
+\end{tabularx}
+\end{table}
+
+Overall, the Vid-Scratch report demonstrates a strong undergraduate
+software engineering and AI project. The strongest areas are Machine
+Learning / AI Systems and Critical and Creative Thinking, where the
+project provides clear evidence of adversarial video generation,
+action-recognition robustness testing, evaluation-driven
+experimentation, and honest discussion of limitations. The weaker
+areas are Data Management / Knowledge Systems and Collaboration and
+Communication, where the report provides less evidence of dataset
+governance, versioning, access control, issue tracking, pull request
+workflow, and team-level decision logs.
+
+\section{Detailed Evaluation}
+\label{section:detailed-evaluation}
+
+\subsection{Software Development and Programming}
+\label{subsection:software-development-evaluation}
+
+The AI-assessed level for Software Development and Programming is
+Level 2, which meets the expected curriculum level. The project
+provides evidence of a complete application with a clear software
+stack, user interface workflow, backend pipeline, version control, and
+testing.
+
+Vid-Scratch is implemented as a desktop application using Tauri, with
+a React and TypeScript frontend and a Python backend pipeline. The
+architecture includes a frontend layer, Tauri command layer, and Python
+processing engine, showing structured integration across multiple
+software components. The report also includes domain, class, and
+sequence diagrams that describe the major system components and their
+interactions.
+
+The user workflow covers video selection, configuration, processing,
+progress monitoring, output preview, and export. In addition, the test
+section includes an inference-time benchmark, a training-time poisoning
+experiment, and unit tests for core pipeline modules. Git and GitHub
+are also used for version control.
+
+The project does not reach Level 3 because the report does not provide
+strong evidence of scalable deployment, containerization, cloud
+orchestration, mature release engineering, regression testing strategy,
+or formal DevOps practice. However, it clearly exceeds Level 1 because
+it is a usable desktop application rather than a simple script.
+
+\subsection{Machine Learning / AI Systems}
+\label{subsection:ml-ai-evaluation}
+
+The AI-assessed level for Machine Learning / AI Systems is Level 3,
+which meets the expected curriculum level. Although Vid-Scratch does
+not implement an LLM or agentic system, it demonstrates advanced
+AI-system design through model-targeted adversarial optimization and
+quantitative evaluation.
+
+The project targets SlowFast R101, a pretrained temporal
+action-recognition model, and evaluates adversarial vulnerability under
+both inference-time and training-time scenarios. The pipeline combines
+Bayesian Optimisation for keyframe selection, learned spatial
+flow-field transformation, and gradient-based additive adversarial
+noise. It also uses SSIM-based perceptual similarity constraints to
+balance attack effectiveness with visual quality.
+
+The report defines measurable AI task requirements, including
+misclassification at inference time, degradation during training,
+visual similarity preservation, and identification of important
+frames. Evaluation metrics include attack success rate, classification
+behavior, loss trends, and perceptual similarity. The benchmark also
+reloads the saved poisoned video and reruns inference to confirm that
+the attack remains effective after codec compression.
+
+The project does not reach Level 4 because it does not present a new
+publishable AI method or enterprise-level AI strategy. However, it is
+more advanced than Level 2 because it includes model-targeted
+optimization, threat-scenario framing, and metric-based evaluation.
+
+\subsection{Data Management / Knowledge Systems}
+\label{subsection:data-management-evaluation}
+
+The AI-assessed level for Data Management / Knowledge Systems is
+Level 1, which is below the expected curriculum level of Level 2. The
+project uses datasets and video files, but it does not provide enough
+evidence of systematic dataset management, metadata governance,
+versioning, lineage tracking, access control, or knowledge-system
+design.
+
+The report states that data was sourced from platforms such as Kaggle,
+Pexels, and Internet Archive, and the system processes MP4 videos by
+loading frames with OpenCV. This shows basic unstructured-data
+handling and dataset use. However, the report does not describe a
+formal dataset preparation pipeline, metadata schema, dataset
+versioning, cloud storage policy, or access-control mechanism.
+
+For this reason, the project fits Level 1 rather than Level 2. To
+reach Level 2, the report should include clearer evidence of dataset
+organization, versioned data preparation, reproducible file structure,
+metadata tracking, and possibly experiment data logs.
+
+\subsection{Critical and Creative Thinking}
+\label{subsection:critical-thinking-evaluation}
+
+The AI-assessed level for Critical and Creative Thinking is Level 3,
+which meets the expected curriculum level. The report demonstrates
+systematic reasoning through problem framing, literature comparison,
+threat-scenario definition, measurable evaluation, iteration,
+limitations, and future work.
+
+The project separates the problem into inference-time and training-time
+attack scenarios. The literature review compares related approaches
+such as DeepSAVA, BTC-UAP, stAdv, ART, and Foolbox, then identifies a
+gap between research-oriented adversarial tools and user-facing
+software. The project also defines measurable goals using attack
+success rate, accuracy or loss behavior, and SSIM.
+
+The report discusses trade-offs between attack effectiveness,
+perceptual similarity, GPU cost, target model dependency, and short
+video constraints. It also documents limitations and future work,
+including GPU requirement, limited training-time impact, fixed target
+model, short-video constraint, transformer-based models, and
+GPU-efficient frame selection.
+
+The project does not reach Level 4 because it does not create a new
+organizational standard or broader methodology beyond the project
+context. However, it exceeds Level 2 because it uses systematic
+testing, metrics, risk analysis, and iterative evaluation.
+
+\subsection{Collaboration and Communication}
+\label{subsection:collaboration-evaluation}
+
+The AI-assessed level for Collaboration and Communication is Level 2,
+which is below the expected curriculum level of Level 3. The report is
+well documented and communicates system constraints, risks,
+stakeholders, design, and evaluation results clearly, but it does not
+provide strong evidence of Level 3 collaboration practice.
+
+The report includes background, requirements, architecture, AI
+components, development process, deliverables, testing, limitations,
+and future work. It identifies stakeholder groups such as general
+users, students, researchers, educators, developers, ML practitioners,
+and supervisors. It also communicates important project constraints,
+including GPU dependency, pretrained model dependency, limited
+training-time attack impact, fixed target model, and short-video
+constraint.
+
+Git and GitHub are used for version control, and the project was
+reviewed through advisor feedback and project defense. However, the
+report does not provide enough concrete evidence of GitHub Issues,
+pull requests, traceable decision logs, cross-disciplinary leadership,
+or formal team coordination. Therefore, Level 2 is a fair assessment.
+
+\section{Gap Analysis}
+\label{section:gap-analysis}
+
+Table~\ref{tab:gap-analysis} summarizes the gap between the curriculum
+expected level and the AI-assessed level.
+
+\begin{table}[H]
+\centering
+\caption{Gap analysis between expected and assessed rubric levels.}
+\label{tab:gap-analysis}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{|X|c|c|c|X|}
+\hline
+\textbf{Dimension} & \textbf{Expected} & \textbf{Assessed} & \textbf{Gap} & \textbf{Status} \\
+\hline
+Software Development and Programming & 2 & 2 & 0 & Meets expectation \\
+\hline
+Machine Learning / AI Systems & 3 & 3 & 0 & Meets expectation \\
+\hline
+Data Management / Knowledge Systems & 2 & 1 & -1 & Below expectation \\
+\hline
+Critical and Creative Thinking & 3 & 3 & 0 & Meets expectation \\
+\hline
+Collaboration and Communication & 3 & 2 & -1 & Below expectation \\
+\hline
+\end{tabularx}
+\end{table}
+
+The strongest dimensions are Machine Learning / AI Systems and
+Critical and Creative Thinking. These areas are supported by the
+project's adversarial machine learning pipeline, quantitative
+evaluation, research-based method selection, and clear discussion of
+technical limitations. The main gaps are in Data Management and
+Collaboration and Communication. These gaps are mainly caused by
+limited evidence of dataset governance, versioning, access control,
+GitHub issue or pull request workflow, and team-level decision logs.
+
+\section{Final Evaluation Conclusion}
+\label{section:evaluation-conclusion}
+
+The Vid-Scratch project shows that the student is capable of building
+a meaningful AI-enabled software system that combines desktop
+application development, adversarial machine learning, video
+processing, model evaluation, and academic reporting. The project is
+especially strong in its technical AI pipeline, clear problem framing,
+measurable evaluation strategy, and honest discussion of limitations.
+
+The student appears ready for undergraduate-level software engineering
+and applied AI project work, especially in areas related to AI
+application development, computer vision experimentation, and
+robustness testing. To better meet the full program outcomes, the
+project should strengthen evidence in data-management practice and
+collaboration process. In future work, this could be improved by
+documenting dataset versioning, experiment tracking, access control,
+GitHub Issues and pull requests, continuous integration evidence, and
+decision logs.

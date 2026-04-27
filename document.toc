@@ -1,8 +1,8 @@
  \relax \fontsize {16}{20.74}\selectfont \noindent \textbf {Content}\hfill \textbf {Page}\par \addvspace {.2in} \relax \fontsize {14.4}{17}\selectfont \abovedisplayskip 14\p@ plus3\p@ minus7\p@ \abovedisplayshortskip \z@ plus4\p@ \belowdisplayshortskip 7\p@ plus4\p@ minus3\p@ \belowdisplayskip \abovedisplayskip \let \leftmargin \leftmargini \parsep 4\p@ plus2\p@ minus\p@ \topsep 8\p@ plus2\p@ minus4\p@ \itemsep 4\p@ plus2\p@ minus\p@ \leftmargin \leftmargini \parsep 4\p@ plus2\p@ minus\p@ \topsep 8\p@ plus2\p@ minus4\p@ \itemsep 4\p@ plus2\p@ minus\p@ 
 \contentsline {chapter}{\nameref {chap:abstract}}{i}{chapter*.1}%
 \contentsline {chapter}{\nameref {chap:acknowledgement}}{iii}{chapter*.2}%
-\contentsline {chapter}{\nameref {chap:lot}}{viii}{chapter*.4}%
-\contentsline {chapter}{\nameref {chap:lof}}{x}{chapter*.5}%
+\contentsline {chapter}{\nameref {chap:lot}}{ix}{chapter*.4}%
+\contentsline {chapter}{\nameref {chap:lof}}{xii}{chapter*.5}%
 \contentsline {chapter}{Chapter \hbox to\@tempdima {1\hfil }\leftprotrusion Introduction}{1}{chapter.1}%
 \contentsline {section}{\numberline {1.1}Background}{1}{section.1.1}%
 \contentsline {section}{\numberline {1.2}Problem Statement}{3}{section.1.2}%
@@ -81,23 +81,48 @@
 \contentsline {subsection}{\numberline {7.2.1}Inference-Time Attack Benchmark}{55}{subsection.7.2.1}%
 \contentsline {subsection}{\numberline {7.2.2}Training-Time Poisoning Experiment}{56}{subsection.7.2.2}%
 \contentsline {subsection}{\numberline {7.2.3}Unit Testing}{58}{subsection.7.2.3}%
-\contentsline {chapter}{Chapter \hbox to\@tempdima {8\hfil }\leftprotrusion Conclusion and Discussion}{59}{chapter.8}%
-\contentsline {section}{\numberline {8.1}Challenges and Solutions}{59}{section.8.1}%
-\contentsline {subsection}{\numberline {8.1.1}Finding an Effective Low-Noise Poisoning Method}{59}{subsection.8.1.1}%
-\contentsline {subsection}{\numberline {8.1.2}GPU Compatibility with Bayesian Frame Selection}{59}{subsection.8.1.2}%
-\contentsline {subsection}{\numberline {8.1.3}Dependency on a Large Pretrained Model}{60}{subsection.8.1.3}%
-\contentsline {subsection}{\numberline {8.1.4}Background in AI and Data Poisoning}{60}{subsection.8.1.4}%
-\contentsline {section}{\numberline {8.2}Limitations}{61}{section.8.2}%
-\contentsline {subsection}{\numberline {8.2.1}GPU Requirement for Practical Use}{61}{subsection.8.2.1}%
-\contentsline {subsection}{\numberline {8.2.2}Limited Impact on Training-Time Attacks}{61}{subsection.8.2.2}%
-\contentsline {subsection}{\numberline {8.2.3}Fixed Target Model}{61}{subsection.8.2.3}%
-\contentsline {subsection}{\numberline {8.2.4}Short Video Constraint}{62}{subsection.8.2.4}%
-\contentsline {section}{\numberline {8.3}Future Work}{62}{section.8.3}%
-\contentsline {subsection}{\numberline {8.3.1}Support for Transformer-Based Video Models}{62}{subsection.8.3.1}%
-\contentsline {subsection}{\numberline {8.3.2}Improved Training-Time Effectiveness}{62}{subsection.8.3.2}%
-\contentsline {subsection}{\numberline {8.3.3}GPU-Efficient Frame Selection}{62}{subsection.8.3.3}%
-\contentsline {subsection}{\numberline {8.3.4}Broader Video Format Support}{63}{subsection.8.3.4}%
-\contentsline {section}{\numberline {8.4}Privacy and Data Usage}{63}{section.8.4}%
-\contentsline {section}{\numberline {8.5}Conclusion}{63}{section.8.5}%
-\contentsline {chapter}{Appendix A: Example}{69}{chapter*.22}%
-\contentsline {chapter}{Appendix B: About \LaTeX }{71}{chapter*.23}%
+\contentsline {chapter}{Chapter \hbox to\@tempdima {8\hfil }\leftprotrusion Project Defense and Project Expo}{59}{chapter.8}%
+\contentsline {section}{\numberline {8.1}First Project Defense}{59}{section.8.1}%
+\contentsline {subsection}{\numberline {8.1.1}Comments and Feedback from the Evaluators}{59}{subsection.8.1.1}%
+\contentsline {subsection}{\numberline {8.1.2}Revisions Required, Actions Taken, and Outcomes}{60}{subsection.8.1.2}%
+\contentsline {section}{\numberline {8.2}Second Project Defense}{60}{section.8.2}%
+\contentsline {subsection}{\numberline {8.2.1}Comments and Feedback from the Evaluators}{60}{subsection.8.2.1}%
+\contentsline {subsection}{\numberline {8.2.2}Additional Revisions, Actions Taken, and Final Outcomes}{61}{subsection.8.2.2}%
+\contentsline {subsection}{\numberline {8.2.3}Suggestions on How Project Defense Can Better Support Software Development}{61}{subsection.8.2.3}%
+\contentsline {section}{\numberline {8.3}Project Expo Participation}{62}{section.8.3}%
+\contentsline {subsection}{\numberline {8.3.1}Poster Presentation and Poster Components}{62}{subsection.8.3.1}%
+\contentsline {subsection}{\numberline {8.3.2}Event Photos}{64}{subsection.8.3.2}%
+\contentsline {subsection}{\numberline {8.3.3}Questions Raised During the Expo and the Team's Responses}{68}{subsection.8.3.3}%
+\contentsline {subsection}{\numberline {8.3.4}Recommendations for Improving the Expo}{69}{subsection.8.3.4}%
+\contentsline {chapter}{Chapter \hbox to\@tempdima {9\hfil }\leftprotrusion Knowledge and Skills Evaluation}{70}{chapter.9}%
+\contentsline {section}{\numberline {9.1}Comparison Between Curriculum Targets and AI-Based Evaluation}{70}{section.9.1}%
+\contentsline {subsection}{\numberline {9.1.1}Radar Chart Comparing Expected and Assessed Levels}{70}{subsection.9.1.1}%
+\contentsline {subsection}{\numberline {9.1.2}Summary of Evaluation Results}{71}{subsection.9.1.2}%
+\contentsline {section}{\numberline {9.2}Detailed Evaluation}{72}{section.9.2}%
+\contentsline {subsection}{\numberline {9.2.1}Software Development and Programming}{72}{subsection.9.2.1}%
+\contentsline {subsection}{\numberline {9.2.2}Machine Learning / AI Systems}{73}{subsection.9.2.2}%
+\contentsline {subsection}{\numberline {9.2.3}Data Management / Knowledge Systems}{74}{subsection.9.2.3}%
+\contentsline {subsection}{\numberline {9.2.4}Critical and Creative Thinking}{74}{subsection.9.2.4}%
+\contentsline {subsection}{\numberline {9.2.5}Collaboration and Communication}{75}{subsection.9.2.5}%
+\contentsline {section}{\numberline {9.3}Gap Analysis}{76}{section.9.3}%
+\contentsline {section}{\numberline {9.4}Final Evaluation Conclusion}{77}{section.9.4}%
+\contentsline {chapter}{Chapter \hbox to\@tempdima {10\hfil }\leftprotrusion Conclusion and Discussion}{78}{chapter.10}%
+\contentsline {section}{\numberline {10.1}Challenges and Solutions}{78}{section.10.1}%
+\contentsline {subsection}{\numberline {10.1.1}Finding an Effective Low-Noise Poisoning Method}{78}{subsection.10.1.1}%
+\contentsline {subsection}{\numberline {10.1.2}GPU Compatibility with Bayesian Frame Selection}{78}{subsection.10.1.2}%
+\contentsline {subsection}{\numberline {10.1.3}Dependency on a Large Pretrained Model}{79}{subsection.10.1.3}%
+\contentsline {subsection}{\numberline {10.1.4}Background in AI and Data Poisoning}{79}{subsection.10.1.4}%
+\contentsline {section}{\numberline {10.2}Limitations}{80}{section.10.2}%
+\contentsline {subsection}{\numberline {10.2.1}GPU Requirement for Practical Use}{80}{subsection.10.2.1}%
+\contentsline {subsection}{\numberline {10.2.2}Limited Impact on Training-Time Attacks}{80}{subsection.10.2.2}%
+\contentsline {subsection}{\numberline {10.2.3}Fixed Target Model}{80}{subsection.10.2.3}%
+\contentsline {subsection}{\numberline {10.2.4}Short Video Constraint}{81}{subsection.10.2.4}%
+\contentsline {section}{\numberline {10.3}Future Work}{81}{section.10.3}%
+\contentsline {subsection}{\numberline {10.3.1}Support for Transformer-Based Video Models}{81}{subsection.10.3.1}%
+\contentsline {subsection}{\numberline {10.3.2}Improved Training-Time Effectiveness}{81}{subsection.10.3.2}%
+\contentsline {subsection}{\numberline {10.3.3}GPU-Efficient Frame Selection}{81}{subsection.10.3.3}%
+\contentsline {subsection}{\numberline {10.3.4}Broader Video Format Support}{82}{subsection.10.3.4}%
+\contentsline {section}{\numberline {10.4}Privacy and Data Usage}{82}{section.10.4}%
+\contentsline {section}{\numberline {10.5}Conclusion}{82}{section.10.5}%
+\contentsline {chapter}{Appendix A: Example}{88}{chapter*.22}%
+\contentsline {chapter}{Appendix B: About \LaTeX }{90}{chapter*.23}%
