@@ -600,6 +600,12 @@ INPUT .\assets\chapter_9\rubric_evaluation_radar.png
 INPUT .\assets\chapter_9\rubric_evaluation_radar.png
 INPUT .\assets\chapter_9\rubric_evaluation_radar.png
 INPUT .\assets\chapter_9\rubric_evaluation_radar.png
+INPUT .\assets\chapter_9\self_evaluation_radar.png
+INPUT .\assets\chapter_9\self_evaluation_radar.png
+INPUT .\assets\chapter_9\self_evaluation_radar.png
+INPUT .\assets\chapter_9\self_evaluation_radar.png
+INPUT .\assets\chapter_9\self_evaluation_radar.png
+INPUT .\assets\chapter_9\self_evaluation_radar.png
 INPUT .\body\conclusion.tex
 INPUT .\body\conclusion.tex
 OUTPUT body\conclusion.aux

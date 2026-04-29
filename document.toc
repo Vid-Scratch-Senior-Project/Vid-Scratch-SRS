@@ -104,25 +104,29 @@
 \contentsline {subsection}{\numberline {9.2.3}Data Management / Knowledge Systems}{74}{subsection.9.2.3}%
 \contentsline {subsection}{\numberline {9.2.4}Critical and Creative Thinking}{74}{subsection.9.2.4}%
 \contentsline {subsection}{\numberline {9.2.5}Collaboration and Communication}{75}{subsection.9.2.5}%
-\contentsline {section}{\numberline {9.3}Gap Analysis}{76}{section.9.3}%
-\contentsline {section}{\numberline {9.4}Final Evaluation Conclusion}{77}{section.9.4}%
-\contentsline {chapter}{Chapter \hbox to\@tempdima {10\hfil }\leftprotrusion Conclusion and Discussion}{78}{chapter.10}%
-\contentsline {section}{\numberline {10.1}Challenges and Solutions}{78}{section.10.1}%
-\contentsline {subsection}{\numberline {10.1.1}Finding an Effective Low-Noise Poisoning Method}{78}{subsection.10.1.1}%
-\contentsline {subsection}{\numberline {10.1.2}GPU Compatibility with Bayesian Frame Selection}{78}{subsection.10.1.2}%
-\contentsline {subsection}{\numberline {10.1.3}Dependency on a Large Pretrained Model}{79}{subsection.10.1.3}%
-\contentsline {subsection}{\numberline {10.1.4}Background in AI and Data Poisoning}{79}{subsection.10.1.4}%
-\contentsline {section}{\numberline {10.2}Limitations}{80}{section.10.2}%
-\contentsline {subsection}{\numberline {10.2.1}GPU Requirement for Practical Use}{80}{subsection.10.2.1}%
-\contentsline {subsection}{\numberline {10.2.2}Limited Impact on Training-Time Attacks}{80}{subsection.10.2.2}%
-\contentsline {subsection}{\numberline {10.2.3}Fixed Target Model}{80}{subsection.10.2.3}%
-\contentsline {subsection}{\numberline {10.2.4}Short Video Constraint}{81}{subsection.10.2.4}%
-\contentsline {section}{\numberline {10.3}Future Work}{81}{section.10.3}%
-\contentsline {subsection}{\numberline {10.3.1}Support for Transformer-Based Video Models}{81}{subsection.10.3.1}%
-\contentsline {subsection}{\numberline {10.3.2}Improved Training-Time Effectiveness}{81}{subsection.10.3.2}%
-\contentsline {subsection}{\numberline {10.3.3}GPU-Efficient Frame Selection}{81}{subsection.10.3.3}%
-\contentsline {subsection}{\numberline {10.3.4}Broader Video Format Support}{82}{subsection.10.3.4}%
-\contentsline {section}{\numberline {10.4}Privacy and Data Usage}{82}{section.10.4}%
-\contentsline {section}{\numberline {10.5}Conclusion}{82}{section.10.5}%
-\contentsline {chapter}{Appendix A: Example}{88}{chapter*.22}%
-\contentsline {chapter}{Appendix B: About \LaTeX }{90}{chapter*.23}%
+\contentsline {section}{\numberline {9.3}Self-Evaluation by the Student}{76}{section.9.3}%
+\contentsline {subsection}{\numberline {9.3.1}Self-Evaluation Results}{76}{subsection.9.3.1}%
+\contentsline {subsection}{\numberline {9.3.2}Radar Chart Comparing Program Targets, AI Evaluation, and Self-Evaluation}{78}{subsection.9.3.2}%
+\contentsline {subsection}{\numberline {9.3.3}Reflection on Self-Evaluation Compared with AI Evaluation}{78}{subsection.9.3.3}%
+\contentsline {section}{\numberline {9.4}Gap Analysis}{79}{section.9.4}%
+\contentsline {section}{\numberline {9.5}Final Evaluation Conclusion}{80}{section.9.5}%
+\contentsline {chapter}{Chapter \hbox to\@tempdima {10\hfil }\leftprotrusion Conclusion and Discussion}{82}{chapter.10}%
+\contentsline {section}{\numberline {10.1}Challenges and Solutions}{82}{section.10.1}%
+\contentsline {subsection}{\numberline {10.1.1}Finding an Effective Low-Noise Poisoning Method}{82}{subsection.10.1.1}%
+\contentsline {subsection}{\numberline {10.1.2}GPU Compatibility with Bayesian Frame Selection}{82}{subsection.10.1.2}%
+\contentsline {subsection}{\numberline {10.1.3}Dependency on a Large Pretrained Model}{83}{subsection.10.1.3}%
+\contentsline {subsection}{\numberline {10.1.4}Background in AI and Data Poisoning}{83}{subsection.10.1.4}%
+\contentsline {section}{\numberline {10.2}Limitations}{84}{section.10.2}%
+\contentsline {subsection}{\numberline {10.2.1}GPU Requirement for Practical Use}{84}{subsection.10.2.1}%
+\contentsline {subsection}{\numberline {10.2.2}Limited Impact on Training-Time Attacks}{84}{subsection.10.2.2}%
+\contentsline {subsection}{\numberline {10.2.3}Fixed Target Model}{84}{subsection.10.2.3}%
+\contentsline {subsection}{\numberline {10.2.4}Short Video Constraint}{85}{subsection.10.2.4}%
+\contentsline {section}{\numberline {10.3}Future Work}{85}{section.10.3}%
+\contentsline {subsection}{\numberline {10.3.1}Support for Transformer-Based Video Models}{85}{subsection.10.3.1}%
+\contentsline {subsection}{\numberline {10.3.2}Improved Training-Time Effectiveness}{85}{subsection.10.3.2}%
+\contentsline {subsection}{\numberline {10.3.3}GPU-Efficient Frame Selection}{85}{subsection.10.3.3}%
+\contentsline {subsection}{\numberline {10.3.4}Broader Video Format Support}{86}{subsection.10.3.4}%
+\contentsline {section}{\numberline {10.4}Privacy and Data Usage}{86}{section.10.4}%
+\contentsline {section}{\numberline {10.5}Conclusion}{86}{section.10.5}%
+\contentsline {chapter}{Appendix A: Example}{92}{chapter*.22}%
+\contentsline {chapter}{Appendix B: About \LaTeX }{94}{chapter*.23}%
