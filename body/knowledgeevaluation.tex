@@ -14,8 +14,9 @@ the implemented desktop application, AI pipeline, requirements
 analysis, architecture diagrams, user interface workflow, experiments,
 limitations, and project documentation. The AI-based evaluation
 focuses on the five dimensions originally assessed by ChatGPT, while
-the self-evaluation section extends the comparison to include
-Lifelong Learning according to the official rubric.
+the self-evaluation and advisor-evaluation sections extend the
+comparison to include Lifelong Learning according to the official
+rubric.
 
 \section{Comparison Between Curriculum Targets and AI-Based Evaluation}
 \label{section:curriculum-ai-comparison}
@@ -29,6 +30,10 @@ chart shows that Vid-Scratch meets the expected level in Software
 Development, Machine Learning / AI Systems, and Critical and Creative
 Thinking. The main gaps appear in Data Management / Knowledge Systems
 and Collaboration and Communication.
+
+To make this comparison easier to interpret at a glance, the radar
+chart below presents the relative position of the expected and
+AI-assessed levels across all evaluated dimensions.
 
 \begin{figure}[H]
     \centering
@@ -288,6 +293,10 @@ below the expected level in Collaboration and Communication because
 the project did not provide enough formal evidence of team workflow,
 issue tracking, pull request review, or decision logs.
 
+The following figure helps visualize where the student's own judgment
+aligns with the curriculum target and where it differs from the
+AI-based evaluation.
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.95\textwidth]{chapter_9/self_evaluation_radar.png}
@@ -329,6 +338,113 @@ technical knowledge to a working system. This reflects the importance
 of self-directed learning in a research-based project, even though the
 learning process could be documented more systematically in future
 work.
+
+\section{Advisor Evaluation}
+\label{section:advisor-evaluation}
+
+After the self-evaluation, the advisor provided an additional rubric
+assessment of the project. This evaluation is important because it
+reflects how the project was judged in the formal academic context,
+including not only the written report but also the demonstrated
+implementation, discussion during review, and the advisor's judgment
+of the project's practical maturity.
+
+\subsection{Advisor Evaluation Results}
+\label{subsection:advisor-evaluation-results}
+
+Table~\ref{tab:advisor-evaluation-summary} summarizes the advisor's
+assessment across the six official rubric dimensions.
+
+\begin{table}[H]
+\centering
+\caption{Advisor evaluation compared with curriculum expected levels, AI-assessed levels, and self-evaluation.}
+\label{tab:advisor-evaluation-summary}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{|X|c|c|c|c|X|}
+\hline
+\textbf{Dimension} & \textbf{Expected} & \textbf{AI} & \textbf{Self} & \textbf{Advisor} & \textbf{Advisor Evaluation Rationale} \\
+\hline
+Software Development and Programming & 2 & 2 & 2 & 2 &
+The project has a clear system structure, a working application,
+testing evidence, and basic continuous-integration practice. However,
+the system does not yet demonstrate scalability or broader production
+readiness, so Level 2 is appropriate. \\
+\hline
+Machine Learning / AI Systems & 3 & 3 & 3 & 3 &
+The project covers most of the rubric expectations for an advanced
+AI-system project in a non-LLM setting. It demonstrates model-focused
+adversarial design, experimentation, and evaluation, even though the
+system does not use LLM-based components. \\
+\hline
+Data Management / Knowledge Systems & 2 & 1 & 2 & 2 &
+According to the rubric, the project shows sufficient use of relevant
+data and makes practical use of available datasets throughout the
+workflow. Although it does not emphasize advanced governance features,
+the data usage is broad enough to support Level 2. \\
+\hline
+Critical and Creative Thinking & 3 & 3 & 3 & 3 &
+The project proposes a meaningful solution that works in practice and
+is supported by problem framing, experimentation, and usable results.
+This demonstrates strong critical and creative thinking at the target
+level. \\
+\hline
+Collaboration and Communication & 3 & 2 & 2 & 3 &
+The project showed a good level of team communication and discussion
+throughout the development process. From the advisor's perspective,
+the collaboration practice was strong enough to satisfy the Level 3
+expectation, even if not every activity was formally recorded in the
+report. \\
+\hline
+Lifelong Learning & 3 & 2 & 3 & 3 &
+The project required substantial self-directed learning, including
+image models, video models, how models interpret inputs, and the
+structure of the target model used in the system. This supports a
+Level 3 evaluation in Lifelong Learning. \\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsection{Reflection on Advisor Evaluation Compared with AI and Self-Evaluation}
+\label{subsection:advisor-evaluation-reflection}
+
+The advisor evaluation is overall more aligned with the curriculum
+target than the AI-based evaluation. In all six dimensions, the
+advisor assigned scores that meet the expected level. In most areas,
+the advisor evaluation also matches the student's self-evaluation,
+especially in Machine Learning / AI Systems, Data Management /
+Knowledge Systems, Critical and Creative Thinking, and Lifelong
+Learning.
+
+For Software Development and Programming, all three perspectives agree
+at Level 2. The common interpretation is that Vid-Scratch already has
+a clear architecture, working implementation, and testing evidence,
+but it does not yet demonstrate the scalability or production
+maturity required for a higher level.
+
+The main difference between the advisor evaluation and the AI-based
+evaluation appears in Data Management / Knowledge Systems and
+Collaboration and Communication. In Data Management / Knowledge
+Systems, the advisor assigned Level 2 because the project made
+sufficient use of relevant data throughout the workflow, consistent
+with the rubric expectation. This is higher than the AI score, which
+focused more strictly on missing evidence of metadata governance,
+versioning, and lineage.
+
+In Collaboration and Communication, the advisor assigned Level 3,
+while both the AI-based evaluation and the self-evaluation assigned
+Level 2. This difference suggests that the advisor considered the
+actual communication process, team discussion, and project interaction
+to be stronger than what was visible in the written documentation
+alone. In other words, some collaboration evidence was recognized in
+practice even though it was not fully formalized in issues, pull
+requests, or decision logs in the report.
+
+For Lifelong Learning, the advisor evaluation confirms the student's
+self-assessment at Level 3. This reinforces the view that the project
+was not only an implementation exercise but also a substantial
+learning process involving new technical domains, research reading,
+model understanding, and adaptation of unfamiliar methods into a
+working system.
 
 \section{Gap Analysis}
 \label{section:gap-analysis}
